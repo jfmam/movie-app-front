@@ -7,11 +7,11 @@ import { AppLoading } from 'expo';
 import { Ionicons } from '@expo/vector-icons';
 import { Provider } from "react-redux";
 import {createStore} from 'redux'
-import store from './store/store'
+
 import axios from 'axios'
 
 
-const reducer=createStore(store);
+
 
 export default class App extends React.Component {
 
