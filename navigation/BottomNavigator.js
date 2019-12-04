@@ -10,6 +10,7 @@ import Icon from 'react-native-vector-icons/Ionicons';
 import diary from '../assets/diary.png'
 import recomandation from '../assets/recomandaton.png'
 import boxOffice from '../assets/boxOffice.png' 
+import home from '../assets/home.png'
 
 const TabBar= createMaterialBottomTabNavigator(
     {
@@ -19,12 +20,12 @@ const TabBar= createMaterialBottomTabNavigator(
             labeled:true,
                        tabBarIcon: ({ tintColor }) => (  
                     <View>  
-                        <Icon style={[{color: tintColor}]} size={25} name={'md-home'}/>  
+                       <Image source={home}/>
                     </View>),  
-            activeColor: '#f0edf6',
-                inactiveColor: '#abcdef',
+            activeColor: '#ffffff',
+            inactiveColor:'#686868' ,   
                 barStyle: {
-                    backgroundColor: '#3489ab'
+                    backgroundColor: '#686868'
                 }
         } },
         BoxOffice: { screen: BoxOffice, 
@@ -35,10 +36,10 @@ const TabBar= createMaterialBottomTabNavigator(
                     <View>  
                       <Image source={boxOffice}/>
                     </View>),  
-            activeColor: '#f0edf6',
+            activeColor: '#ffffff',
             inactiveColor: '#abcdef',
             barStyle: {
-                backgroundColor: '#127777'
+                backgroundColor: '#686868'
             }
         }
         },
@@ -52,10 +53,10 @@ const TabBar= createMaterialBottomTabNavigator(
                     <View>  
                        <Image source={diary} /> 
                     </View>),  
-            activeColor: '#f0edf6',
+            activeColor: '#ffffff',
             inactiveColor: '#abcdef',
             barStyle: {
-                backgroundColor: '#127777'
+                backgroundColor: '#686868'
             }
         }
         },
@@ -68,10 +69,10 @@ const TabBar= createMaterialBottomTabNavigator(
                     <View>  
                        <Image source={recomandation}></Image>
                     </View>),  
-            activeColor: '#f0edf6',
+            activeColor: '#ffffff',
             inactiveColor: '#abcdef',
             barStyle: {
-                backgroundColor: '#127777'
+                backgroundColor: '#686868'
             }
         }
         },
