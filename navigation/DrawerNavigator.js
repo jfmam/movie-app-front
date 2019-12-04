@@ -7,11 +7,12 @@ import { createStackNavigator } from 'react-navigation-stack';
 import MenuButton from '../components/menuButton'
 import {Header} from 'react-native-elements'
 import Login from '../screen/Login'
-
+import WriteDiary from '../screen/WriteDiary'
 
 
 const StackNavigator=createStackNavigator({
-    TabBar
+    TabBar,
+    WriteDiary:WriteDiary
 },{
     defaultNavigationOptions:({navigation})=>{
         return{

@@ -10,7 +10,7 @@ const items = [
 ];
 export default class DiaryScreen extends Component {
     renderItem = ({ item, index }) => (
-        <TouchableOpacity onPress={(props)=>{this.props.navigation.navigate('위시리스트')}}>
+        <TouchableOpacity onPress={(props)=>{this.props.navigation.navigate('WriteDiary')}}>
         <Image style={styles.image} source={item.thumbnail} />
         </TouchableOpacity>
     );
