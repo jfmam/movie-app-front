@@ -13,6 +13,7 @@
     "axios": "^0.19.0",
     "expo": "^34.0.1",
     "expo-font": "~6.0.1",
+    "expo-image-picker": "~6.0.0",
     "expo-module-scripts": "^1.0.1",
     "immer": "^4.0.0",
     "immutable": "^4.0.0-rc.12",
@@ -43,6 +44,5 @@
   "devDependencies": {
     "babel-preset-expo": "^6.0.0"
   },
-  
   "private": true
 }

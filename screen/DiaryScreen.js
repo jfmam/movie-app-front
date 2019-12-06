@@ -8,22 +8,17 @@ const items = [
     { thumbnail: { uri: 'https://lorempixel.com/200/200/nature' } },
     { thumbnail: { uri: 'https://lorempixel.com/200/200/cats' } },
 ];
-export default class DiaryScreen extends Component {
-    renderItem = ({ item, index }) => (
-        <TouchableOpacity onPress={(props)=>{this.props.navigation.navigate('WriteDiary')}}>
-        <Image style={styles.image} source={item.thumbnail} />
-        </TouchableOpacity>
-    );
+export default  DiaryScreen=(props)=>{
 
-    render() {
+   
         return (
             <ScrollView style={styles.container}>
                <FlatList data={items} renderItem={ renderItem = ({ item, index }) => (//data는 사진 주소 renderItem은 데이터를 뿌려준다
        <View>
         <View style={{flexDirection:'row'}}>
         <View style={{flex:1}}>
-       <TouchableOpacity onPress={(props)=>{this.props.navigation.navigate('위시리스트')}}>
-        <Image style={styles.image} source={item.thumbnail} />
+       <TouchableOpacity onPress={()=>{props.navigation.navigate('writeDiary')}}>
+        <Image style={styles.image} title={index} source={item.thumbnail} />
         </TouchableOpacity>
         </View>
         <View style={{flex:1,marginTop:80}}>
@@ -37,7 +32,7 @@ export default class DiaryScreen extends Component {
                </ScrollView> 
         );
     }
-}
+
 const styles = StyleSheet.create({
   container: { 
     flex: 1,
