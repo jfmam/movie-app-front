@@ -1,7 +1,7 @@
-import React, { Component } from 'react';
+import React from 'react';
 import { Image, FlatList,StyleSheet,View, TouchableOpacity,TextInput,Text} from 'react-native';
 import {ScrollView} from 'react-native-gesture-handler'
-import Wishlist from './WishList'
+
 const items = [
     { thumbnail: { uri: 'https://lorempixel.com/200/200/animals' } },
     { thumbnail: { uri: 'https://lorempixel.com/200/200/city' } },

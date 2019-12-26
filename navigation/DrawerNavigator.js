@@ -5,32 +5,38 @@ import TabBar from './BottomNavigator'
 import WishList from '../screen/WishList'
 import { createStackNavigator } from 'react-navigation-stack';
 import MenuButton from '../components/menuButton'
-import {Header} from 'react-native-elements'
-import Login from '../screen/Login'
 import writeDiary from '../screen/writeDiary'
 
 
 const StackNavigator=createStackNavigator({
-    TabBar,
-    writeDiary
-},{
-    defaultNavigationOptions:({navigation})=>{
+    TabBar:TabBar,
+    writeDiary:writeDiary
+},
+ TabBar.navigationOptions=({navigation})=>{
         return{
            headerLeft:( 
              <MenuButton  navigation={navigation}/>///상위 navigation인 drawer를따른다    
            ),
           headerTitle:(
             <Text>moviemoon</Text>
-          ),
-           
+          ),     
        headerStyle:{
-      backgroundColor: '#282828',
-      elevation:-1
-       
+          backgroundColor: '#282828',
+          elevation:-1 
        }
         }  
+    } ,{
+      defaultNavigationOptions:{
+          headerMode: 'none'
+      }
+    },
+    writeDiary.navigationOptions={
+        header:(
+          hedaerMode:'none'
+        )
     }
-})
+  
+)
 export const DrawerContent = (props) => {
 return(
   <SafeAreaView style={styles.container}>

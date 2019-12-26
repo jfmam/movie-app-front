@@ -5,12 +5,13 @@ import DiaryScreen from '../screen/DiaryScreen'
 import Recommandation from '../screen/Recommandation'
 import React from 'react';
 import { createAppContainer } from 'react-navigation';
-import {View,Image} from 'react-native'
+import {View,Image,Text} from 'react-native'
 import Icon from 'react-native-vector-icons/Ionicons';
 import diary from '../assets/diary.png'
 import recomandation from '../assets/recomandaton.png'
 import boxOffice from '../assets/boxOffice.png' 
 import home from '../assets/home.png'
+import MenuButton from '../components/menuButton'
 
 const TabBar= createMaterialBottomTabNavigator(
     {
@@ -60,9 +61,10 @@ const TabBar= createMaterialBottomTabNavigator(
             }
         }
         },
-        Recommandation: { screen: Recommandation,
-        
+        Recommandation: { 
+        screen: Recommandation,
         navigationOptions: {
+            header:'hi',
             tabBarLabel: '추천',
               labeled:true,
                        tabBarIcon: ({ tintColor }) => (  
@@ -74,15 +76,10 @@ const TabBar= createMaterialBottomTabNavigator(
             barStyle: {
                 backgroundColor: '#686868'
             }
-        }
+        },
+        
         },
     },
-    {
-       
-        activeColor: '#f0edf6',
-        inactiveColor: '#abcdef',
-        barStyle: { backgroundColor: '#127777' },
-    }
 );
 
 
