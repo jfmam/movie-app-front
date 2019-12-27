@@ -9,33 +9,38 @@ import writeDiary from '../screen/writeDiary'
 
 
 const StackNavigator=createStackNavigator({
-    TabBar:TabBar,
-    writeDiary:writeDiary
-},
- TabBar.navigationOptions=({navigation})=>{
+    TabBar:{
+      screen:TabBar,
+      navigationOptions:({navigation})=>{
         return{
            headerLeft:( 
-             <MenuButton  navigation={navigation}/>///상위 navigation인 drawer를따른다    
+             <MenuButton navigation={navigation}/>///상위 navigation인 drawer를따른다    
            ),
           headerTitle:(
             <Text>moviemoon</Text>
           ),     
        headerStyle:{
           backgroundColor: '#282828',
-          elevation:-1 
+          elevation:-1 ,
+        
        }
         }  
-    } ,{
-      defaultNavigationOptions:{
-          headerMode: 'none'
-      }
-    },
-    writeDiary.navigationOptions={
-        header:(
-          hedaerMode:'none'
-        )
     }
-  
+    
+    },
+    writeDiary:{
+      screen:writeDiary,
+    navigationOptions:{
+       header:null
+    }
+    }
+}
+,{ 
+ 
+         
+       }   
+      
+    
 )
 export const DrawerContent = (props) => {
 return(

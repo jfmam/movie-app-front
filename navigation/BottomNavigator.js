@@ -64,7 +64,6 @@ const TabBar= createMaterialBottomTabNavigator(
         Recommandation: { 
         screen: Recommandation,
         navigationOptions: {
-            header:'hi',
             tabBarLabel: '추천',
               labeled:true,
                        tabBarIcon: ({ tintColor }) => (  

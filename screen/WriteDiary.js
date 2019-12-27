@@ -2,12 +2,41 @@ import {View, SafeAreaView, ImageBackground,StyleSheet,Platform,Text,Image} from
 import {ScrollView, TouchableOpacity, TextInput} from 'react-native-gesture-handler'
 import React,{ useState, useEffect } from 'react'
 import {Rating} from 'react-native-elements'
-import { Row } from 'native-base'
+import * as ImagePicker from 'expo-image-picker';
+import * as Permissions from 'expo-permissions';
+import Constants from 'expo-constants';
 
 export default WriteDiary=(props)=>{
-    const [memo,setMemo]=useState('')
-    const imagePicker=()=>{
-        
+    const [memo,setMemo]=useState('');
+    const [image1,setImage1]=useState();
+    const [image2,setImage2]=useState('');
+    const [image3,setImage3]=useState('');
+
+    useEffect(
+         getPermission=async()=>{
+       if(Constants.platform.android){
+           const {status}=await Permissions.askAsync(Permissions.CAMERA_ROLL);
+           if(status!=='granted'){
+               alert('접근에 실패하였습니다!.');
+           }
+       }
+        console.log("working!");
+    },[])
+
+
+    const imagePicker=async()=>{
+        let result=await ImagePicker.launchImageLibraryAsync(
+            {
+                  mediaTypes: ImagePicker.MediaTypeOptions.All,
+      allowsEditing: false,     
+      quality: 1,
+            }
+        )
+        console.log(result);
+
+        if(!result.cancelled){
+            setImage1(result.uri)
+        }
     }
     //useEffect에서는 통신하는부분을 만든다
     return(
@@ -32,7 +61,9 @@ export default WriteDiary=(props)=>{
         </View>
          <View style={{marginTop:34}}>
             {/* <TouchableOpacity><Image source=""/></TouchableOpacity> */}
-            <TouchableOpacity onPress={()=>{imagePicker()}}><Text>Add Photo</Text></TouchableOpacity>
+           {!image1? <TouchableOpacity onPress={()=>{imagePicker()}}><Text>Add Photo</Text></TouchableOpacity>:
+           <TouchableOpacity onPress={()=>{imagePicker()}}><Image source={image1}/></TouchableOpacity>
+           }
         </View>
         <View style={{marginTop:29}}>
             <Text style={{marginBottom:20}}>MEMO</Text>
