@@ -4,6 +4,7 @@ import React,{ useState, useEffect } from 'react'
 import {Rating} from 'react-native-elements'
 import * as ImagePicker from 'expo-image-picker';
 import * as Permissions from 'expo-permissions';
+import PxScrollView from 'react-native-parallax-scroll-view'
 import Constants from 'expo-constants';
 
 export default WriteDiary=(props)=>{
@@ -11,6 +12,11 @@ export default WriteDiary=(props)=>{
     const [image1,setImage1]=useState();
     const [image2,setImage2]=useState('');
     const [image3,setImage3]=useState('');
+    const [Invert,setInvert]=useState(false)
+    const today=new Date();
+    const year=today.getFullYear();
+    const month=today.getMonth()+1;
+    const date=today.getDate();
 
     useEffect(
          getPermission=async()=>{
@@ -43,21 +49,32 @@ export default WriteDiary=(props)=>{
         <SafeAreaView style={styles.container}>    
             {/* < ImageBackground style={{width:100}} source = 'https://lorempixel.com/200/200/animals' / >
             < Image source = 'https://lorempixel.com/200/200/animals' / > */}
+        <ScrollView 
+        stickyHeaderIndices={[0]} style={styles.scrollContainer}>
+        <View >
+            <Text>전체배경</Text>
+            <View>
+            <Text>사진</Text>
+            <View>
             <Text>영화제목</Text>
-            <Text>영화 정보</Text>
-        <ScrollView style={styles.scrollContainer}>
+             <Text>영화 감독?</Text>      
+            </View>    
+            </View>    
+        </View>    
+        {Invert&&<View><Text>텍스트</Text></View>}
         <View style={{flexDirection:"row",marginTop:25}}> 
         <Text>Rating</Text>
         <Rating
              type='star'
              ratingCount={5}
              imageSize={18}
+             onStartRating={0}
              onFinishRating={this.ratingCompleted}
         />
         </View>
         <View style={{flexDirection:"row",marginTop:24}}>
             <Text>Date</Text>
-            <Text>____________</Text>
+            <Text>{`${year}.${month}.${date}`} </Text>
         </View>
          <View style={{marginTop:34}}>
             {/* <TouchableOpacity><Image source=""/></TouchableOpacity> */}

@@ -1,17 +1,17 @@
 import React from 'react'
-import {Platform,Dimensions,View,Text, ScrollView,SafeAreaView,StyleSheet} from 'react-native';
+import {Platform,Dimensions,View,Text, ScrollView,SafeAreaView,StyleSheet,TextInput} from 'react-native';
 import {createDrawerNavigator,DrawerNavigatorItems} from 'react-navigation-drawer'
 import TabBar from './BottomNavigator'
 import WishList from '../screen/WishList'
 import { createStackNavigator } from 'react-navigation-stack';
 import MenuButton from '../components/menuButton'
 import writeDiary from '../screen/writeDiary'
-
+import {Avatar} from 'react-native-elements'
 
 const StackNavigator=createStackNavigator({
     TabBar:{
       screen:TabBar,
-      navigationOptions:({navigation})=>{
+      navigationOptions:({navigation,props})=>{
         return{
            headerLeft:( 
              <MenuButton navigation={navigation}/>///상위 navigation인 drawer를따른다    
@@ -47,19 +47,27 @@ return(
   <SafeAreaView style={styles.container}>
     <View
       style={{
-        backgroundColor: '#f50057',
-        height: 140,
+        backgroundColor: '#4b4b4b',
+        height: 120,
         alignItems: 'center',
         justifyContent: 'center',
+        flexDirection:'row'
       }}
     >
-      <Text style={{ color: 'white', fontSize: 30 }}>
-        Header
-      </Text>
+     <Avatar
+  rounded
+  size='large'
+  icon={{name: 'user', type: 'font-awesome'}}
+  onPress={() => console.log("Works!")}//imagepicker가 들어갈부분이다.
+  activeOpacity={0.7}
+  containerStyle={{ marginLeft: 0, marginTop:0}}
+/>
+<Text style={{fontSize:20,marginLeft:30,color:'#fff'}}>이승헌</Text>
       {/*text대신에 image src를 넣어주먼된다 */}
     </View>
+      <TextInput editable={false} underlineColorAndroid="#d3d3d3"/>
     <ScrollView>
-        <DrawerNavigatorItems {...props} />
+        <DrawerNavigatorItems  {...props} />
     </ScrollView>
   </SafeAreaView>
 )
@@ -67,15 +75,19 @@ return(
 export default DrawerNavigator=createDrawerNavigator(
 {
     홈:{
-        screen:StackNavigator
+        screen:StackNavigator,
        
     },
     위시리스트:{
-        screen:WishList
+        screen:WishList, 
     }
 },{
 
-    contentComponent:DrawerContent
+    contentComponent:DrawerContent,
+   drawerBackgroundColor:"#4b4b4b",
+  contentOptions: {
+    inactiveTintColor: '#fff'
+  }
     // 이부분을 props로보내주어서 밑에 띄운다
 }
 )
