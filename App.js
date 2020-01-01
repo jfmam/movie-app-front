@@ -1,6 +1,6 @@
 import React from 'react';
 import { StyleSheet, View } from 'react-native';
-
+import rootReducer from './store/'
 import SwitchNavigator from './navigation/switchNavigator'
 import * as Font from 'expo-font';
 import { AppLoading } from 'expo';
@@ -10,7 +10,7 @@ import {createStore} from 'redux'
 import axios from 'axios'
 
 
-
+let store=createStore(rootReducer);
 
 export default class App extends React.Component {
 
@@ -19,9 +19,11 @@ export default class App extends React.Component {
   }
 
   render() {
-   
+  
   return (
-     <SwitchNavigator/>
+      <Provider store={store}>
+         <SwitchNavigator/>   
+         </Provider>
   );
   }
 }

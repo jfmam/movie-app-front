@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { StyleSheet, Text, View,SafeAreaView, DatePickerAndroid } from 'react-native';
 import {ScrollView} from 'react-native-gesture-handler'
 import {Button} from 'react-native-elements'
-import {} from '@'
+
 
 export default function BoxOffice(){
     const date=new Date()
@@ -10,22 +10,22 @@ export default function BoxOffice(){
      const [month,setMonth]=useState(`${date.getMonth()+1}`)
     let Count=1
      //useEffect를 이용해 년도와 월이 바뀔때마다 업데이틉
-    const datePicker=async ()=>{
-       try{
-        const {action,Year,Month}=await DatePickerAndroid.open({
-            date: new Date(),
-            maxDate:new Date(),
-            mode(spinner)
-        })
-        if (action !== DatePickerAndroid.dismissedAction){
-            setYear(Year);
-            setMonth(Month+1);
-        }
-    }catch{
-        console.log('error')
-    }
-;
-    }
+//     const datePicker=async ()=>{
+//        try{
+//         const {action,Year,Month}=await DatePickerAndroid.open({
+//             date: new Date(),
+//             maxDate:new Date(),
+//             mode:'spinner'
+//         })
+//         if (action !== DatePickerAndroid.dismissedAction){
+//             setYear(Year);
+//             setMonth(Month+1);
+//         }
+//     }catch{
+//         console.log('error')
+//     }
+// ;
+    // }
     return (
         <SafeAreaView style={styles.container}>
            <View style={styles.datePick}> 
@@ -52,7 +52,6 @@ const styles = StyleSheet.create({
     },
     datePick:{
         flexDirection:'row',
-        size:19,
         marginTop:35,
         marginLeft:24
     },
