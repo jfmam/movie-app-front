@@ -9,9 +9,10 @@ import Constants from 'expo-constants';
 
 export default WriteDiary=(props)=>{
     const [memo,setMemo]=useState('');
-    const [image1,setImage1]=useState();
+    const [image1,setImage1]=useState();//배열로 하고 push를 쓰자
     const [image2,setImage2]=useState('');
     const [image3,setImage3]=useState('');
+    const [update,setUpdate]=useState(false)//사진유무
     const [Invert,setInvert]=useState(false)
     const today=new Date();
     const year=today.getFullYear();
@@ -50,7 +51,7 @@ export default WriteDiary=(props)=>{
             {/* < ImageBackground style={{width:100}} source = 'https://lorempixel.com/200/200/animals' / >
             < Image source = 'https://lorempixel.com/200/200/animals' / > */}
         <ScrollView 
-        stickyHeaderIndices={[0]} style={styles.scrollContainer}>
+        stickyHeaderIndices={[1]} style={styles.scrollContainer}>
         <View >
             <Text>전체배경</Text>
             <View>
@@ -61,6 +62,7 @@ export default WriteDiary=(props)=>{
             </View>    
             </View>    
         </View>    
+        {/* 이부분 컴포넌트로 치환 */}
         {Invert&&<View><Text>텍스트</Text></View>}
         <View style={{flexDirection:"row",marginTop:25}}> 
         <Text>Rating</Text>

@@ -6,11 +6,12 @@ import * as Font from 'expo-font';
 import { AppLoading } from 'expo';
 import { Ionicons } from '@expo/vector-icons';
 import { Provider } from "react-redux";
-import {createStore} from 'redux'
+import {createStore,applyMiddleware} from 'redux'
 import axios from 'axios'
+import createSagaMiddleware from 'redux-saga'
 
-
-let store=createStore(rootReducer);
+const sagaMiddleWare=createSagaMiddleware()
+let store=createStore(rootReducer,applyMiddleware(sagaMiddleWare));
 
 export default class App extends React.Component {
 
