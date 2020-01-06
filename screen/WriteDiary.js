@@ -4,8 +4,9 @@ import React,{ useState, useEffect } from 'react'
 import {Rating} from 'react-native-elements'
 import * as ImagePicker from 'expo-image-picker';
 import * as Permissions from 'expo-permissions';
-import PxScrollView from 'react-native-parallax-scroll-view'
 import Constants from 'expo-constants';
+import imageInfo from '../components/imageInfo'
+import { useDispatch } from 'react-redux';
 
 export default WriteDiary=(props)=>{
     const [memo,setMemo]=useState('');
@@ -19,6 +20,8 @@ export default WriteDiary=(props)=>{
     const month=today.getMonth()+1;
     const date=today.getDate();
 
+    const dispatch=useDispatch();
+    //useSelector를 이용해서 사진가져오고 prpos로보내주기
     useEffect(
          getPermission=async()=>{
        if(Constants.platform.android){
@@ -52,17 +55,8 @@ export default WriteDiary=(props)=>{
             < Image source = 'https://lorempixel.com/200/200/animals' / > */}
         <ScrollView 
         stickyHeaderIndices={[1]} style={styles.scrollContainer}>
-        <View >
-            <Text>전체배경</Text>
-            <View>
-            <Text>사진</Text>
-            <View>
-            <Text>영화제목</Text>
-             <Text>영화 감독?</Text>      
-            </View>    
-            </View>    
-        </View>    
-        {/* 이부분 컴포넌트로 치환 */}
+            <imageInfo/>
+        {/* props로 image를 보내줘야함 */}
         {Invert&&<View><Text>텍스트</Text></View>}
         <View style={{flexDirection:"row",marginTop:25}}> 
         <Text>Rating</Text>
