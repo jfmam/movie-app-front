@@ -3,10 +3,10 @@ import { Image, FlatList,StyleSheet,View, TouchableOpacity,TextInput,Text} from 
 import {ScrollView} from 'react-native-gesture-handler'
 
 const items = [
-    { thumbnail: { uri: 'https://lorempixel.com/200/200/animals' } },
-    { thumbnail: { uri: 'https://lorempixel.com/200/200/city' } },
-    { thumbnail: { uri: 'https://lorempixel.com/200/200/nature' } },
-    { thumbnail: { uri: 'https://lorempixel.com/200/200/cats' } },
+    { thumbnail: { uri: 'http://file.koreafilm.or.kr/thm/02/00/01/25/tn_DPA000032.jpg' } },
+    { thumbnail: { uri: 'http://file.koreafilm.or.kr/thm/02/00/01/03/tn_DPA000006.jpg' } },
+    { thumbnail: { uri: 'http://file.koreafilm.or.kr/thm/02/00/01/05/tn_DPA000009.jpg' } },
+    { thumbnail: { uri: 'http://file.koreafilm.or.kr/thm/02/00/01/46/tn_DPK004440.JPG' } },
 ];
 export default  DiaryScreen=(props)=>{
 
@@ -22,7 +22,7 @@ export default  DiaryScreen=(props)=>{
         </TouchableOpacity>
         </View>
         <View style={{flex:1,marginTop:80}}>
-                <Text>hi</Text>
+                <Text style={styles.Text}>영화정보</Text>
         </View>
         </View>
          <TextInput editable={false} underlineColorAndroid="#d3d3d3"/>
@@ -44,4 +44,8 @@ const styles = StyleSheet.create({
     marginTop:10,
     marginLeft:29.5,
   },
+   Text: {
+     color: "#ffffff",
+     fontSize: 18
+   }
 });

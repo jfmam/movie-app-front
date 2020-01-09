@@ -9,9 +9,9 @@ export default HomeScreen=()=> {
 //    이부분은 지금은 componentState 처리했지만 나중에 리덕스로처리해야한다
 {
              const items = [
-    { thumbnail: { uri: 'https://lorempixel.com/200/200/animals' } },
-    { thumbnail: { uri: 'https://lorempixel.com/200/200/city' } },
-    { thumbnail: { uri: 'https://lorempixel.com/200/200/nature' } },
+    { thumbnail: { uri: 'http://file.koreafilm.or.kr/thm/02/00/01/25/tn_DPA000032.jpg' } },
+    { thumbnail: { uri: 'http://file.koreafilm.or.kr/thm/02/00/01/03/tn_DPA000006.jpg' } },
+    { thumbnail: { uri: 'http://file.koreafilm.or.kr/thm/02/00/01/05/tn_DPA000009.jpg' } },
     { thumbnail: { uri: 'http://file.koreafilm.or.kr/thm/02/00/01/46/tn_DPK004440.JPG' } },
 ];
 const imageList=items.map(
