@@ -1,9 +1,9 @@
 import {produce} from 'immer'
 
 const dummyUser={
-    id:'',
-    name:'',
-    nickname:''
+    id:'로그인하자',
+    name:'안녕',
+    nickname:'코딩좀하자'
 }
 
 export const LOGIN_REQUEST = 'front/LOGIN_REQUEST'//요청 성공,실패가 대표적이다
@@ -21,7 +21,6 @@ export const SIGNUP_FAILURE = 'front/SIGNUP_FAILURE'
 
 const initialState={
     user:null,//login 할시에 user에 들어갈정보
-    isLoggedIn:false,//로그인 여부
     isLoggingIn:false,//로그인 시도여부 activity modal
     LoginError:'',
     isSignUp:false,
@@ -42,21 +41,18 @@ const reducer=(state=initialState,action)=>{
         case LOGIN_SUCCESS :{
             return produce((state=initialState,draft)=>{
                 draft.isLoggingIn=false;
-                draft.isLoggedIn=true;
-                draft.user=dummyUser
+                draft.user=dummyUser//success부분에서 정보를 넣어준다
             })
         }
         case LOGIN_FAILURE:{
             return produce((state=initialState,draft)=>{
-                draft.LoginError=action.data
+                draft.LoginError=action.data//에러부분 넣어주기
                 draft.isLoggingIn=false
-                draft.isLoggedIn=false
                 draft.user=null
             })
         }
         case LOGOUT_REQUEST:{
             return (state=initialState,draft=>{
-                draft.isLoggedIn=false
                 draft.user=null
             })
         }

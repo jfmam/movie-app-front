@@ -1,16 +1,18 @@
 import {produce} from 'immer'
 
+const dummyDiary={
+    movieTitle:'영화제목',
+    rating:10,
+    date:'오늘의 날짜',
+    photo:'image'
+}
+
 export const WRITEDIARY_REQUEST='front/WRITEDIARY_REQUEST'
 export const WRITEDIARY_SUCCESS = 'front/WRITEDIARY_SUCCESS'
 export const WRITEDIARY_FAILURE = 'front/WRITEDIARY_FAILURE'
 
 initialState={
-    diaryInfo:{
-        rating:0,
-        date:'',
-        photo:[],
-        memo:''
-    },
+    diaryInfo:{},
     updateLoading:false,
     writeDiaryError:''
 

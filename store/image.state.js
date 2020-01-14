@@ -1,5 +1,17 @@
 import {produce} from 'immer'
 
+const dummyImage={
+       myDiaryImage:{image1:'image1'},//다이어리 목록 사진
+    writeDiaryImage:{image1:'image1'},//다이어리 쓸때 stickyheader에 붙는 이미지부분
+    getDiaryData:{
+        movieId:1,
+        poster:'poster1'
+    },//이부분은 다이어리 정보
+    boxOfficeImage:{image1:'image1'},
+    wishListImage:{image1:'image1'},
+    recommandImage:{image1:'image1'}
+}
+
 export const MYDIARY_REQUEST='fornt/MYDIARY_REQUEST'
 export const MYDIARY_SUCCESS='fornt/MYDIARY_SUCCESS'
 export const MYDIARY_FAILURE='fornt/MYDIARY_FAILURE'
@@ -21,17 +33,12 @@ export const RECOMMAND_SUCCESS = 'fornt/RECOMMAND_SUCCESS'
 export const RECOMMAND_FAILURE = 'fornt/RECOMMAND_FAILURE'
 
 const initialState={
-    myDiaryImage:[],//다이어리 목록 사진
-    writeDiaryImage:[],//다이어리 쓸때 stickyheader에 붙는 이미지부분
-    getDiaryData:{
-        rating:0,
-        diaryImage:[],
-        date:'',
-        memo:''
-    },//이부분은 다이어리 정보
-    boxOfficeImage:[],
-    wishListImage:[],
-    recommandImage:[],
+    myDiaryImage:{},//다이어리 목록 사진
+    writeDiaryImage:{},//다이어리 쓸때 stickyheader에 붙는 이미지부분
+    getDiaryData:{},//이부분은 다이어리 정보
+    boxOfficeImage:{},
+    wishListImage:{},
+    recommandImage:{},
     loadingDiary:false,
     myDiaryError:'',
     writeDiaryError:'',
@@ -52,7 +59,7 @@ const reducer=(state=initialState,action)=>{
         case MYDIARY_SUCCESS:{
             return produce(state=initialState,draft=>{
                 draft.loadingDiary=false
-                draft.myDiaryImage=action.data
+                draft.myDiaryImage=dummyImage.myDiaryImage
             })
         }
         case MYDIARY_FAILURE:{
@@ -69,10 +76,7 @@ const reducer=(state=initialState,action)=>{
         case GETDIARY_SUCCESS:{
             return produce(state=initialState,draft=>{
                 draft.loadingDiary=false
-                draft.getDiaryData.rating=action.data.rating
-                draft.getDiaryData.diaryImage=action.data.diaryImage
-                draft.getDiaryData.date=action.data.date
-                draft.getDiaryData.memo=action.data.memo
+                draft.getDiaryData=dummyImage.getDiaryData
             })
         }
         case GETDIARY_FAILURE:{
@@ -138,7 +142,7 @@ const reducer=(state=initialState,action)=>{
     
     
     }
-    }
+ }
     
 
 

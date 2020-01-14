@@ -1,20 +1,25 @@
 import React, { useState, useEffect } from 'react';
 import { StyleSheet, TextInput,Text, View,SafeAreaView,Platform} from 'react-native';
-import {Button} from 'react-native-elements'
+import {Button,} from 'react-native-elements'
+import {useDispatch} from 'react-redux'
 import axios from 'axios'
 import {authAdress} from '../api/api'
+import { LOGIN_REQUEST } from '../store/user.state';
 
 export default Login=(props)=>{
     const [id,setId]=useState("")
     const [password,setPassword]=useState("")
-       const loginUser=()=>{
-        axios
-        .post(`${authAdress}/signin`,{id:id,password:password})
-        .then(res=>{
-            console.log(res.data);
-            // this.props.navigation.navigate('App') 토큰 받고 APP으로넉ㅁ어감
-            })
-        .catch(err=>console.log(err));
+    
+    const dispatch=useDispatch();
+    const loginUser=()=>{
+        dispatch(
+            {type:LOGIN_REQUEST,
+            data:{
+                userId:id,//res.body 부분과맞쳐주어야한다
+                passowrd:password
+            }//data,type모두 액션에 포함된다
+            }
+        )
          }
         
     
