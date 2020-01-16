@@ -6,6 +6,7 @@ const dummyUser={
     nickname:'코딩좀하자'
 }
 
+
 export const LOGIN_REQUEST = 'front/LOGIN_REQUEST'//요청 성공,실패가 대표적이다
 export const LOGIN_SUCCESS = 'front/LOGIN_SUCCESS'
 export const LOGIN_FAILURE = 'front/LOGIN_FAILURE'

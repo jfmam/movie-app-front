@@ -65,7 +65,7 @@ return(
 <Text style={{fontSize:20,marginLeft:30,color:'#fff'}}>이승헌</Text>
       {/*text대신에 image src를 넣어주먼된다 */}
     </View>
-      <TextInput editable={false} underlineColorAndroid="#d3d3d3"/>
+      <TextInput editable={false}/>
     <ScrollView>
         <DrawerNavigatorItems  {...props} />
     </ScrollView>

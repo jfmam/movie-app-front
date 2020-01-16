@@ -1,6 +1,7 @@
 import React from 'react';
-import { Image, FlatList,StyleSheet,View, TouchableOpacity,TextInput,Text} from 'react-native';
+import { Image, FlatList,StyleSheet,View, TouchableOpacity,TextInput,Text, SafeAreaView,Platform} from 'react-native';
 import {ScrollView} from 'react-native-gesture-handler'
+import PlusButton from '../assets/plusBut.png'
 
 const items = [
     { thumbnail: { uri: 'http://file.koreafilm.or.kr/thm/02/00/01/25/tn_DPA000032.jpg' } },
@@ -12,7 +13,8 @@ export default  DiaryScreen=(props)=>{
 
    
         return (
-            <ScrollView style={styles.container}>
+          <SafeAreaView style={styles.container}>
+            <ScrollView>
                <FlatList data={items} renderItem={ renderItem = ({ item, index }) => (//data는 사진 주소 renderItem은 데이터를 뿌려준다
        <View>
         <View style={{flexDirection:'row'}}>
@@ -30,13 +32,20 @@ export default  DiaryScreen=(props)=>{
     )}
         numColumns={1}   />
                </ScrollView> 
+       
+          <TouchableOpacity style={styles.plusBut}><Image source={PlusButton}></Image></TouchableOpacity>
+      
+        </SafeAreaView>    
         );
     }
 
 const styles = StyleSheet.create({
   container: { 
     flex: 1,
-    backgroundColor:'#282828'
+    backgroundColor:'#282828',
+    alignContent: 'center',
+    justifyContent: 'flex-start',
+    paddingTop: Platform.OS === 'android' ? 25 : 0,
   },
   image: {
     width: 115,
@@ -47,5 +56,12 @@ const styles = StyleSheet.create({
    Text: {
      color: "#ffffff",
      fontSize: 18
+   },
+   plusBut:{
+     position:'absolute',
+     marginTop:535,
+     marginLeft:310,
+     width:39,
+     height:39,
    }
 });

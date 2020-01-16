@@ -1,7 +1,10 @@
 import {fork,call,takeEvery,put,all,takeLatest} from 'redux-saga/effects'
-import {} from '../store'
 import { MOVIESEARCH_REQUEST, MOVIESEARCH_SUCCESS, MOVIESEARCH_FAILURE, DIARYSEARCH_FAILURE, DIARYSEARCH_SUCCESS } from '../store/search.state'
 import axios from 'axios';
+
+function diarySearhAPI(title){//title은 action.data
+    return axios.get('',title)
+}
 
 function* diarySearch(action){
     try{
@@ -24,7 +27,7 @@ function* watchdiarySearch(){
 }
 
 function movieSearchAPI(title){
-    axios.get('',title)
+  return  axios.get('',title)
 }
 
 function* movieSearch(action){

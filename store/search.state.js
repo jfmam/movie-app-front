@@ -1,5 +1,5 @@
 import {produce} from 'immer'
-import reducer from './image.state'
+
 
 //다이어리 검색
 //영화검색
@@ -34,6 +34,7 @@ const reducer=(state=initialState,action)=>{
         case DIARYSEARCH_REQUEST:{
             return produce((state=initialState,draft)=>{
                 draft.diarySearchLoading=true
+                draft.diarySearchError=''
             })
         }
         case DIARYSEARCH_SUCCESS: {
@@ -51,6 +52,7 @@ const reducer=(state=initialState,action)=>{
         case MOVIESEARCH_REQUEST: {
              return produce((state=initialState,draft)=>{
                 draft.movieSearchLoading=true
+                draft.movieSearchError=''
             })
         }
         case MOVIESEARCH_SUCCESS: {
@@ -62,7 +64,7 @@ const reducer=(state=initialState,action)=>{
         case MOVIESEARCH_FAILURE: {
              return produce((state=initialState,draft)=>{
                 draft.movieSearchLoading=false
-                draft.movieSearchError='영화검색실패'//변경
+                draft.movieSearchError='영화검색실패'//변경 action.error
             })
         }
         default :{
