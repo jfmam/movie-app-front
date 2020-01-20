@@ -5,7 +5,7 @@ import {Rating} from 'react-native-elements'
 import * as ImagePicker from 'expo-image-picker';
 import * as Permissions from 'expo-permissions';
 import Constants from 'expo-constants';
-import ImageInfo from '../components/imageInfo'
+import ImageInfo from '../../components/imageInfo'
 import { useDispatch } from 'react-redux';
 
 const dummyImage=[
@@ -16,53 +16,17 @@ const dummyImage=[
 ];
 
 export default WriteDiary=(props)=>{
-    const [memo,setMemo]=useState('');
-    const [image1,setImage1]=useState();//배열로 하고 push를 쓰자
-    const [image2,setImage2]=useState('');
-    const [image3,setImage3]=useState('');
-    const [update,setUpdate]=useState(false)//사진유무
-    const [store,getStore]=useState()
-    const today=new Date();
-    const year=today.getFullYear();
-    const month=today.getMonth()+1;
-    const date=today.getDate();
-
+    const [ratingValue,setRatingValue]=useState(0)
     const dispatch=useDispatch();
-    //useSelector를 이용해서 사진가져오고 prpos로보내주기
-    const getPermission=async()=>{
-         if (!Constants.platform.ios) {
-        const { status } = await Permissions.askAsync(Permissions.CAMERA_ROLL);
-      if (status!== 'granted') {
-        alert('Sorry, we need camera roll permissions to make this work!');
-      }
-      else{
-          await imagePicker()
-      }
-    }
-    }
+    const ratingCompleted=useCallback((rating)=>{
+        
+    },[rating])
 
-    const imagePicker=async()=>{
-        let result=await ImagePicker.launchImageLibraryAsync(
-            {
-                  mediaTypes: ImagePicker.MediaTypeOptions.All,
-      allowsEditing: false,     
-      quality: 1,
-            }
-        )
-        console.log(result);
-
-        if(!result.cancelled){
-            setImage1(result.uri)
-        }
-    }
-    //useEffect에서는 통신하는부분을 만든다
     return(
         <SafeAreaView style={styles.container}>    
-            {/* < ImageBackground style={{width:100}} source = 'https://lorempixel.com/200/200/animals' / >
-            < Image source = 'https://lorempixel.com/200/200/animals' / > */}
         <ScrollView 
-        stickyHeaderIndices={[0]} >
-        <ImageInfo image={dummyImage}/>
+        stickyHeaderIndices={[1]} >
+        <ImageInfo image={dummyImage[1]}/>
         {/* props로 image를 보내줘야함 */}
     
         <View style={styles.writeContainer}> 
@@ -70,9 +34,11 @@ export default WriteDiary=(props)=>{
         <Text  style={styles.Text}>Rating </Text>
         <Rating
              type='star'
+             readonly={true}
              ratingCount={5}
              imageSize={18}
              onFinishRating={this.ratingCompleted}
+             onStartRating={5}
         />
         </View>
         <View style={{flexDirection:"row",marginTop:24}}>
@@ -82,7 +48,7 @@ export default WriteDiary=(props)=>{
          <View style={{marginTop:34}}>
             {/* <TouchableOpacity><Image source=""/></TouchableOpacity> */}
            {!image1? <TouchableOpacity onPress={()=>{getPermission()}}><Text style={styles.Text}>Add Photo</Text></TouchableOpacity>:
-           <TouchableOpacity onPress={()=>{imagePicker()}}><Image source={image1}/></TouchableOpacity>
+           <TouchableOpacity onPress={()=>{imagePicker()}}><Image style={{ width: 80, height: 115 }}  source={{uri:image1}}/></TouchableOpacity>
            }
         </View>
         <View style={{marginTop:29}}>

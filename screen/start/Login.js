@@ -3,8 +3,8 @@ import { StyleSheet, TextInput,Text, View,SafeAreaView,Platform} from 'react-nat
 import {Button,} from 'react-native-elements'
 import {useDispatch} from 'react-redux'
 import axios from 'axios'
-import {authAdress} from '../api/api'
-import { LOGIN_REQUEST } from '../store/user.state';
+import {authAdress} from '../../api/api'
+import { LOGIN_REQUEST } from '../../store/user.state';
 
 export default Login=(props)=>{
     const [id,setId]=useState("")

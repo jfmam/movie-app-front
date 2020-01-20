@@ -2,6 +2,8 @@ import React from 'react';
 import { Image, FlatList,StyleSheet,View, TouchableOpacity,TextInput,Text, SafeAreaView,Platform} from 'react-native';
 import {ScrollView} from 'react-native-gesture-handler'
 import PlusButton from '../assets/plusBut.png'
+import { useDispatch, useSelector } from 'react-redux';
+import { MYDIARY_REQUEST } from '../../store/image.state';
 
 const items = [
     { thumbnail: { uri: 'http://file.koreafilm.or.kr/thm/02/00/01/25/tn_DPA000032.jpg' } },
@@ -10,31 +12,28 @@ const items = [
     { thumbnail: { uri: 'http://file.koreafilm.or.kr/thm/02/00/01/46/tn_DPK004440.JPG' } },
 ];
 export default  DiaryScreen=(props)=>{
-
+ 
+  const dispatch=useDispatch();
+  const diaryList=useSelector(state=>state.image.myDiaryImage);
+  const userInfo=useSelector(state=>state.user.id)
+  useEffect(()=>{
+    dispatch({type:MYDIARY_REQUEST,data:{userId:userInfo}})
+    
+  },[diaryList])
    
         return (
           <SafeAreaView style={styles.container}>
             <ScrollView>
-               <FlatList data={items} renderItem={ renderItem = ({ item, index }) => (//data는 사진 주소 renderItem은 데이터를 뿌려준다
-       <View>
-        <View style={{flexDirection:'row'}}>
+              {diaryList&& <FlatList  data={diaryList} renderItem={ renderItem = ({ item, index }) => (//data는 사진 주소 renderItem은 데이터를 뿌려준다
         <View style={{flex:1}}>
-       <TouchableOpacity onPress={()=>{props.navigation.navigate('writeDiary')}}>
+       <TouchableOpacity onPress={()=>{props.navigation.navigate('getDiary')}}>
         <Image style={styles.image} title={index} source={item.thumbnail} />
         </TouchableOpacity>
         </View>
-        <View style={{flex:1,marginTop:80}}>
-                <Text style={styles.Text}>영화정보</Text>
-        </View>
-        </View>
-         <TextInput editable={false} underlineColorAndroid="#d3d3d3"/>
-         </View>
     )}
-        numColumns={1}   />
+        numColumns={3}   />}
                </ScrollView> 
-       
-          <TouchableOpacity style={styles.plusBut}><Image source={PlusButton}></Image></TouchableOpacity>
-      
+          <TouchableOpacity onPress={()=>{props.navigation.navigate('diarySearch')}} style={styles.plusBut}><Image source={PlusButton}></Image></TouchableOpacity>
         </SafeAreaView>    
         );
     }

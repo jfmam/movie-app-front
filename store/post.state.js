@@ -10,12 +10,16 @@ const dummyDiary={
 export const WRITEDIARY_REQUEST='front/WRITEDIARY_REQUEST'
 export const WRITEDIARY_SUCCESS = 'front/WRITEDIARY_SUCCESS'
 export const WRITEDIARY_FAILURE = 'front/WRITEDIARY_FAILURE'
+export const WISHLISTPOST_REQUEST = 'front/WISHLISTPOST_REQUEST'
+export const WISHLISTPOST_SUCCESS = 'front/WISHLISTPOST_SUCCESS'
+export const WISHLISTPOST_FAILURE = 'front/WISHLISTPOST_FAILURE'
 
 initialState={
     diaryInfo:{},
+    wishListPost:false,
     updateLoading:false,
-    writeDiaryError:''
-
+    writeDiaryError:'',
+    wishListError:''
 }
 
 const reducer=(state=initialState,action)=>{
@@ -33,6 +37,20 @@ const reducer=(state=initialState,action)=>{
             return produce(state=initialState,draft=>{
                 draft.updateLoading=false
                 draft.writeDiaryError=action.error
+            })
+        case WISHLISTPOST_REQUEST:
+            return produce(state=initialState,draft=>{
+                draft.updateLoading=true
+                draft.wishListError=''
+            })
+        case WISHLISTPOST_SUCCESS:
+            return produce(state=initialState,draft=>{
+                draft.updateLoading=false
+            })
+        case WISHLISTPOST_FAILURE:
+            return produce(state=initialState,draft=>{
+                draft.updateLoading=false
+                draft.wishListError=action.error
             })
         default:
             return state;

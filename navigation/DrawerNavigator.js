@@ -5,8 +5,10 @@ import TabBar from './BottomNavigator'
 import WishList from '../screen/WishList'
 import { createStackNavigator } from 'react-navigation-stack';
 import MenuButton from '../components/menuButton'
-import writeDiary from '../screen/writeDiary'
+import writeDiary from '../screen/diaryComponents/writeDiary'
 import {Avatar} from 'react-native-elements'
+import getDiary from '../screen/diaryComponents/getDiary'
+import diarySearch from '../screen/diaryComponents/diarySearchScreen'
 
 const StackNavigator=createStackNavigator({
     TabBar:{
@@ -33,7 +35,19 @@ const StackNavigator=createStackNavigator({
     navigationOptions:{
        header:null
     }
+    },
+    getDiary:{
+      screen:getDiary,
+      navigationOptions:{
+       header:null
+    },
+      diarySearch:{
+      screen:diarySearch,
+      navigationOptions:{
+       header:null
+      }
     }
+  }
 }
 ,{ 
  

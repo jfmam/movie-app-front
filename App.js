@@ -9,9 +9,11 @@ import { Provider } from "react-redux";
 import {createStore,applyMiddleware} from 'redux'
 import axios from 'axios'
 import createSagaMiddleware from 'redux-saga'
+import rootsaga from './storesaga/index'
 
 const sagaMiddleWare=createSagaMiddleware()
-let store=createStore(rootReducer,applyMiddleware(sagaMiddleWare));
+const store=createStore(rootReducer,applyMiddleware(sagaMiddleWare));
+sagaMiddleWare.run(rootsaga)
 
 export default class App extends React.Component {
 

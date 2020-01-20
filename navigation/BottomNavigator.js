@@ -1,8 +1,8 @@
 import { createMaterialBottomTabNavigator } from 'react-navigation-material-bottom-tabs';
-import HomeScreen from '../screen/HomeScreen'
-import BoxOffice from '../screen/BoxOffice'
-import DiaryScreen from '../screen/DiaryScreen'
-import Recommandation from '../screen/Recommandation'
+import HomeScreen from '../screen/bottomNavigation/HomeScreen'
+import BoxOffice from '../screen/bottomNavigation/BoxOffice'
+import DiaryScreen from '../screen/bottomNavigation/DiaryScreen'
+import Recommandation from '../screen/bottomNavigation/Recommandation'
 import React from 'react';
 import { createAppContainer } from 'react-navigation';
 import {View,Image,Text} from 'react-native'

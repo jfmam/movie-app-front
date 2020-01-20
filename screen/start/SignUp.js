@@ -2,7 +2,7 @@ import { SafeAreaView,Platform,StyleSheet,Text,TextInput,View,Alert } from 'reac
 import {Button} from 'react-native-elements'
 import React,{ useState,useEffect} from 'react';
 import axios from 'axios'
-import {authAdress} from '../api/api'
+import {authAdress} from '../../api/api'
 
 export default signUp=()=>{
   const[id,SetId]=useState('')
