@@ -10,11 +10,11 @@ import {
   SIGNUP_FAILURE,
   SIGNUP_REQUEST,
   SIGNUP_SUCCESS,
-} from '../reducers/user';
+} from '../store/user.state';
 
 function loginAPI(loginData) {//Api요청시  data가 필요하면 param에작성
   // 서버에 요청을 보내는 부분
-  return axios.post('', loginData, {//시퀄라이즈로 정리하자.
+  return axios.post('user/login', loginData, { //시퀄라이즈로 정리하자.
     withCredentials: true,//cofigure부분
   });
 }
@@ -64,16 +64,20 @@ function * watchLogout(){
     yield takeEvery(LOGOUT_REQUEST,logout)
 }
 
-function signupAPI(signUpData){
-    return axios.post('',signUpData)
+async function signupAPI(signUpData){
+   
+  return await axios.post('54.180.186.62/api/user', signUpData)
+  .then((res)=>{console.log(res)})
+  .catch((e)=>{console.log(e)})
 }
 
 function* signup(action){
     try{
     const result=yield call(signupAPI,action.data);
+    console.log(result)
     yield put({
         type:SIGNUP_SUCCESS,
-        data:result.data
+        data:result
     })
 }catch(e){
     console.error(e);

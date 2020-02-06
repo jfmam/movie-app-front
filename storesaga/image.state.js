@@ -51,7 +51,7 @@ function* wishlist(action){
     }
 }
 
-function* watchDiary(){
+function* watchWishlist(){
     yield takeEvery(WISHLIST_REQUEST,wishlist)
 }
 

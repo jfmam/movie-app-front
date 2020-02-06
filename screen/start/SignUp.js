@@ -3,6 +3,8 @@ import {Button} from 'react-native-elements'
 import React,{ useState,useEffect} from 'react';
 import axios from 'axios'
 import {authAdress} from '../../api/api'
+import { useDispatch } from 'react-redux';
+import { SIGNUP_REQUEST } from '../../store/user.state';
 
 export default signUp=()=>{
   const[id,SetId]=useState('')
@@ -10,39 +12,33 @@ export default signUp=()=>{
   const [name, SetName] = useState('')
   const [nickname,SetNickname] = useState('')
   const [check,SetCheck]=useState(false)
-
+  const dispatch=useDispatch();
     const onChangeid = e => {
         SetId(e.target.value);
     };
   signUp=()=>{
-  
       if(id===undefined){
-          const undefinedId="아이디를 입력해주세요"
+          alert("아이디를 입력해주세요")
       }
       else if (password === undefined) {
-          const undefinedPassword= "비밀번호를 입력해주세요"
-      }
-      else if ( name=== undefined) {
-          const undefinedName = "이름을 입력해주세요"
+          alert("비밀번호를 입력해주세요")
       }
       else if (nickname=== undefined) {
-          const undefinedNickname = "닉네임을 입력해주세요"
+          alert("닉네임을 입력해주세요")
       }
        else if (check === false) {
-           console.log("비밀번호가 일치하지않습니다")
+           alert("비밀번호가 일치하지않습니다")
        }
-      else if(id!=undefined&&password!=undefined&&name!=undefined&&nickname!=undefined){
-          axios
-          .post(`${authAdress}/signup`,{id:id,password:password,name:name,nickname:nickname})
-          .then((res)=>{
-              console.log(res.data);
-              Alert.alert("회원가입 완료")//ok버튼누를시 다시 로그인창으로 돌아 갈 수있게 만든다
-          })
-          .catch((err)=>{
-              console.log(err)
-              Alert.alert("실패 FAiled kkk")//오류찾기
-          })
-      }
+       else{
+           dispatch({
+               type:SIGNUP_REQUEST,
+               data:{
+                userId:id,
+                password,
+                nickname
+               }
+           })
+       }
   }
     return(
         <SafeAreaView style={styles.container}>

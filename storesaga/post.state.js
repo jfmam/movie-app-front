@@ -1,8 +1,8 @@
-import {fork,call,takeEvery,takeLatest,put} from 'redux-saga/effects'
+import {fork,call,takeEvery,takeLatest,put,all} from 'redux-saga/effects'
 import { WRITEDIARY_REQUEST, WRITEDIARY_SUCCESS, WRITEDIARY_FAILURE, WISHLISTPOST_REQUEST, WISHLISTPOST_SUCCESS, WISHLISTPOST_FAILURE } from '../store/post.state'
 import axios from 'axios'
 
-function writeDiaryAPI(postWishListData){
+function postWishListAPI(postWishListData) {
     return axios.post('',postWishListData)
 }
 
@@ -11,6 +11,7 @@ function* postWishList(action){
         const result=yield call(postWishListAPI,action.data)//userId와 movieId등록? 
         yield put({
             type:WISHLISTPOST_SUCCESS,
+            data:result.data
         })
     }catch(e){
         console.error(e)

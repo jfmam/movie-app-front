@@ -9,7 +9,7 @@ import { Provider } from "react-redux";
 import {createStore,applyMiddleware} from 'redux'
 import axios from 'axios'
 import createSagaMiddleware from 'redux-saga'
-import rootsaga from './storesaga/index'
+import rootsaga from './storesaga/index' 
 
 const sagaMiddleWare=createSagaMiddleware()
 const store=createStore(rootReducer,applyMiddleware(sagaMiddleWare));

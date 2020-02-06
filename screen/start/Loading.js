@@ -1,6 +1,6 @@
 import {Image, SafeAreaView,StyleSheet,Platform,Text} from 'react-native'
 import React from 'react'
-import moviemoon from '../assets/Moviemoon.gif'
+import moviemoon from '../../assets/Moviemoon.gif'
 
 export default loading=(props)=>{
 setTimeout(async() =>props.navigation.navigate('Login'), 3000)

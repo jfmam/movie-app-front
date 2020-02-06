@@ -1,7 +1,7 @@
 import React from 'react';
 import { Image, FlatList,StyleSheet,View, TouchableOpacity,TextInput,Text, SafeAreaView,Platform} from 'react-native';
 import {ScrollView} from 'react-native-gesture-handler'
-import PlusButton from '../assets/plusBut.png'
+import PlusButton from '../../assets/plusBut.png'
 import { useDispatch, useSelector } from 'react-redux';
 import { MYDIARY_REQUEST } from '../../store/image.state';
 

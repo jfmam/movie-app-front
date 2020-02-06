@@ -20,18 +20,14 @@ export default WriteDiary=(props)=>{
     const [image1,setImage1]=useState('');//배열로 하고 push를 쓰자
     const [image2,setImage2]=useState('');
     const [image3,setImage3]=useState('');
-    const [ratingValue,setRatingValue]=useState(0)
     const today=new Date();
     const year=today.getFullYear();
     const month=today.getMonth()+1;
     const date=today.getDate();
-    const [ratingValue,setRatingValue]=useState(0)
     const dispatch=useDispatch();
     const ratingCompleted=useCallback((rating)=>{
         setRatingValue(rating)   
     },[rating])
-
-    const dispatch=useDispatch();
     //useSelector를 이용해서 사진가져오고 prpos로보내주기
     const getPermission=async()=>{
          if (!Constants.platform.ios) {
