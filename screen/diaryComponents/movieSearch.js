@@ -2,27 +2,35 @@ import React,{useState,useCallback,useEffect} from 'react';
 import { Image, FlatList,StyleSheet,View, TouchableOpacity,TextInput,Text, SafeAreaView,Platform} from 'react-native';
 import {ScrollView} from 'react-native-gesture-handler'
 import {SearchBar} from 'react-native-elements'
-import { DIARYSEARCH_REQUEST, MOVIE_DETAIL } from '../../store/search.state';
+import { DIARYSEARCH_REQUEST } from '../../store/search.state';
 import { useSelector,useDispatch } from 'react-redux';
 
-export default  DiarySearchScreen=(props)=>{
-    const [search,setSearch]=useState('')
+const items = [
+    { thumbnail: { uri: 'http://file.koreafilm.or.kr/thm/02/00/01/25/tn_DPA000032.jpg' } },
+    { thumbnail: { uri: 'http://file.koreafilm.or.kr/thm/02/00/01/03/tn_DPA000006.jpg' } },
+    { thumbnail: { uri: 'http://file.koreafilm.or.kr/thm/02/00/01/05/tn_DPA000009.jpg' } },
+    { thumbnail: { uri: 'http://file.koreafilm.or.kr/thm/02/00/01/46/tn_DPK004440.JPG' } },
+];
+export default MovieSearchScreen=(props)=>{
+    const [search,setSearch]=useState(null)
     const dispatch=useDispatch();
-    const {diarySearch,diarySearchLoading}=useSelector(state=>state.search)
+    const {diarySearch,diarySearchLoading,Search}=useSelector(state=>state.search)
+     setSearch(Search);
 
-    const movieSearch=useCallback((text)=>{
-      dispatch({
-        type:DIARYSEARCH_REQUEST,
-        data:{
-          korTitle:text
-        }
-      })
-    },[])
+    
+   
+//    이부분은 지금은 componentState 처리했지만 나중에 리덕스로처리해야한다
+    // useEffect(()=>{
+    //     dispatch({
+    //       type:DIARYSEARCH_REQUEST,//영화검색부분
+    //       data:{korTitle:search}
+    //     })
+    // },[search])
   
         return (
           <SafeAreaView style={styles.container}>
         <SearchBar 
-        onChangeText={(text)=>movieSearch(text)}
+        onChangeText={(text)=>setSearch(text)}
         value={search}
         platform="android"
         containerStyle={styles.search}
@@ -35,12 +43,7 @@ export default  DiarySearchScreen=(props)=>{
        <View>
         <View style={{flexDirection:'row'}}>
         <View style={{flex:1}}>
-       <TouchableOpacity  onPress={()=>{
-         dispatch({
-           type:MOVIE_DETAIL,
-           data:item
-         })
-         props.navigation.navigate('writeDiary')}}>
+       <TouchableOpacity moiveId={diarySearch.id} onPress={()=>{props.navigation.navigate('movieInfo')}}>
         <Image style={styles.image} title={index} source={{uri:item.poster}} />
         </TouchableOpacity>
         </View>

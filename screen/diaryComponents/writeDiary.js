@@ -1,19 +1,14 @@
 import {View, SafeAreaView, ImageBackground,StyleSheet,Platform,Text,Image} from 'react-native'
 import {ScrollView, TouchableOpacity, TextInput} from 'react-native-gesture-handler'
-import React,{ useState, useEffect, useCallback } from 'react'
+import React,{ useState } from 'react'
 import {Rating} from 'react-native-elements'
 import * as ImagePicker from 'expo-image-picker';
 import * as Permissions from 'expo-permissions';
 import Constants from 'expo-constants';
 import ImageInfo from '../../components/imageInfo'
 import { useDispatch } from 'react-redux';
+import { DIARYSEARCH_REQUEST } from '../../store/search.state';
 
-const dummyImage=[
-   'http://file.koreafilm.or.kr/thm/02/00/01/25/tn_DPA000032.jpg',
-   'http://file.koreafilm.or.kr/thm/02/00/01/03/tn_DPA000006.jpg',
-   'http://file.koreafilm.or.kr/thm/02/00/01/05/tn_DPA000009.jpg',
-  'http://file.koreafilm.or.kr/thm/02/00/01/46/tn_DPK004440.JPG' 
-];
 
 export default WriteDiary=(props)=>{
     const [memo,setMemo]=useState('');
@@ -25,15 +20,15 @@ export default WriteDiary=(props)=>{
     const month=today.getMonth()+1;
     const date=today.getDate();
     const dispatch=useDispatch();
-    const ratingCompleted=useCallback((rating)=>{
+    const ratingCompleted=(rating)=>{
         setRatingValue(rating)   
-    },[rating])
+    }
     //useSelector를 이용해서 사진가져오고 prpos로보내주기
     const getPermission=async()=>{
          if (!Constants.platform.ios) {
         const { status } = await Permissions.askAsync(Permissions.CAMERA_ROLL);
-      if (status!== 'granted') {
-        alert('Sorry, we need camera roll permissions to make this work!');
+      if ({status}!== 'granted') {
+        alert('오류');
       }
       else{
           await imagePicker()
@@ -56,13 +51,14 @@ export default WriteDiary=(props)=>{
         }
     }
     //useEffect에서는 통신하는부분을 만든다
+   
     return(
         <SafeAreaView style={styles.container}>    
             {/* < ImageBackground style={{width:100}} source = 'https://lorempixel.com/200/200/animals' / >
             < Image source = 'https://lorempixel.com/200/200/animals' / > */}
         <ScrollView 
         stickyHeaderIndices={[1]} >
-        <ImageInfo image={dummyImage}/>
+        <ImageInfo image={props.movieId}/>
         {/* props로 image를 보내줘야함 */}
     
         <View style={styles.writeContainer}> 

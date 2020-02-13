@@ -1,9 +1,9 @@
-import {all,call,fork,takeLatest,takeEvery } from 'redux-saga/effects'
+import {all,call,fork,takeLatest,takeEvery,put } from 'redux-saga/effects'
 import axios from 'axios'
-import { BLOCKBUSTER_REQUEST, BLOCKBUSTER_FAILURE, BLOCKBUSTER_SUCCESS, MYDIARY_REQUEST, MYDIARY_FAILURE,
-         GETDIARY_REQUEST, GETDIARY_SUCCESS, BOXOFFICE_REQUEST, WISHLIST_REQUEST, RECOMMAND_REQUEST 
+import { BLOCKBUSTER_REQUEST, BLOCKBUSTER_FAILURE, BLOCKBUSTER_SUCCESS, MYDIARY_REQUEST,MYDIARY_SUCCESS, MYDIARY_FAILURE,
+         GETDIARY_REQUEST, GETDIARY_SUCCESS, BOXOFFICE_REQUEST, BOXOFFICE_SUCCESS, BOXOFFICE_FAILURE, WISHLIST_REQUEST, RECOMMAND_REQUEST
        } from '../store/image.state'
-
+import qs from 'qs'
 function recommandAPI(recommandData){
   return  axios.get('',recommandData)
 }
@@ -57,19 +57,25 @@ function* watchWishlist(){
 
 
 function boxOfficeAPI(boxOfficeData){
-  return  axios.get('',boxOfficeData)
+  return  axios({
+    method:'get',  
+    url: 'http://54.180.186.62/api/boxoffice',
+    params:boxOfficeData,
+    headers:{
+        headers: {'Content-Type': 'application/json'},
+    }
+  })
 }
 
 function* boxOffice(action){
     try{
         const result= yield call(boxOfficeAPI,action.data)
+        console.log(result.data)
         yield put({
             type:BOXOFFICE_SUCCESS,
             data:result.data
         })
     }catch(e){
-        console.error(e)
-
         yield put({
             type:BOXOFFICE_FAILURE,
             error:e
@@ -83,12 +89,20 @@ function* watchBoxOffice(){
 
 
 function diaryDetailAPI(diaryDetailData){
-  return  axios.get('',diaryDetailData)
+  return  axios({
+      method:'get',
+      url:'/diary/detail',
+      params:diaryDetailData,
+      headers:{
+          'Content-Type':'application/json'
+      }
+  })
 }
 
 function* diaryDetail(action){
     try{
         const result= yield call(diaryDetailAPI,action.data)
+        console.log(result.data)
         yield put({
             type:GETDIARY_SUCCESS,
             data:result.data
@@ -109,7 +123,12 @@ function* watchDiaryDetail(){
 
 
 function diaryAPI(diaryData){
-  return  axios.get('',diaryData)
+  return  axios({
+      method:'get',
+      params:diaryData,
+      url: '/diary',
+      headers:{'Content-Type':'application/json'}
+  })
 }
 
 function* diary(action){

@@ -36,6 +36,8 @@ export const RECOMMAND_REQUEST = 'fornt/RECOMMAND_REQUEST'//추천
 export const RECOMMAND_SUCCESS = 'fornt/RECOMMAND_SUCCESS'
 export const RECOMMAND_FAILURE = 'fornt/RECOMMAND_FAILURE'
 
+export const IMAGEPROPS='fornt/IMAGEPROPS'
+
 const initialState={
     blockbusterImage:{},
     myDiaryImage:{},//다이어리 목록 사진 MYDIARY
@@ -51,7 +53,7 @@ const initialState={
     getDiaryError:'',
     boxOfficeError:'',
     wishListError:'',
-    recommandError:''
+    recommandError:'',
 }
  
 
@@ -86,7 +88,7 @@ const reducer=(state=initialState,action)=>{
         case MYDIARY_SUCCESS:{
             return produce(state=initialState,draft=>{
                 draft.loadingImage=false
-                draft.myDiaryImage=dummyImage.myDiaryImage
+                draft.myDiaryImage=action.data
             })
         }
         case MYDIARY_FAILURE:{
@@ -98,12 +100,13 @@ const reducer=(state=initialState,action)=>{
         case GETDIARY_REQUEST:{
             return produce(state=initialState,draft=>{
                 draft.loadingImage=true
+                draft.getDiaryError=''
             })
         }
         case GETDIARY_SUCCESS:{
             return produce(state=initialState,draft=>{
                 draft.loadingImage=false
-                draft.getDiaryData=dummyImage.getDiaryData
+                draft.getDiaryData=action.data
             })
         }
         case GETDIARY_FAILURE:{
@@ -163,6 +166,7 @@ const reducer=(state=initialState,action)=>{
                 draft.recommandError=action.error//error로 바꿀수있을까?
             })
         }
+      
         default:{
             return state;
         }

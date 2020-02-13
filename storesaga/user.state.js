@@ -1,4 +1,4 @@
-import { all, call, fork, put, takeEvery } from 'redux-saga/effects';
+import { all, call, fork, put, takeEvery,takeLatest } from 'redux-saga/effects';
 import axios from 'axios';
 import {
   LOGIN_FAILURE,
@@ -10,13 +10,53 @@ import {
   SIGNUP_FAILURE,
   SIGNUP_REQUEST,
   SIGNUP_SUCCESS,
+  PROFILE_REQUEST,
+  PROFILE_SUCCESS,
+  PROFILE_FAILURE
 } from '../store/user.state';
 
+function profileAPI(profileData) {//Api요청시  data가 필요하면 param에작성
+return axios({
+    method: 'post',
+    url: 'http://54.180.186.62/api/user/image',
+    data: profileData,
+    headers: {'Content-Type': 'application/json' },
+    withCredentials:true
+    }, {
+      withCredentials: true
+    })
+}
+
+function* profile(action) {//액션을 파라미터로 받을수있다.
+  try {
+    const result = yield call(profileAPI, action.data);
+    yield put({ // put은 dispatch 동일
+      type: PROFILE_SUCCESS,
+      data: result.data,
+    });
+  } catch (e) { // loginAPI 실패
+    console.error(e);
+    yield put({
+      type: PROFILE_FAILURE,
+      error:e
+    });
+  }
+}
+
+function* watchProfile() {
+  yield takeLatest(PROFILE_REQUEST, profile);//LOGINREQUEST안에 type과 data가 모두담겨있다 요청=>logIn으로이동
+}
+
 function loginAPI(loginData) {//Api요청시  data가 필요하면 param에작성
-  // 서버에 요청을 보내는 부분
-  return axios.post('user/login', loginData, { //시퀄라이즈로 정리하자.
-    withCredentials: true,//cofigure부분
-  });
+return axios({
+    method: 'post',
+    url: '/user/login',
+    data: loginData,
+    headers: {'Content-Type': 'application/json' },
+    withCredentials:true
+    }, {
+      withCredentials: true
+    })
 }
 
 function* login(action) {//액션을 파라미터로 받을수있다.
@@ -40,8 +80,13 @@ function* watchLogin() {
 }
 
 function logoutAPI(){
-    return axios.post('',{
-        withCredentials:true
+   return axios({
+    method: 'post',
+    url: '/user/logout',
+    headers: {'Content-Type': 'application/json' },
+    withCredentials:true
+    }, {
+      withCredentials: true
     })
 }
 
@@ -49,7 +94,7 @@ function* logout(action){
     try{
         const result=yield call(logoutAPI,action.data);
         yield put({
-            type:LOGIN_SUCCESS
+            type:LOGOUT_SUCCESS
         })
     }catch(e){
         console.error(e);
@@ -65,20 +110,23 @@ function * watchLogout(){
 }
 
 async function signupAPI(signUpData){
-   
-  return await axios.post('54.180.186.62/api/user', signUpData)
-  .then((res)=>{console.log(res)})
-  .catch((e)=>{console.log(e)})
+  console.log(signUpData)
+  return axios({
+    method: 'post',
+    url: '/user',
+    data: signUpData,
+    headers: {'Content-Type': 'application/json' }
+    })
 }
 
 function* signup(action){
     try{
     const result=yield call(signupAPI,action.data);
-    console.log(result)
+    if(result.data)
     yield put({
-        type:SIGNUP_SUCCESS,
-        data:result
+        type:SIGNUP_SUCCESS
     })
+  
 }catch(e){
     console.error(e);
     yield put({
@@ -97,5 +145,6 @@ export default function* userSaga() {
     fork(watchLogin),
     fork(watchLogout),
     fork(watchSignUp),
+    fork(watchProfile)
   ]);
 }

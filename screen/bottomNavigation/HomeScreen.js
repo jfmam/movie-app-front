@@ -1,20 +1,20 @@
-import React, { useState, useCallback } from 'react';
+import React, { useState, useCallback, useEffect } from 'react';
 import { StyleSheet, Text, View, Image,Platform,SafeAreaView} from 'react-native';
 import { ScrollView } from 'react-native-gesture-handler';
 import { SearchBar } from 'react-native-elements';
-import { useDispatch } from 'react-redux';
-import { MOVIESEARCH_REQUEST } from '../../store/search.state';
+import { useDispatch, useSelector } from 'react-redux';
+import { MOVIESEARCH_REQUEST, SEARCH } from '../../store/search.state';
+
 
 export default HomeScreen=()=> {
-
    const [search,setSearch]=useState('')
    const dispatch=useDispatch();
 //    이부분은 지금은 componentState 처리했지만 나중에 리덕스로처리해야한다
-const searchMovie=useCallback((e)=>{
-    setSearch(e.target.value)//e.target.value안되면 그냥 e만넣어주자
-    dispatch({type:MOVIESEARCH_REQUEST,data:search})
-},[search])
-{
+const {user}=useSelector(state=>state.user)
+
+const {movieSearchLoading,Search}=useSelector(state=>state.search)
+
+
              const items = [
     { thumbnail: { uri: 'http://file.koreafilm.or.kr/thm/02/00/01/25/tn_DPA000032.jpg' } },
     { thumbnail: { uri: 'http://file.koreafilm.or.kr/thm/02/00/01/03/tn_DPA000006.jpg' } },
@@ -29,11 +29,12 @@ const imageList=items.map(
         <View style={styles.title}>
             <Text style={{fontSize:40,alignSelf:'center',color:"#d3d3d3"}}>MOVIE MOON</Text>
             <SearchBar 
-        onChangeText={searchMovie}
+        onChangeText={(text)=>setSearch(text)}
         value={search}
         platform="android"
         containerStyle={styles.search}
         maxLength={20} 
+        showLoading={movieSearchLoading}
       />
       {/* searchBar부분은 component로 따로 처리하도록한다 */}
         </View>
@@ -46,7 +47,7 @@ const imageList=items.map(
       </SafeAreaView>
         );
     }
-}
+
 const styles = StyleSheet.create({
         container: {
             flex: 1,

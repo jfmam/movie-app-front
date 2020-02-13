@@ -1,9 +1,9 @@
 import React, { useState, useCallback, useEffect } from 'react';
-import { StyleSheet, Text, View,SafeAreaView, DatePickerAndroid} from 'react-native';
+import { Image,StyleSheet, Text, View,SafeAreaView, DatePickerAndroid,FlatList,TouchableOpacity} from 'react-native';
 import {ScrollView} from 'react-native-gesture-handler'
 import {Button} from 'react-native-elements'
 import { useDispatch, useSelector } from 'react-redux';
-import { BOXOFFICE_REQUEST } from '../../store/image.state';
+import { BOXOFFICE_REQUEST, IMAGEPROPS } from '../../store/image.state';
 
 
 const items = [
@@ -13,19 +13,16 @@ const items = [
     { thumbnail: { uri: 'http://file.koreafilm.or.kr/thm/02/00/01/46/tn_DPK004440.JPG' } },
 ];
 
-export default function BoxOffice(){
+export default function BoxOffice(props){
     const date=new Date()
     const [years,setYear]=useState(`${date.getFullYear()}`)
     const [months,setMonth]=useState(`${date.getMonth()+1}`)
     const dispatch=useDispatch();
-    const boxOfficeList=useSelector(state=>state.image.boxOfficeImage)
+    const {boxOfficeImage}=useSelector(state=>state.image)
      //useEffect를 이용해 년도와 월이 바뀔때마다 업데이틉
     useEffect(()=>{
-        dispatch({type:BOXOFFICE_REQUEST,data:{years,months}})//year와 month를 보내준다
-        if(boxOfficeList){
-            setboxOfficeImage(boxOfficeList)
-        }
-    },[boxOfficeList])
+        dispatch({type:BOXOFFICE_REQUEST,data:{year:years}})//year와 month를 보내준다
+    }, [years])
 
     let datePicker=async ()=>{
        try{
@@ -56,21 +53,28 @@ export default function BoxOffice(){
              <Text  style={{fontSize:19,color:"#d3d3d3",marginLeft:27}}>Month</Text>
             <Button containerStyle={styles.btn} type="clear" title={`${months}`}  onPress={()=>{ datePicker()}}/>
            </View>
-            <ScrollView>
-            {boxOfficeList&&<FlatList data={boxOfficeList} renderItem={ renderItem = ({ item, index }) => (//data는 사진 주소 renderItem은 데이터를 뿌려준다
+            <ScrollView style={{margin:10}}>
+            {{boxOfficeImage}&&<FlatList numColumns={1} key={boxOfficeImage.id} data={boxOfficeImage} renderItem={ renderItem = ({ item, index }) => (//data는 사진 주소 renderItem은 데이터를 뿌려준다
     //data부분 boxOfficeImage로변경
-        <View style={{flexDirection:'row'}}>
-         <Text style={{fontSize:25, color:"#ffffff",marginLeft:20}}>{`${index+1}.`}</Text>
+        <View key={index} style={{flexDirection:'row',marginLeft:20}}>
+         <Text style={{fontSize:25, color:"#ffffff"}}>{`${index+1}.`}</Text>
         <View style={{flex:1}}>
-       <TouchableOpacity onPress={()=>{props.navigation.navigate('writeDiary')}}>
-        <Image style={styles.image} title={index} source={item.thumbnail} />
+       <TouchableOpacity  onPress={async()=>{
+           await dispatch({
+               type:IMAGEPROPS,
+               data:item
+           })
+           props.navigation.navigate('movieInfo')}}>
+        {item.poster?<Image  style={styles.image} title={index} source={{uri:`${item.poster}`}} />
+        :<Text style={styles.Text}>이미지가 없습니다</Text>
+        }
         </TouchableOpacity>
         </View>
-        <View style={{flex:1,marginTop:80,flexDirection:'column'}}>
-                <Text style={styles.Text}>영화제목</Text>
-                <Text style={styles.Text}>장르</Text>
-                <Text style={styles.Text}>개봉일</Text>
-                <Text style={styles.Text}>영화정보</Text>
+        <View style={{flex:1,marginTop:55,flexDirection:'column'}}>
+            <Text style={styles.Text}>{item.korTitle}</Text>
+            <Text style={styles.Text}>{item.nation}</Text>
+            <Text style={styles.Text}>{item.releaseData}</Text>
+                <Text style={styles.Text}>{`${item.year}/${item.producer}`}</Text>
         </View>
         </View>
 
@@ -86,8 +90,7 @@ const styles = StyleSheet.create({
     container: {
         flex: 1,
         backgroundColor: '#282828',
-        alignItems: 'center',
-        justifyContent: 'center'
+       
     },
     datePick:{
         flexDirection:'row',
@@ -107,5 +110,9 @@ const styles = StyleSheet.create({
         borderRadius:50,
         backgroundColor:"#fff",
         marginLeft:17
+    },
+    Text:{
+        fontSize:15,
+        color:"#ffffff"
     }
 })

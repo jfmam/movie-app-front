@@ -1,9 +1,10 @@
-import React from 'react';
+import React,{useEffect} from 'react';
 import { Image, FlatList,StyleSheet,View, TouchableOpacity,TextInput,Text, SafeAreaView,Platform} from 'react-native';
 import {ScrollView} from 'react-native-gesture-handler'
 import PlusButton from '../../assets/plusBut.png'
 import { useDispatch, useSelector } from 'react-redux';
 import { MYDIARY_REQUEST } from '../../store/image.state';
+import {MOVIE_DETAIL} from '../../store/search.state'
 
 const items = [
     { thumbnail: { uri: 'http://file.koreafilm.or.kr/thm/02/00/01/25/tn_DPA000032.jpg' } },
@@ -14,25 +15,33 @@ const items = [
 export default  DiaryScreen=(props)=>{
  
   const dispatch=useDispatch();
-  const diaryList=useSelector(state=>state.image.myDiaryImage);
-  const userInfo=useSelector(state=>state.user.id)
+  const {myDiaryImage}=useSelector(state=>state.image);
+  const {user}=useSelector(state=>state.user)
   useEffect(()=>{
-    dispatch({type:MYDIARY_REQUEST,data:{userId:userInfo}})
-    
-  },[diaryList])
+    dispatch({type:MYDIARY_REQUEST,data:{userId:`${user.userId}`}})
+  },[])
    
         return (
           <SafeAreaView style={styles.container}>
             <ScrollView>
-              {diaryList&& <FlatList  data={diaryList} renderItem={ renderItem = ({ item, index }) => (//data는 사진 주소 renderItem은 데이터를 뿌려준다
+              {{myDiaryImage}? <FlatList data={myDiaryImage} renderItem={ renderItem = ({ item, index }) => (//data는 사진 주소 renderItem은 데이터를 뿌려준다
         <View style={{flex:1}}>
-       <TouchableOpacity onPress={()=>{props.navigation.navigate('getDiary')}}>
-        <Image style={styles.image} title={index} source={item.thumbnail} />
+       <TouchableOpacity diaryData={item} onPress={()=>{
+         dispatch({
+           type:MOVIE_DETAIL,
+           data:item
+         })
+         props.navigation.navigate('getDiary')}}>
+        {item.poster?<Image style={styles.image} title={index} source={{uri:`${item.poster}`}} />
+        :<Text>이미지가 없습니다.</Text>
+        }
         </TouchableOpacity>
         </View>
     )}
-        numColumns={3}   />}
-               </ScrollView> 
+        numColumns={3}  />
+      :<Text style={{alignContent:'center',justifyContent:'center',fontSize:19,color:"#fff"}}>등록된 다이어리가 없습니다.</Text>
+      }
+           </ScrollView> 
           <TouchableOpacity onPress={()=>{props.navigation.navigate('diarySearch')}} style={styles.plusBut}><Image source={PlusButton}></Image></TouchableOpacity>
         </SafeAreaView>    
         );
@@ -49,8 +58,8 @@ const styles = StyleSheet.create({
   image: {
     width: 115,
     height: 165,
-    marginTop:10,
-    marginLeft:29.5,
+    margin:3,
+    marginLeft:11,
   },
    Text: {
      color: "#ffffff",

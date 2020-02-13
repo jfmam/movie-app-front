@@ -1,51 +1,54 @@
 import { SafeAreaView,Platform,StyleSheet,Text,TextInput,View,Alert } from 'react-native'
 import {Button} from 'react-native-elements'
-import React,{ useState,useEffect} from 'react';
+import React,{ useState,useEffect, useCallback} from 'react';
 import axios from 'axios'
-import {authAdress} from '../../api/api'
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { SIGNUP_REQUEST } from '../../store/user.state';
 
-export default signUp=()=>{
-  const[id,SetId]=useState('')
+export default signUp=(props)=>{
+  const[userId,SetId]=useState('')
   const[password,SetPassword]=useState('')
   const [name, SetName] = useState('')
   const [nickname,SetNickname] = useState('')
   const [check,SetCheck]=useState(false)
+  const {isSignUping,signUpError}=useSelector(state=>state.user);
   const dispatch=useDispatch();
-    const onChangeid = e => {
-        SetId(e.target.value);
-    };
-  signUp=()=>{
-      if(id===undefined){
-          alert("아이디를 입력해주세요")
+
+  const signup=useCallback(async(e)=>{
+      if(userId===undefined){
+         await alert("아이디를 입력해주세요")
       }
       else if (password === undefined) {
-          alert("비밀번호를 입력해주세요")
+         await alert("비밀번호를 입력해주세요")
       }
       else if (nickname=== undefined) {
-          alert("닉네임을 입력해주세요")
+         await alert("닉네임을 입력해주세요")
       }
        else if (check === false) {
-           alert("비밀번호가 일치하지않습니다")
+          await alert("비밀번호가 일치하지않습니다")
        }
        else{
-           dispatch({
+         await dispatch({
                type:SIGNUP_REQUEST,
                data:{
-                userId:id,
-                password,
-                nickname
+                   userId,
+                   password,
+                   nickname
                }
            })
        }
-  }
+       if(signUpError){ alert('회원 가입에 실패하였습니다.')}//status에 따라 알림창을 새롭게 띄운다
+       else ()=>{
+        alert('회원가입에 성공하였습니다.');  
+        props.navigation.navigate('Login');
+    }
+  },[userId,password,nickname])
     return(
         <SafeAreaView style={styles.container}>
         <View style={styles.rowViewTop}>  
         <Text style={{color:"#d3d3d3",fontSize:18}}>ID</Text>
         <TextInput style={{marginLeft:117,  borderBottomColor:'#feabab',
-    borderBottomWidth:1}} placeholder="ID를 입력하세요                "  value={id}  onChangeText={(text)=>{SetId(text)}}/>
+    borderBottomWidth:1}} placeholder="ID를 입력하세요                "  value={userId}  onChangeText={(text)=>{SetId(text)}}/>
     
         </View>
         <View  style={styles.rowView}>
@@ -60,17 +63,13 @@ export default signUp=()=>{
          
         </View>
        <View  style={styles.rowView}>
-            <Text style={{color:"#d3d3d3",fontSize:18}}>NAME</Text>
+            <Text style={{color:"#d3d3d3",fontSize:18}}>NICKNAME</Text>
         <TextInput style={{marginLeft:83,  borderBottomColor:'#feabab',
-    borderBottomWidth:1}} placeholder="이름을 입력하세요              " onChangeText={(text)=>{SetName(text)}} />
+    borderBottomWidth:1}} placeholder="닉네임을 입력하세요              " onChangeText={(text)=>{SetNickname(text)}} />
        </View>
-         <View  style={styles.rowView}>
-         <Text style={{color:"#d3d3d3",fontSize:18}}>NICKNAME</Text>
-        <TextInput style={{marginLeft:25,  borderBottomColor:'#feabab',
-    borderBottomWidth:1}} placeholder="닉네임을 입력하세요            " onChangeText={(text)=>{SetNickname(text)}} />
-        </View>
-        <Button type="clear" containerStyle={styles.btn} onPress={()=>{signUp()}} title="signUp"></Button>
-         <Button type="clear" containerStyle={styles.btn} onPress={()=>{signUp()}} title="cancel"></Button>
+       
+        <Button type="clear" loading={isSignUping} containerStyle={styles.btn} onPress={()=>{signup()}} title="signUp"></Button>
+         <Button type="clear" containerStyle={styles.btn} onPress={()=>{props.navigation.navigate('Login')}} title="cancel"></Button>
     {/* onChange와 onChangeText의 차이는 onChange는 함수를 이용해서 변경하는방법이다
         onChangeText input text를 매개변수로 보내는 메소드
     */}
