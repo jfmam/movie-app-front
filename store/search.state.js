@@ -29,7 +29,7 @@ const reducer=(state=initialState,action)=>{
                 draft.diarySearch=null
             })
         }
-        case DIARYSEARCH_SUCCESS: {
+        case DIARYSEARCH_SUCCESS: {//다이어리서치는 검색용
             return produce(state,draft=>{
                 draft.diarySearchLoading=false
                 draft.diarySearch=action.data//나중에 action.data로 변경할것
@@ -41,7 +41,7 @@ const reducer=(state=initialState,action)=>{
                 draft.diarySearchError='다이어리 불러오기 실패'//나중에 action.error로 변경할것
             })
         }
-        case MOVIESEARCH_REQUEST: {
+        case MOVIESEARCH_REQUEST: {//movieSearch는 상세보기
              return produce(state,draft=>{
                 draft.movieSearchLoading=true
                 draft.movieSearchError=''

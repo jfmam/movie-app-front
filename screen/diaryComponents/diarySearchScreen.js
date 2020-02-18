@@ -11,13 +11,14 @@ export default  DiarySearchScreen=(props)=>{
     const {diarySearch,diarySearchLoading}=useSelector(state=>state.search)
 
     const movieSearch=useCallback((text)=>{
+      setSearch(text)
       dispatch({
         type:DIARYSEARCH_REQUEST,
         data:{
           korTitle:text
         }
       })
-    },[])
+    },[search])
   
         return (
           <SafeAreaView style={styles.container}>
@@ -31,7 +32,7 @@ export default  DiarySearchScreen=(props)=>{
         placeholder="영화를 한국 제목으로 검색하세요"
       />
         <ScrollView>
-               {diarySearch&&<FlatList data={diarySearch} renderItem={ renderItem = ({ item, index }) => (//data는 사진 주소 renderItem은 데이터를 뿌려준다
+               {diarySearch&&<FlatList data={diarySearch} initialNumToRender={10} renderItem={ renderItem = ({ item, index }) => (//data는 사진 주소 renderItem은 데이터를 뿌려준다
        <View>
         <View style={{flexDirection:'row'}}>
         <View style={{flex:1}}>

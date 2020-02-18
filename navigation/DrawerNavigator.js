@@ -71,13 +71,13 @@ const StackNavigator=createStackNavigator({
 
 
 export const DrawerContent = (props) => {
-  const {user}=useSelector(state=>state.user)
-  const {address}=useSelector(state=>state.user)
+  const {user,address}=useSelector(state=>state.user)
+ 
+
   const dispatch=useDispatch();
 
   const [profile,setProfile]=useState(null);
  
-
   const getPermission=async()=>{
          if (!Constants.platform.ios) {
         const { status } = await Permissions.askAsync(Permissions.CAMERA_ROLL);
@@ -98,12 +98,21 @@ export const DrawerContent = (props) => {
               quality: 1,
             }
         )
-        console.log(result.uri);
 
-        if(!result.cancelled){
-            setProfile(result.uri)
+        if(!result.cancelled){        
+          setProfile(result.uri)
+          console.log(result)
+           let formData = new FormData();
+          await formData.append("image",{uri:result.uri,type:'image/jpg'})
+             dispatch({
+          type:PROFILE_REQUEST,
+          data:formData
+        })
         }
+    
+  
     }
+
     //result.uri를 보낸뒤에 그값을 src에받아준다?아 ㅅㅂ
 return(
   <SafeAreaView style={styles.container}>
@@ -121,10 +130,11 @@ return(
   size='large'
   icon={{name: 'user', type: 'font-awesome'}}
   onPress={async() => {await getPermission()
+    
   }}//imagepicker가 들어갈부분이다.
   activeOpacity={0.7}
   containerStyle={{ marginLeft: 0, marginTop:0}}
-  source={{uri:`${profile}`}}
+  source={{uri:user.src&&user.src}}
 />
     <Text style={{fontSize:20,marginLeft:30,color:'#fff'}}>{`${user.nickname}님`}</Text>
        {/* text대신에 image src를 넣어주먼된다 */}

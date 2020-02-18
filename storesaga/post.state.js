@@ -3,9 +3,9 @@ import {
     WRITEDIARY_REQUEST,
     WRITEDIARY_SUCCESS,
     WRITEDIARY_FAILURE,
-    GETDIARY_REQUEST,
-    GETDIARY_SUCCESS,
-    GETDIARY_FAILURE ,
+    WRITEDIARYIMAGE_REQUEST,
+    WRITEDIARYIMAGESUCCESS,
+    WRITEDIARYIMAGEFAILURE ,
     WISHLISTPOST_REQUEST,
     WISHLISTPOST_SUCCESS,
     WISHLISTPOST_FAILURE
@@ -36,13 +36,18 @@ function* watchPostWishList(){
     yield put(WISHLISTPOST_REQUEST,postWishList)
 }
 
-function writeDiaryAPI(postDiaryData){
-    return axios.post('',postDiaryData)
+function writePostDiaryAPI(postDiaryData){
+    return axios({
+        method:'post',
+        url:'/diary',
+        data:postDiaryData,
+        headers:{'Content-Type':'application/json'}
+    })
 }
 
-function* writeDiary(action){
+function* writePostDiary(action){
     try{
-        const result=yield call(writeDiaryAPI,action.data)
+        const result=yield call(writePostDiaryAPI,action.data)
         yield put({
             type:WRITEDIARY_SUCCESS,
             data:result.data
@@ -57,71 +62,43 @@ function* writeDiary(action){
 }
 
 function* watchPostDiary(){
-    yield takeLatest(WRITEDIARY_REQUEST,writeDiary)
+    yield takeLatest(WRITEDIARY_REQUEST,writePostDiary)
 }
 
-function getDiaryAPI(getDiaryData){
+function writePostDiaryAPI(postDiaryData){
     return axios({
-        method:'get',
-        params:getDiaryData,//userId를 보내준다
-        url: 'http://54.180.186.62/api/diary',
-        header:{'Contnet-Type':'application/json'}
+        method:'post',
+        url:'/diary.image',
+        data:postDiaryData,
+        headers:{'Content-Type':'multipart/form-data'}
     })
 }
 
-function* getDiary(action){
+function* writePostDiaryImage(action){
     try{
-        const result=yield call(getDiaryAPI,action.data)
+        const result=yield call(writePostDiaryImageAPI,action.data)
         yield put({
-            type:GETDIARY_SUCCESS,
+            type:WRITEDIARYIMAGE_SUCCESS,
             data:result.data
         })
     }catch(e){
         console.error(e)
         yield put({
-            type:GETDIARY_FAILURE,
+            type:WRITEDIARYIMAGE_FAILURE,
             error:e
         })
     }
 }
 
-function* watchGetDiary(){
-    yield takeEvery(GETDIARY_REQUEST,getDiary)
+function* watchPostDiaryImage(){
+    yield takeLatest(WRITEDIARYIMAGE_REQUEST,writePostDiaryImage)
 }
 
-function getDiaryDetailAPI(detailData){
-    return axios({
-        method:'get',
-        params:detailData,
-        url: 'http://54.180.186.62/api/diary/detail',
-        header:{'Contnet-Type':'application/json'}
-    })
-}
-
-function* getDiaryDetail(action){
-    try{
-        const result=yield call(getDiaryDetailAPI,action.data);
-        yield put({
-            type:GETDIARYDETAIL_SUCCESS,
-            data:result.data
-        })
-    }catch(e){
-        console.error(e)
-       yield put({
-            type:GETDIARY_FAILURE,
-            error:e
-        })
-    }
-}
-
-function * watchgetDiayDetail(){
-    yield takeLatest (GETDIARYDETAIL_REQUEST,getDiaryDetail)
-}
 
 export default function* postSaga(){
     yield all([
         fork(watchPostDiary),
         fork(watchPostWishList),
-        fork(watchGetDiary)
+        fork(watchPostDiaryImage)
         ])
 }

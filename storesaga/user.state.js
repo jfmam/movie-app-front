@@ -16,25 +16,35 @@ import {
 } from '../store/user.state';
 
 function profileAPI(profileData) {//Api요청시  data가 필요하면 param에작성
+  console.log(profileData)
 return axios({
     method: 'post',
-    url: 'http://54.180.186.62/api/user/image',
-    data: profileData,
-    headers: {'Content-Type': 'application/json' },
-    withCredentials:true
-    }, {
-      withCredentials: true
-    })
+    url: '/user/image',
+    data:profileData,
+    headers: {'Content-Type': 'multipart/form-data' },
+})
+}
+
+function profileSaveAPI(saveData){
+  console.log(saveData)
+  return axios({
+    method:'patch',
+    url:'/user/image',
+    data:saveData,
+    headers: {'Content-Type': 'application/json' }
+  })
 }
 
 function* profile(action) {//액션을 파라미터로 받을수있다.
   try {
     const result = yield call(profileAPI, action.data);
+    const data={src:result.data}
+   const access=yield call(profileSaveAPI,data)
     yield put({ // put은 dispatch 동일
       type: PROFILE_SUCCESS,
       data: result.data,
     });
-  } catch (e) { // loginAPI 실패
+  } catch (e) { // loginAPI )실패
     console.error(e);
     yield put({
       type: PROFILE_FAILURE,

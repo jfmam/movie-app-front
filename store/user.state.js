@@ -86,6 +86,7 @@ const reducer=(state=initialState,action)=>{
         }
         case PROFILE_SUCCESS:{
             return produce(state,draft=>{
+                console.log(action.data)
                 draft.isProfileUping=false
                 draft.isProfileUp=true
                 draft.address=action.data

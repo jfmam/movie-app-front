@@ -9,13 +9,6 @@ import ImageInfo from '../../components/imageInfo'
 import { useDispatch, useSelector } from 'react-redux';
 import { GETDIARY_REQUEST } from '../../store/image.state';
 
-const dummyImage=[
-   'http://file.koreafilm.or.kr/thm/02/00/01/25/tn_DPA000032.jpg',
-   'http://file.koreafilm.or.kr/thm/02/00/01/03/tn_DPA000006.jpg',
-   'http://file.koreafilm.or.kr/thm/02/00/01/05/tn_DPA000009.jpg',
-  'http://file.koreafilm.or.kr/thm/02/00/01/46/tn_DPK004440.JPG' 
-];
-
 export default WriteDiary=(props)=>{
     const [ratingValue,setRatingValue]=useState(0)
     const dispatch=useDispatch();
@@ -65,7 +58,7 @@ export default WriteDiary=(props)=>{
         </View> */}
         <View style={{marginTop:29}}>
             <Text style={{...styles.Text,marginBottom:20}}>MEMO</Text>
-            <Text>{getDiaryData.memo}</Text>
+            <Text style={{width:290,height:250,backgroundColor:"#d3d3d3"}}>{getDiaryData.memo}</Text>
         </View>
     </View> 
         </ScrollView>

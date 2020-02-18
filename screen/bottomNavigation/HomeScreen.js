@@ -3,17 +3,23 @@ import { StyleSheet, Text, View, Image,Platform,SafeAreaView} from 'react-native
 import { ScrollView } from 'react-native-gesture-handler';
 import { SearchBar } from 'react-native-elements';
 import { useDispatch, useSelector } from 'react-redux';
-import { MOVIESEARCH_REQUEST, SEARCH } from '../../store/search.state';
-
+import { MOVIESEARCH_REQUEST, SEARCH, DIARYSEARCH_REQUEST } from '../../store/search.state';
+import {Rating} from 'react-native-elements'
 
 export default HomeScreen=()=> {
    const [search,setSearch]=useState('')
    const dispatch=useDispatch();
 //    이부분은 지금은 componentState 처리했지만 나중에 리덕스로처리해야한다
 const {user}=useSelector(state=>state.user)
-
 const {movieSearchLoading,Search}=useSelector(state=>state.search)
 
+const movieSearch=useCallback((text)=>{
+    setSearch(text)
+    dispatch({
+        type:DIARYSEARCH_REQUEST,
+        data:{korTitle:text}
+    })
+},[search])
 
              const items = [
     { thumbnail: { uri: 'http://file.koreafilm.or.kr/thm/02/00/01/25/tn_DPA000032.jpg' } },
@@ -27,9 +33,10 @@ const imageList=items.map(
         return (
         <SafeAreaView style={styles.container}>
         <View style={styles.title}>
+           
             <Text style={{fontSize:40,alignSelf:'center',color:"#d3d3d3"}}>MOVIE MOON</Text>
             <SearchBar 
-        onChangeText={(text)=>setSearch(text)}
+        onChangeText={(text)=>movieSearch(text)}
         value={search}
         platform="android"
         containerStyle={styles.search}
