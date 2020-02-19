@@ -65,10 +65,11 @@ function* watchPostDiary(){
     yield takeLatest(WRITEDIARY_REQUEST,writePostDiary)
 }
 
-function writePostDiaryAPI(postDiaryData){
+
+function writePostDiaryImageAPI(postDiaryData){
     return axios({
         method:'post',
-        url:'/diary.image',
+        url:'/diary/image',
         data:postDiaryData,
         headers:{'Content-Type':'multipart/form-data'}
     })

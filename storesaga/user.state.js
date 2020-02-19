@@ -38,7 +38,8 @@ function profileSaveAPI(saveData){
 function* profile(action) {//액션을 파라미터로 받을수있다.
   try {
     const result = yield call(profileAPI, action.data);
-    const data={src:result.data}
+    console.log(result);
+    const data={image:result.data}
    const access=yield call(profileSaveAPI,data)
     yield put({ // put은 dispatch 동일
       type: PROFILE_SUCCESS,

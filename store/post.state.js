@@ -21,6 +21,7 @@ export const WISHLISTPOST_FAILURE = 'front/WISHLISTPOST_FAILURE'
 
 initialState={
     diaryInfo:{},//다이어리인포는 검색시...
+    address:{},
     wishListPost:false,
     updateLoading:false,
     writeDiaryError:'',
@@ -51,6 +52,7 @@ const reducer=(state=initialState,action)=>{
             })
         case WRITEDIARYIMAGE_SUCCESS:
             return produce(state=initialState,draft=>{
+                draft.address=action.data
                 draft.updateLoading=false
             })
         case WRITEDIARYIMAGE_FAILURE:

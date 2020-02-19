@@ -10,15 +10,14 @@ import { useDispatch, useSelector } from 'react-redux';
 import { DIARYSEARCH_REQUEST } from '../../store/search.state';
 import { Button } from 'react-native-paper';
 import { WRITEDIARY_REQUEST, WRITEDIARYIMAGE_REQUEST } from '../../store/post.state';
-
+import plusBtn from '../../assets/plusBut.png'
 
 export default WriteDiary=(props)=>{
     const [memo,setMemo]=useState('');
     const [rating,setRating]=useState(0);
-    const buttons=['OK','Cancel']
-    const [image1,setImage1]=useState('');//배열로 하고 push를 쓰자
-    const [image2,setImage2]=useState('');
-    const [image3,setImage3]=useState('');
+    const [image1,setImage1]=useState('')
+    const [image2,setImage2]=useState('')
+    const [image3,setImage3]=useState('')
     
     const today=new Date();
     const year=today.getFullYear();
@@ -30,22 +29,31 @@ export default WriteDiary=(props)=>{
     const ratingCompleted=(rating)=>{
         setRating(rating)   
     }
-    const sendDiary=useCallback(async()=>{
+    const dispatchAction=()=>{
+        return new Promise((resolve,reject)=>{
         let formData=new FormData();
-        await formData.append('image',{uri:image1,type:'image/jpg'})
-        await formData.append('image',{uri:image2,type:'image/jpg'})
-        await formData.append('image',{uri:image3,type:'image/jpg'})
+        formData.append('image',{uri:image1,type:'image/jpg',name:image1})
+        formData.append('image',{uri:image2,type:'image/jpg',name:image2})
+        formData.append('image',{uri:image3,type:'image/jpg',name:image3})
        
-        await dispatch({
+            dispatch({
             type:WRITEDIARYIMAGE_REQUEST,
             data:formData
-        })//먼저 image값을 보낸뒤에한다
+        })
+        resolve();
+        })
+    }
+
+    const sendDiary=useCallback(async()=>{
+    
+        await dispatchAction()//먼저 image값을 보낸
          dispatch({
             type:WRITEDIARY_REQUEST,
             data:{userId:user.userId,
-                movieId:props.movieId,//??,
+                movieId:props.movieId,
                 memo:memo,
-                createDate:today
+                createDate:today,
+                
             }
         })
         
@@ -74,7 +82,15 @@ export default WriteDiary=(props)=>{
         console.log(result.uri);
 
         if(!result.cancelled){
-            setImage`${n}`(result.uri)
+            if(n===1){
+                setImage1(result.uri)
+            }
+            else if(n===2){
+                setImage2(result.uri)
+            }
+            else if(n===3){
+                setImage3(result.uri)
+            }
         }
     }
     //useEffect에서는 통신하는부분을 만든다
@@ -98,18 +114,18 @@ export default WriteDiary=(props)=>{
         </View>
         <View style={{flexDirection:'row'}}>
          <View style={{marginTop:34}}>
-           {!image1? <TouchableOpacity onPress={()=>{getPermission(1)}}><Text style={styles.Text}>Add Photo</Text></TouchableOpacity>:
+           {!image1? <TouchableOpacity onPress={()=>{getPermission(1)}}><Image source={plusBtn}/><Text style={styles.Text}>Add Photo</Text></TouchableOpacity>:
            <TouchableOpacity onPress={()=>{imagePicker(1)}}><Image style={{ width: 80, height: 115 }}  source={{uri:image1}}/></TouchableOpacity>
            }
         </View>
         <View style={{marginTop:34}}>
-           {!image2? <TouchableOpacity onPress={()=>{getPermission(2)}}><Text style={styles.Text}>Add Photo</Text></TouchableOpacity>:
+           {!image2? <TouchableOpacity onPress={()=>{getPermission(2)}}><Image source={plusBtn}/><Text style={styles.Text}>Add Photo</Text></TouchableOpacity>:
            <TouchableOpacity onPress={()=>{imagePicker(2)}}><Image style={{ width: 80, height: 115 }}  source={{uri:image1}}/></TouchableOpacity>
            }
         </View>
         <View style={{marginTop:34}}>
-           {!image3? <TouchableOpacity onPress={()=>{getPermission(3)}}><Text style={styles.Text}>Add Photo</Text></TouchableOpacity>:
-           <TouchableOpacity onPress={()=>{imagePicker(3)}}><Image style={{ width: 80, height: 115 }}  source={{uri:image1}}/></TouchableOpacity>
+           {!image3? <TouchableOpacity onPress={()=>{getPermission(2)}}><Image source={plusBtn}/><Text style={styles.Text}>Add Photo</Text></TouchableOpacity>:
+           <TouchableOpacity onPress={()=>{imagePicker(2)}}><Image style={{ width: 80, height: 115 }}  source={{uri:image1}}/></TouchableOpacity>
            }
         </View>
         </View>

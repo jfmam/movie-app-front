@@ -59,58 +59,38 @@ const initialState={
 
 const reducer=(state=initialState,action)=>{
     switch(action.type){
-
-        case BLOCKBUSTER_REQUEST:{
-            return produce(state=initialState,draft=>{
-                draft.loadingImage=true
-                draft.blockbusterError=''
-            })
-        }
-        case BLOCKBUSTER_SUCCESS:{
-            return produce(state=initialState,draft=>{
-                draft.loadingImage=false
-                draft.blockbusterImage=dummyImage.myDiaryImage
-            })
-        }
-        case BLOCKBUSTER_FAILURE:{
-            return produce(state=initialState,draft=>{
-                draft.loadingImage=false
-                draft.blockbusterError=action.error//saga에서 error객체 생성
-            })
-        }
-
         case MYDIARY_REQUEST:{
-            return produce(state=initialState,draft=>{
+            return produce(state,draft=>{
                 draft.loadingImage=true
                 draft.myDiaryError=''
             })
         }
         case MYDIARY_SUCCESS:{
-            return produce(state=initialState,draft=>{
+            return produce(state,draft=>{
                 draft.loadingImage=false
                 draft.myDiaryImage=action.data
             })
         }
         case MYDIARY_FAILURE:{
-            return produce(state=initialState,draft=>{
+            return produce(state,draft=>{
                 draft.loadingImage=false
                 draft.myDiaryError=action.error//error로 바꿀수있을까?
             })
         }
         case GETDIARY_REQUEST:{
-            return produce(state=initialState,draft=>{
+            return produce(state,draft=>{
                 draft.loadingImage=true
                 draft.getDiaryError=''
             })
         }
         case GETDIARY_SUCCESS:{
-            return produce(state=initialState,draft=>{
+            return produce(state,draft=>{
                 draft.loadingImage=false
                 draft.getDiaryData=action.data
             })
         }
         case GETDIARY_FAILURE:{
-            return produce(state=initialState,draft=>{
+            return produce(state,draft=>{
                 draft.loadingImage=false
                 draft.getDiaryError=action.error//error로 바꿀수있을까?
             })
@@ -121,47 +101,47 @@ const reducer=(state=initialState,action)=>{
             })
         }
         case BOXOFFICE_SUCCESS:{
-            return produce(state=initialState,draft=>{
+            return produce(state,draft=>{
                 draft.loadingImage=false
                 draft.boxOfficeImage=action.data
             })
         }
         case BOXOFFICE_FAILURE:{
-            return produce(state=initialState,draft=>{
+            return produce(state,draft=>{
                 draft.loadingImage=false
                 draft.boxOfficeError=action.error//error로 바꿀수있을까?
             })
         }
         case WISHLIST_REQUEST:{
-            return produce(state=initialState,draft=>{
+            return produce(state,draft=>{
                 draft.loadingImage=true
             })
         }
         case WISHLIST_SUCCESS:{
-            return produce(state=initialState,draft=>{
+            return produce(state,draft=>{
                 draft.loadingImage=false
                 draft.wishListImage=action.data
             })
         }
         case WISHLIST_FAILURE:{
-            return produce(state=initialState,draft=>{
+            return produce(state,draft=>{
                 draft.loadingImage=false
                 draft.wishListError=action.error//error로 바꿀수있을까?
             })
         }
         case RECOMMAND_REQUEST:{
-            return produce(state=initialState,draft=>{
+            return produce(state,draft=>{
                 draft.loadingImage=true
             })
         }
         case RECOMMAND_SUCCESS:{
-            return produce(state=initialState,draft=>{
+            return produce(state,draft=>{
                 draft.loadingImage=false
                 draft.recommandImage=action.data
             })
         }
         case RECOMMAND_FAILURE:{
-            return produce(state=initialState,draft=>{
+            return produce(state,draft=>{
                 draft.loadingImage=false
                 draft.recommandError=action.error//error로 바꿀수있을까?
             })

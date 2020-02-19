@@ -54,16 +54,16 @@ const reducer=(state=initialState,action)=>{
             })
         }
         case LOGOUT_REQUEST:{
-            return (state=initialState,draft=>{
+            return produce(state=initialState,draft=>{
                 draft.user=null
             })
         }
         case SIGNUP_REQUEST:{
-             return state , draft => {
+             return produce(state , draft => {
                 draft.isSignUping=true
                 draft.isSignUp=false
                 draft.signUpError=''
-             }
+             })
         }
         case SIGNUP_SUCCESS:{
             return produce(state,draft=>{
@@ -78,15 +78,15 @@ const reducer=(state=initialState,action)=>{
              })
         }
          case PROFILE_REQUEST:{
-             return state , draft => {
+             return produce(state , draft => {
                 draft.isProfileUping=true
                 draft.isProfileUp=false
                 draft.profileError=''
-             }
+             })
         }
         case PROFILE_SUCCESS:{
             return produce(state,draft=>{
-                console.log(action.data)
+                console.log(draft.user)
                 draft.isProfileUping=false
                 draft.isProfileUp=true
                 draft.address=action.data

@@ -1,4 +1,4 @@
-import React,{useState} from 'react'
+import React,{useState, useEffect} from 'react'
 import {Platform,Dimensions,View,Text, ScrollView,SafeAreaView,StyleSheet,TextInput} from 'react-native';
 import {createDrawerNavigator,DrawerNavigatorItems} from 'react-navigation-drawer'
 import TabBar from './BottomNavigator'
@@ -78,6 +78,16 @@ export const DrawerContent = (props) => {
 
   const [profile,setProfile]=useState(null);
  
+  const dispatchAction=(formData)=>{
+    return new Promise((resolve,reject)=>{
+      dispatch({
+        type: PROFILE_REQUEST,
+        data: formData
+      })
+      resolve();
+    })
+  }
+
   const getPermission=async()=>{
          if (!Constants.platform.ios) {
         const { status } = await Permissions.askAsync(Permissions.CAMERA_ROLL);
@@ -103,15 +113,17 @@ export const DrawerContent = (props) => {
           setProfile(result.uri)
           console.log(result)
            let formData = new FormData();
-          await formData.append("image",{uri:result.uri,type:'image/jpg'})
-             dispatch({
-          type:PROFILE_REQUEST,
-          data:formData
-        })
+          await formData.append("image",{uri:result.uri,type:'image/jpg',name:result.uri})
+          await dispatchAction(formData).then(()=>{
+            console.log('work')
+          })
+          
+      
         }
     
   
     }
+    useEffect(()=>{setProfile(user.src)},[user.src])
 
     //result.uri를 보낸뒤에 그값을 src에받아준다?아 ㅅㅂ
 return(
@@ -134,7 +146,7 @@ return(
   }}//imagepicker가 들어갈부분이다.
   activeOpacity={0.7}
   containerStyle={{ marginLeft: 0, marginTop:0}}
-  source={{uri:user.src&&user.src}}
+  source={{uri:profile}}
 />
     <Text style={{fontSize:20,marginLeft:30,color:'#fff'}}>{`${user.nickname}님`}</Text>
        {/* text대신에 image src를 넣어주먼된다 */}

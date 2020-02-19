@@ -3,7 +3,8 @@ import axios from 'axios'
 import { BLOCKBUSTER_REQUEST, BLOCKBUSTER_FAILURE, BLOCKBUSTER_SUCCESS, MYDIARY_REQUEST,MYDIARY_SUCCESS, MYDIARY_FAILURE,
          GETDIARY_REQUEST, GETDIARY_SUCCESS, BOXOFFICE_REQUEST, BOXOFFICE_SUCCESS, BOXOFFICE_FAILURE, WISHLIST_REQUEST, RECOMMAND_REQUEST
        } from '../store/image.state'
-import qs from 'qs'
+
+       
 function recommandAPI(recommandData){
   return  axios.get('',recommandData)
 }
@@ -59,7 +60,7 @@ function* watchWishlist(){
 function boxOfficeAPI(boxOfficeData){
   return  axios({
     method:'get',  
-    url: 'http://54.180.186.62/api/boxoffice',
+    url: '/boxoffice',
     params:boxOfficeData,
     headers:{
         headers: {'Content-Type': 'application/json'},

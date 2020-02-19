@@ -9,6 +9,8 @@ import ImageInfo from '../../components/imageInfo'
 import { useDispatch, useSelector } from 'react-redux';
 import { GETDIARY_REQUEST } from '../../store/image.state';
 
+//사진부분추가
+
 export default WriteDiary=(props)=>{
     const [ratingValue,setRatingValue]=useState(0)
     const dispatch=useDispatch();
@@ -26,7 +28,7 @@ export default WriteDiary=(props)=>{
                 diaryId:movieDetail.diaryId
             }
         })
-    },[])
+    },[{movieDetail}])
     return(
         <SafeAreaView style={styles.container}>    
         <ScrollView 

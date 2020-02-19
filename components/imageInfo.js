@@ -1,24 +1,28 @@
 import {View,Text,Image,StyleSheet,ImageBackground} from 'react-native'
-import React,{useEffect,useCallback} from 'react'
+import React,{useEffect,useCallback, useState} from 'react'
 import {Rating} from 'react-native-elements'
 import { useDispatch, useSelector } from 'react-redux';
 import { MOVIESEARCH_REQUEST } from '../store/search.state';
-
+import { TouchableOpacity } from 'react-native-gesture-handler';
+import Icon from 'react-native-vector-icons/AntDesign'
 
 const imageInfo=(props)=>{//props로 상세정보일때 보내준다(props.heart)
     const {movieDetail}=useSelector(state=>state.search)
     const {user}=useSelector(state=>state.user)
     const dispatch=useDispatch();
+    const [toggle,setToggle]=useState(false)
     return(  
          <View >
             <ImageBackground style={styles.backgroundImage} source={{uri:`${movieDetail.poster}`}}>
                 <View style={{flexDirection:'row'}}>
-                 <Image style={styles.posterImage} source={{uri:`${movieDetail.poster}`}}/>
+                <TouchableOpacity onPress={()=>{props.navigate}}><Image style={styles.posterImage}  source={{uri:`${movieDetail.poster}`}}/></TouchableOpacity> 
             <View style={styles.movieInfo}>
                 <Text>{movieDetail.korTitle}</Text>
                 <Text>{`${movieDetail.year}/${movieDetail.nation}`}</Text>      
             </View>    
-            {props.heart&&<Rating type='heart' ratingColor='#aa00000' ratingCount={1} onStartRating={0} onFinishRating={completeRating} />}
+            {toggle
+            ?<Icon onPress={()=>{setToggle(false)}} name='heart' size={25} />
+            :<Icon name='hearto' onPress={()=>{setToggle}} size={25}/>}
             </View>
             </ImageBackground>
             </View>    
