@@ -16,18 +16,24 @@ import * as ImagePicker from 'expo-image-picker';
 import * as Permissions from 'expo-permissions';
 import Constants from 'expo-constants';
 import { PROFILE_REQUEST } from '../store/user.state';
+import { StackRouter } from 'react-navigation';
 
-const StackNavigator=createStackNavigator({
+
+const StackNavigator=createStackNavigator(
+  {
+  
     TabBar:{
       screen:TabBar,
       navigationOptions:({navigation,props})=>{
+      
         return{
            headerLeft:( 
              <MenuButton navigation={navigation}/>///상위 navigation인 drawer를따른다    
-           ),
-          headerTitle:(
-            <Text>moviemoon</Text>
-          ),     
+           ), 
+           headerTitle:(
+           <Text></Text>
+           )   
+         
        headerStyle:{
           backgroundColor: '#282828',
           elevation:-1 ,

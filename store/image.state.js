@@ -8,7 +8,7 @@ const dummyImage={
         poster:'poster1'
     },//이부분은 다이어리 정보
     boxOfficeImage:{image1:'image1'},
-    wishListImage:{image1:'image1'},
+    wishListImage:{},
     recommandImage:{image1:'image1'}
 }
 

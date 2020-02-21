@@ -4,16 +4,23 @@ import {
     WRITEDIARY_SUCCESS,
     WRITEDIARY_FAILURE,
     WRITEDIARYIMAGE_REQUEST,
-    WRITEDIARYIMAGESUCCESS,
-    WRITEDIARYIMAGEFAILURE ,
+    WRITEDIARYIMAGE_SUCCESS,
+    WRITEDIARYIMAGE_FAILURE ,
     WISHLISTPOST_REQUEST,
     WISHLISTPOST_SUCCESS,
-    WISHLISTPOST_FAILURE
+    WISHLISTPOST_FAILURE, WISHLISTDELETE_REQUEST,
+    WISHLISTDELETE_SUCCESS,
+    WISHLISTDELETE_FAILURE
 } from '../store/post.state'
 import axios from 'axios'
 
 function postWishListAPI(postWishListData) {
-    return axios.post('',postWishListData)
+    return axios({
+        method:"post",
+        url:'/wishlist',
+        data:postWishListData,
+        headers:{'Content-Type':'application/json'}
+    })
 }
 
 function* postWishList(action){
@@ -34,6 +41,36 @@ function* postWishList(action){
 
 function* watchPostWishList(){
     yield put(WISHLISTPOST_REQUEST,postWishList)
+}
+
+
+function deleteWishListAPI(deleteWishListData) {
+    return axios({
+        method:"delete",
+        url:'/wishlist',
+        data:deleteWishListData,
+        headers:{'Content-Type':'application/json'}
+    })
+}
+
+function* deleteWishList(action){
+    try{
+        const result=yield call(deleteWishListAPI,action.data)//userId와 movieId등록? 
+        yield put({
+            type:WISHLISTDELETE_SUCCESS,
+            data:result.data
+        })
+    }catch(e){
+        console.error(e)
+        yield put({
+            type:WISHLISTDELETE_FAILURE,
+            error:e
+        })
+    }
+}
+
+function* watchDeleteWishList(){
+    yield put(WISHLISTDELETE_REQUEST,deleteWishList)
 }
 
 function writePostDiaryAPI(postDiaryData){
@@ -67,6 +104,7 @@ function* watchPostDiary(){
 
 
 function writePostDiaryImageAPI(postDiaryData){
+    console.log(postDiaryData)
     return axios({
         method:'post',
         url:'/diary/image',
@@ -100,6 +138,7 @@ export default function* postSaga(){
     yield all([
         fork(watchPostDiary),
         fork(watchPostWishList),
+        fork(watchDeleteWishList),
         fork(watchPostDiaryImage)
         ])
 }

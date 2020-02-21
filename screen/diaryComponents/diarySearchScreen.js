@@ -32,27 +32,27 @@ export default  DiarySearchScreen=(props)=>{
         placeholder="영화를 한국 제목으로 검색하세요"
       />
         <ScrollView>
-               {diarySearch&&<FlatList data={diarySearch} initialNumToRender={10} renderItem={ renderItem = ({ item, index }) => (//data는 사진 주소 renderItem은 데이터를 뿌려준다
-       <View>
+               {diarySearch&&<FlatList data={diarySearch}  renderItem={ renderItem = ({ item, index }) => (//data는 사진 주소 renderItem은 데이터를 뿌려준다
+       <View key={index}>
         <View style={{flexDirection:'row'}}>
         <View style={{flex:1}}>
-       <TouchableOpacity  onPress={()=>{
+       <TouchableOpacity key={index} onPress={()=>{
          dispatch({
            type:MOVIE_DETAIL,
            data:item
          })
          props.navigation.navigate('writeDiary')}}>
-        <Image style={styles.image} title={index} source={{uri:item.poster}} />
+        <Image style={styles.image} title={index} key={index} source={{uri:item.poster}} />
         </TouchableOpacity>
         </View>
-        <View style={{flex:1,marginTop:80,flexDirection:'column'}}>
+        <View key={index} style={{flex:1,marginTop:80,flexDirection:'column'}}>
                <Text style={styles.Text}>{item.korTitle}</Text>
                <Text style={styles.Text}>{item.genres}</Text>
                <Text style={styles.Text}>{item.makingNation}</Text>
                <Text style={styles.Text}>{item.releaseDate}</Text>
         </View>
         </View>
-         <TextInput editable={false} underlineColorAndroid="#d3d3d3"/>
+         <TextInput  key={index} editable={false} underlineColorAndroid="#d3d3d3"/>
          </View>
     )}
         numColumns={1}   />}

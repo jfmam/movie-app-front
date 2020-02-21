@@ -3,7 +3,6 @@ import { MOVIESEARCH_REQUEST, MOVIESEARCH_SUCCESS, MOVIESEARCH_FAILURE,DIARYSEAR
 import axios from 'axios';
 
 function diarySearhAPI(title){//title은 action.data
-    console.log(title)
     return axios ({
       method: 'get',
       url: '/movie/searchbar',

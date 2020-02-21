@@ -12,12 +12,17 @@ import recomandation from '../assets/recomandaton.png'
 import boxOffice from '../assets/boxOffice.png' 
 import home from '../assets/home.png'
 import MenuButton from '../components/menuButton'
+import { HeaderTitle } from 'react-navigation-stack';
 
 const TabBar= createMaterialBottomTabNavigator(
     {
-        HomeScreen: { screen: HomeScreen,
+
+        HomeScreen: {
+            screen: HomeScreen,
         navigationOptions:{
+            
             tabBarLabel:'홈',
+
             labeled:true,
                        tabBarIcon: ({ tintColor }) => (  
                     <View>  
@@ -29,10 +34,11 @@ const TabBar= createMaterialBottomTabNavigator(
                     backgroundColor: '#686868'
                 }
         } },
+
         BoxOffice: { screen: BoxOffice, 
         navigationOptions: {
             tabBarLabel: '박스오피스',
-
+            
                        tabBarIcon: ({ tintColor }) => (  
                     <View>  
                       <Image source={boxOffice}/>

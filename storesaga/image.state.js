@@ -32,7 +32,12 @@ function* watchRecommand(){
 
 
 function wishlistAPI(wishlistData){
-  return  axios.get('',wishlistData)
+  return  axios({
+      method:'get',
+      url:'wishlist',
+      params:wishlistData,
+      headers:{'Content-Type':'application/json'}
+  })
 }
 
 function* wishlist(action){

@@ -6,12 +6,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { MYDIARY_REQUEST } from '../../store/image.state';
 import {MOVIE_DETAIL} from '../../store/search.state'
 
-const items = [
-    { thumbnail: { uri: 'http://file.koreafilm.or.kr/thm/02/00/01/25/tn_DPA000032.jpg' } },
-    { thumbnail: { uri: 'http://file.koreafilm.or.kr/thm/02/00/01/03/tn_DPA000006.jpg' } },
-    { thumbnail: { uri: 'http://file.koreafilm.or.kr/thm/02/00/01/05/tn_DPA000009.jpg' } },
-    { thumbnail: { uri: 'http://file.koreafilm.or.kr/thm/02/00/01/46/tn_DPK004440.JPG' } },
-];
+
 export default  DiaryScreen=(props)=>{
  
   const dispatch=useDispatch();
@@ -68,8 +63,8 @@ const styles = StyleSheet.create({
    },
    plusBut:{
      position:'absolute',
-     marginTop:535,
-     marginLeft:310,
+     marginTop:490,
+     marginLeft:290,
      width:39,
      height:39,
    }

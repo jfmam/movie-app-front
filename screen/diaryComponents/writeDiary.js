@@ -1,18 +1,18 @@
 import {View, SafeAreaView, ImageBackground,StyleSheet,Platform,Text,Image,TextInput} from 'react-native'
 import {ScrollView, TouchableOpacity} from 'react-native-gesture-handler'
-import React,{ useState, useCallback } from 'react'
+import React,{ useState, useCallback, useEffect } from 'react'
 import {Rating, ButtonGroup} from 'react-native-elements'
 import * as ImagePicker from 'expo-image-picker';
 import * as Permissions from 'expo-permissions';
 import Constants from 'expo-constants';
 import ImageInfo from '../../components/imageInfo'
 import { useDispatch, useSelector } from 'react-redux';
-import { DIARYSEARCH_REQUEST } from '../../store/search.state';
 import { Button } from 'react-native-paper';
 import { WRITEDIARY_REQUEST, WRITEDIARYIMAGE_REQUEST } from '../../store/post.state';
 import plusBtn from '../../assets/plusBut.png'
 
 export default WriteDiary=(props)=>{
+
     const [memo,setMemo]=useState('');
     const [rating,setRating]=useState(0);
     const [image1,setImage1]=useState('')
@@ -25,24 +25,22 @@ export default WriteDiary=(props)=>{
     const date=today.getDate();
     
     const dispatch=useDispatch();
+    const {address}=useSelector(state=>state.post)
     const {user}=useSelector(state=>state.user)
     const ratingCompleted=(rating)=>{
         setRating(rating)   
     }
-    const dispatchAction=()=>{
+    const formData=new FormData('')
+
+    const dispatchAction=useCallback(()=>{
         return new Promise((resolve,reject)=>{
-        let formData=new FormData();
-        formData.append('image',{uri:image1,type:'image/jpg',name:image1})
-        formData.append('image',{uri:image2,type:'image/jpg',name:image2})
-        formData.append('image',{uri:image3,type:'image/jpg',name:image3})
-       
             dispatch({
             type:WRITEDIARYIMAGE_REQUEST,
             data:formData
         })
         resolve();
         })
-    }
+    },[])
 
     const sendDiary=useCallback(async()=>{
     
@@ -53,13 +51,13 @@ export default WriteDiary=(props)=>{
                 movieId:props.movieId,
                 memo:memo,
                 createDate:today,
-                
+                image:address   
             }
         })
         
     })
     //useSelector를 이용해서 사진가져오고 prpos로보내주기
-    const getPermission=async(n)=>{
+    const getPermission=useCallback (async(n)=>{
          if (!Constants.platform.ios) {
         const { status } = await Permissions.askAsync(Permissions.CAMERA_ROLL);
       if (status!== 'granted') {
@@ -69,9 +67,9 @@ export default WriteDiary=(props)=>{
           await imagePicker(n)
       }
     }
-    }
+    },[])
 
-    const imagePicker=async(n)=>{
+    const imagePicker=useCallback(async(n)=>{
         let result=await ImagePicker.launchImageLibraryAsync(
             {
               mediaTypes: ImagePicker.MediaTypeOptions.All,
@@ -83,16 +81,26 @@ export default WriteDiary=(props)=>{
 
         if(!result.cancelled){
             if(n===1){
+                  if(image1){
+                    formData.delete(image1)
+                }
                 setImage1(result.uri)
             }
             else if(n===2){
+                    if(image2){
+                    formData.delete(image2)
+                }
                 setImage2(result.uri)
             }
             else if(n===3){
+                    if(image3){
+                    formData.delete(image3)
+                }
                 setImage3(result.uri)
             }
         }
-    }
+         formData.append('image',{uri:result.uri,type:'image/jpg',name:result.uri})
+    },[])
     //useEffect에서는 통신하는부분을 만든다
    
     return(
@@ -106,7 +114,7 @@ export default WriteDiary=(props)=>{
                  type='star'
                 imageSize={18}
                 onFinishRating={ratingCompleted}
-                onStartRating={5}/>
+                />
         </View>
         <View style={{flexDirection:"row",marginTop:24}}>
             <Text  style={styles.Text}>Date </Text>
@@ -136,7 +144,7 @@ export default WriteDiary=(props)=>{
     </View> 
     <View style={{flexDirection:'row'}}>
         <Button onPress={()=>{sendDiary()}}>OK</Button>
-        <Button>Cancel</Button>
+        <Button onPress={()=>props.navigation.goBack()}>Cancel</Button>
         {/* 뒤로가기 어케하는지몰랑 ㅎ.. */}
     </View>
         </ScrollView>

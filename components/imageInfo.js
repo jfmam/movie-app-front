@@ -5,6 +5,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { MOVIESEARCH_REQUEST } from '../store/search.state';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import Icon from 'react-native-vector-icons/AntDesign'
+import { WISHLISTPOST_REQUEST } from '../store/post.state';
 
 const imageInfo=(props)=>{//props로 상세정보일때 보내준다(props.heart)
     const {movieDetail}=useSelector(state=>state.search)
@@ -21,8 +22,24 @@ const imageInfo=(props)=>{//props로 상세정보일때 보내준다(props.heart
                 <Text>{`${movieDetail.year}/${movieDetail.nation}`}</Text>      
             </View>    
             {toggle
-            ?<Icon onPress={()=>{setToggle(false)}} name='heart' size={25} />
-            :<Icon name='hearto' onPress={()=>{setToggle}} size={25}/>}
+            ?<Icon style={{marginTop:193}} onPress={()=>{setToggle(false)
+            dispatch({
+                type:WISHLISTPOST_REQUEST,
+                data:{
+                    userId:user.id,
+                    movieId:movieDetail.id
+                }
+            })
+            }} name='heart' size={25} />
+            :<Icon name='hearto' onPress={()=>{setToggle(true)
+              dispatch({
+                type:WISHLISTDELETE_REQUEST,
+                data:{
+                    userId:user.id,
+                    movieId:movieDetail.id
+                }
+            })
+            }} size={25}/>}
             </View>
             </ImageBackground>
             </View>    
