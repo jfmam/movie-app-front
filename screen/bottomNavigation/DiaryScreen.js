@@ -15,7 +15,7 @@ export default  DiaryScreen=(props)=>{
   
   useEffect(()=>{
     dispatch({type:MYDIARY_REQUEST,data:{userId:user.userId}})
-  },[{myDiaryImage}])
+  },[])
    
         return (
           <SafeAreaView style={styles.container}>

@@ -40,7 +40,7 @@ function* postWishList(action){
 }
 
 function* watchPostWishList(){
-    yield put(WISHLISTPOST_REQUEST,postWishList)
+    yield takeLatest(WISHLISTPOST_REQUEST,postWishList)
 }
 
 
@@ -70,10 +70,11 @@ function* deleteWishList(action){
 }
 
 function* watchDeleteWishList(){
-    yield put(WISHLISTDELETE_REQUEST,deleteWishList)
+    yield takeLatest(WISHLISTDELETE_REQUEST,deleteWishList)
 }
 
 function writePostDiaryAPI(postDiaryData){
+    console.log(postDiaryData)
     return axios({
         method:'post',
         url:'/diary',
@@ -116,6 +117,7 @@ function writePostDiaryImageAPI(postDiaryData){
 function* writePostDiaryImage(action){
     try{
         const result=yield call(writePostDiaryImageAPI,action.data)
+        console.log(result.data)
         yield put({
             type:WRITEDIARYIMAGE_SUCCESS,
             data:result.data

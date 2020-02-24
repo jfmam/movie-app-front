@@ -1,15 +1,12 @@
 import {produce} from 'immer'
 
 const dummyImage={
-       myDiaryImage:{image1:'image1'},//다이어리 목록 사진
-    writeDiaryImage:{image1:'image1'},//다이어리 쓸때 stickyheader에 붙는 이미지부분
-    getDiaryData:{
-        movieId:1,
-        poster:'poster1'
-    },//이부분은 다이어리 정보
-    boxOfficeImage:{image1:'image1'},
+       myDiaryImage:{},//다이어리 목록 사진
+    writeDiaryImage:{},//다이어리 쓸때 stickyheader에 붙는 이미지부분
+    getDiaryData:{},//이부분은 다이어리 정보
+    boxOfficeImage:{},
     wishListImage:{},
-    recommandImage:{image1:'image1'}
+    recommandImage:{}
 }
 
 export const BLOCKBUSTER_REQUEST = 'fornt/BLOCKBUSTER_REQUEST' //흥행예상작

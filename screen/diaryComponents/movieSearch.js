@@ -43,7 +43,7 @@ export default MovieSearchScreen=(props)=>{
        <View>
         <View style={{flexDirection:'row'}}>
         <View style={{flex:1}}>
-       <TouchableOpacity moiveId={diarySearch.id} onPress={()=>{props.navigation.navigate('movieInfo')}}>
+       <TouchableOpacity  onPress={()=>{props.navigation.navigate('movieInfo',{movieId:item.id})}}>
         <Image style={styles.image} title={index} source={{uri:item.poster}} />
         </TouchableOpacity>
         </View>

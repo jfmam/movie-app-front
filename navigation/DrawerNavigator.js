@@ -32,7 +32,7 @@ const StackNavigator=createStackNavigator(
            ), 
            headerTitle:(
            <Text></Text>
-           )   
+           )   ,
          
        headerStyle:{
           backgroundColor: '#282828',

@@ -23,8 +23,6 @@ export default WriteDiary=(props)=>{
         dispatch({
             type:GETDIARY_REQUEST,
             data:{
-                userId:movieDetail.userId,
-                movieId:movieDetail.movieId,
                 diaryId:movieDetail.diaryId
             }
         })
@@ -52,12 +50,12 @@ export default WriteDiary=(props)=>{
             <Text  style={styles.Text} >Date </Text>
             <Text  style={styles.Text}>{getDiaryData.createDate} </Text>
         </View>
-         {/* <View style={{marginTop:34}}>
+         <View style={{marginTop:34}}>
+          {getDiaryData.image.map((item,index)=>{
+              <Image source={{uri:item[index]}} key={index}/>
+          })}
            
-           {!image1? <TouchableOpacity onPress={()=>{getPermission()}}><Text style={styles.Text}>Add Photo</Text></TouchableOpacity>:
-           <TouchableOpacity onPress={()=>{imagePicker()}}><Image style={{ width: 80, height: 115 }}  source={{uri:image1}}/></TouchableOpacity>
-           }
-        </View> */}
+        </View>
         <View style={{marginTop:29}}>
             <Text style={{...styles.Text,marginBottom:20}}>MEMO</Text>
             <Text style={{width:290,height:250,backgroundColor:"#d3d3d3"}}>{getDiaryData.memo}</Text>

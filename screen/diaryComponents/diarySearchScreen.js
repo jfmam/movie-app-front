@@ -12,6 +12,7 @@ export default  DiarySearchScreen=(props)=>{
 
     const movieSearch=useCallback((text)=>{
       setSearch(text)
+       console.log("확인")
       dispatch({
         type:DIARYSEARCH_REQUEST,
         data:{
@@ -36,12 +37,12 @@ export default  DiarySearchScreen=(props)=>{
        <View key={index}>
         <View style={{flexDirection:'row'}}>
         <View style={{flex:1}}>
-       <TouchableOpacity key={index} onPress={()=>{
+       <TouchableOpacity key={index} movieId={item.id} onPress={()=>{
          dispatch({
            type:MOVIE_DETAIL,
            data:item
          })
-         props.navigation.navigate('writeDiary')}}>
+         props.navigation.navigate('writeDiary',{movieId:item.id})}}>
         <Image style={styles.image} title={index} key={index} source={{uri:item.poster}} />
         </TouchableOpacity>
         </View>

@@ -12,7 +12,10 @@ import { WRITEDIARY_REQUEST, WRITEDIARYIMAGE_REQUEST } from '../../store/post.st
 import plusBtn from '../../assets/plusBut.png'
 
 export default WriteDiary=(props)=>{
-
+    let cnt=0;
+    const {params}=props.navigation.state
+    const movieId=params?params.movieId:null
+    
     const [memo,setMemo]=useState('');
     const [rating,setRating]=useState(0);
     const [image1,setImage1]=useState('')
@@ -25,33 +28,27 @@ export default WriteDiary=(props)=>{
     const date=today.getDate();
     
     const dispatch=useDispatch();
-    const {address}=useSelector(state=>state.post)
     const {user}=useSelector(state=>state.user)
+    const {address}=useSelector(state=>state.post)
+    
     const ratingCompleted=(rating)=>{
         setRating(rating)   
     }
+    const setText=useCallback((text)=>{
+        setMemo(text);
+    },[memo])
     const formData=new FormData('')
 
-    const dispatchAction=useCallback(()=>{
-        return new Promise((resolve,reject)=>{
-            dispatch({
-            type:WRITEDIARYIMAGE_REQUEST,
-            data:formData
-        })
-        resolve();
-        })
-    },[])
 
     const sendDiary=useCallback(async()=>{
-    
         await dispatchAction()//먼저 image값을 보낸
          dispatch({
             type:WRITEDIARY_REQUEST,
-            data:{userId:user.userId,
-                movieId:props.movieId,
+            data:{userId:user.id,
+                movieId:movieId,
                 memo:memo,
-                createDate:today,
-                image:address   
+                createDate:`${year}${month}${date}`,
+                image:address
             }
         })
         
@@ -77,32 +74,42 @@ export default WriteDiary=(props)=>{
               quality: 1,
             }
         )
-        console.log(result.uri);
 
         if(!result.cancelled){
             if(n===1){
-                  if(image1){
-                    formData.delete(image1)
+                  if(image1!==''){
+                    formData.delete(image1);
+                    cnt--;
                 }
-                setImage1(result.uri)
+                setImage1(result.uri);
+                cnt++;
             }
             else if(n===2){
-                    if(image2){
-                    formData.delete(image2)
+                    if(image2!==''){
+                    formData.delete(image2);
+                     cnt--;
                 }
-                setImage2(result.uri)
+                setImage2(result.uri);
+                cnt++;
             }
             else if(n===3){
                     if(image3){
-                    formData.delete(image3)
+                    formData.delete(image3);
+                     cnt--;
                 }
-                setImage3(result.uri)
+                setImage3(result.uri);
+                cnt++;
             }
         }
          formData.append('image',{uri:result.uri,type:'image/jpg',name:result.uri})
+             if(cnt===3){
+     dispatch({
+         type: WRITEDIARYIMAGE_REQUEST,
+         data: formData
+     })
+    }
     },[])
-    //useEffect에서는 통신하는부분을 만든다
-   
+
     return(
         <SafeAreaView style={styles.container}>    
         <ScrollView stickyHeaderIndices={[1]} >
@@ -128,18 +135,18 @@ export default WriteDiary=(props)=>{
         </View>
         <View style={{marginTop:34}}>
            {!image2? <TouchableOpacity onPress={()=>{getPermission(2)}}><Image source={plusBtn}/><Text style={styles.Text}>Add Photo</Text></TouchableOpacity>:
-           <TouchableOpacity onPress={()=>{imagePicker(2)}}><Image style={{ width: 80, height: 115 }}  source={{uri:image1}}/></TouchableOpacity>
+           <TouchableOpacity onPress={()=>{imagePicker(2)}}><Image style={{ width: 80, height: 115 }}  source={{uri:image2}}/></TouchableOpacity>
            }
         </View>
         <View style={{marginTop:34}}>
-           {!image3? <TouchableOpacity onPress={()=>{getPermission(2)}}><Image source={plusBtn}/><Text style={styles.Text}>Add Photo</Text></TouchableOpacity>:
-           <TouchableOpacity onPress={()=>{imagePicker(2)}}><Image style={{ width: 80, height: 115 }}  source={{uri:image1}}/></TouchableOpacity>
+           {!image3? <TouchableOpacity onPress={()=>{getPermission(3)}}><Image source={plusBtn}/><Text style={styles.Text}>Add Photo</Text></TouchableOpacity>:
+           <TouchableOpacity onPress={()=>{imagePicker(3)}}><Image style={{ width: 80, height: 115 }}  source={{uri:image3}}/></TouchableOpacity>
            }
         </View>
         </View>
         <View style={{marginTop:29}}>
             <Text style={{...styles.Text,marginBottom:20}}>MEMO</Text>
-            <TextInput style={{width:290,height:250,backgroundColor:"#d3d3d3"}} placeholder="메모를 입력해 주세요" multiline numberOfLines={10} onChangeText={(text)=>setMemo(text)}/>
+            <TextInput style={{width:290,height:250,backgroundColor:"#d3d3d3"}} placeholder="메모를 입력해 주세요" multiline numberOfLines={10} onChangeText={(text)=>setText(text)}/>
         </View>
     </View> 
     <View style={{flexDirection:'row'}}>

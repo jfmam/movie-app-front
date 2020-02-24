@@ -19,7 +19,7 @@ const imageInfo=(props)=>{//props로 상세정보일때 보내준다(props.heart
                 <TouchableOpacity onPress={()=>{props.navigate}}><Image style={styles.posterImage}  source={{uri:`${movieDetail.poster}`}}/></TouchableOpacity> 
             <View style={styles.movieInfo}>
                 <Text>{movieDetail.korTitle}</Text>
-                <Text>{`${movieDetail.year}/${movieDetail.nation}`}</Text>      
+                <Text>{`${movieDetail.releaseDate}/${movieDetail.makingNation}`}</Text>      
             </View>    
             {toggle
             ?<Icon style={{marginTop:193}} onPress={()=>{setToggle(false)
