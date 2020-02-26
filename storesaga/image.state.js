@@ -1,7 +1,7 @@
 import {all,call,fork,takeLatest,takeEvery,put } from 'redux-saga/effects'
 import axios from 'axios'
 import { BLOCKBUSTER_REQUEST, BLOCKBUSTER_FAILURE, BLOCKBUSTER_SUCCESS, MYDIARY_REQUEST,MYDIARY_SUCCESS, MYDIARY_FAILURE,
-         GETDIARY_REQUEST, GETDIARY_SUCCESS, BOXOFFICE_REQUEST, BOXOFFICE_SUCCESS, BOXOFFICE_FAILURE, WISHLIST_REQUEST, RECOMMAND_REQUEST
+         GETDIARY_REQUEST, GETDIARY_SUCCESS, BOXOFFICE_REQUEST, BOXOFFICE_SUCCESS, BOXOFFICE_FAILURE, WISHLIST_REQUEST,WISHLIST_SUCCESS,WISHLIST_FAILURE, RECOMMAND_REQUEST
        } from '../store/image.state'
 
        
@@ -34,8 +34,7 @@ function* watchRecommand(){
 function wishlistAPI(wishlistData){
   return  axios({
       method:'get',
-      url:'wishlist',
-      params:wishlistData,
+      url:'/wishlist',
       headers:{'Content-Type':'application/json'}
   })
 }

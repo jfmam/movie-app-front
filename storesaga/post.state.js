@@ -15,8 +15,9 @@ import {
 import axios from 'axios'
 
 function postWishListAPI(postWishListData) {
+    console.log(postWishListData)
     return axios({
-        method:"post",
+        method:'post',
         url:'/wishlist',
         data:postWishListData,
         headers:{'Content-Type':'application/json'}
@@ -40,6 +41,7 @@ function* postWishList(action){
 }
 
 function* watchPostWishList(){
+    console.log("도달")
     yield takeLatest(WISHLISTPOST_REQUEST,postWishList)
 }
 
@@ -58,7 +60,6 @@ function* deleteWishList(action){
         const result=yield call(deleteWishListAPI,action.data)//userId와 movieId등록? 
         yield put({
             type:WISHLISTDELETE_SUCCESS,
-            data:result.data
         })
     }catch(e){
         console.error(e)

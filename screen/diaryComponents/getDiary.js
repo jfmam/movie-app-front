@@ -5,7 +5,7 @@ import {Rating} from 'react-native-elements'
 import * as ImagePicker from 'expo-image-picker';
 import * as Permissions from 'expo-permissions';
 import Constants from 'expo-constants';
-import ImageInfo from '../../components/imageInfo'
+import ImageInfo from '../../components/diaryImageInfo'
 import { useDispatch, useSelector } from 'react-redux';
 import { GETDIARY_REQUEST } from '../../store/image.state';
 
@@ -14,11 +14,12 @@ import { GETDIARY_REQUEST } from '../../store/image.state';
 export default WriteDiary=(props)=>{
     const [ratingValue,setRatingValue]=useState(0)
     const dispatch=useDispatch();
+    const {getDiaryData}=useSelector(state=>state.image)
+    const{movieDetail}=useSelector(state=>state.search)
     const ratingCompleted = (rating) => {
         setRatingValue(rating)
     }
-    const {getDiaryData}=useSelector(state=>state.image)
-    const{movieDetail}=useSelector(state=>state.search)
+
     useEffect(()=>{
         dispatch({
             type:GETDIARY_REQUEST,
@@ -26,7 +27,7 @@ export default WriteDiary=(props)=>{
                 diaryId:movieDetail.diaryId
             }
         })
-    },[{movieDetail}])
+    },[])
     return(
         <SafeAreaView style={styles.container}>    
         <ScrollView 
@@ -50,11 +51,10 @@ export default WriteDiary=(props)=>{
             <Text  style={styles.Text} >Date </Text>
             <Text  style={styles.Text}>{getDiaryData.createDate} </Text>
         </View>
-         <View style={{marginTop:34}}>
-          {getDiaryData.image.map((item,index)=>{
-              <Image source={{uri:item[index]}} key={index}/>
-          })}
-           
+         <View style={{marginTop:34,marginRight:39 ,flexDirection:'row',justifyContent:'space-around'}}>
+          {getDiaryData.diaryimages?getDiaryData.diaryimages.map((item,index)=>{
+             return <Image style={{width:80 ,height:115,resizeMode:'cover'}}   source={{uri:`${item.src}`}} key={index}></Image>
+          }):<Text>이미지가 없습니다</Text>}      
         </View>
         <View style={{marginTop:29}}>
             <Text style={{...styles.Text,marginBottom:20}}>MEMO</Text>

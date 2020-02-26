@@ -5,7 +5,7 @@ import {Rating, ButtonGroup} from 'react-native-elements'
 import * as ImagePicker from 'expo-image-picker';
 import * as Permissions from 'expo-permissions';
 import Constants from 'expo-constants';
-import ImageInfo from '../../components/imageInfo'
+import ImageInfo from '../../components/diaryImageInfo'
 import { useDispatch, useSelector } from 'react-redux';
 import { Button } from 'react-native-paper';
 import { WRITEDIARY_REQUEST, WRITEDIARYIMAGE_REQUEST } from '../../store/post.state';
@@ -41,7 +41,6 @@ export default WriteDiary=(props)=>{
 
 
     const sendDiary=useCallback(async()=>{
-        await dispatchAction()//먼저 image값을 보낸
          dispatch({
             type:WRITEDIARY_REQUEST,
             data:{userId:user.id,

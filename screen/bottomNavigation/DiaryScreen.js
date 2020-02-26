@@ -8,9 +8,9 @@ import {MOVIE_DETAIL} from '../../store/search.state'
 
 
 export default  DiaryScreen=(props)=>{
- 
   const dispatch=useDispatch();
   const {myDiaryImage}=useSelector(state=>state.image);
+  console.log(myDiaryImage)
   const {user}=useSelector(state=>state.user)
   
   useEffect(()=>{

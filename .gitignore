@@ -11,3 +11,4 @@ web-build/
 web-report/
 config/*
 .idea
+.expo-shared

@@ -71,7 +71,7 @@ const reducer=(state=initialState,action)=>{
             })
         }
         case WISHLISTPOST_SUCCESS:{
-            return produce(stat,draft=>{
+            return produce(state,draft=>{
                 draft.updateLoading=false
             })
         }
@@ -88,7 +88,7 @@ const reducer=(state=initialState,action)=>{
             })
         }
         case WISHLISTDELETE_SUCCESS:{
-            return produce(stat,draft=>{
+            return produce(state,draft=>{
                 draft.updateLoading=false
             })
         }
