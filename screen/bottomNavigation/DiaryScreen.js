@@ -20,9 +20,9 @@ export default  DiaryScreen=(props)=>{
         return (
           <SafeAreaView style={styles.container}>
             <ScrollView>
-              {{myDiaryImage}? <FlatList data={myDiaryImage} renderItem={ renderItem = ({ item, index }) => (//data는 사진 주소 renderItem은 데이터를 뿌려준다
+              {{myDiaryImage}? <FlatList keyExtractor={item => item.poster} data={myDiaryImage} renderItem={ renderItem = ({ item, index }) => (//data는 사진 주소 renderItem은 데이터를 뿌려준다
         <View style={{flex:1}}>
-       <TouchableOpacity diaryData={item} onPress={()=>{
+       <TouchableOpacity  style={styles.image} diaryData={item} onPress={()=>{
          dispatch({
            type:MOVIE_DETAIL,
            data:item
@@ -34,7 +34,7 @@ export default  DiaryScreen=(props)=>{
         </TouchableOpacity>
         </View>
     )}
-        numColumns={3}  />
+        numColumns={3}   />
       :<Text style={{alignContent:'center',justifyContent:'center',fontSize:19,color:"#fff"}}>등록된 다이어리가 없습니다.</Text>
       }
            </ScrollView> 
@@ -55,7 +55,6 @@ const styles = StyleSheet.create({
     width: 115,
     height: 165,
     margin:3,
-    marginLeft:11,
   },
    Text: {
      color: "#ffffff",

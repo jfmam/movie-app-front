@@ -52,7 +52,7 @@ export default function BoxOffice(props){
                type:IMAGEPROPS,
                data:item
            })
-           props.navigation.navigate('movieInfo')}}>
+           props.navigation.navigate('movieInfo',{movieId:item.id})}}>
         {item.poster?<Image  style={styles.image} title={index} source={{uri:`${item.poster}`}} />
         :<Text style={styles.Text}>이미지가 없습니다</Text>
         }

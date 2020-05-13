@@ -13,7 +13,7 @@ const Wishlist=(props)=>{
       dispatch({
         type:WISHLIST_REQUEST
       })
-    },[{wishListImage}])
+    },[])
       return (
           <SafeAreaView style={styles.container}>
             <ScrollView>

@@ -1,13 +1,12 @@
 import {Image, SafeAreaView,StyleSheet,Platform,Text} from 'react-native'
 import React from 'react'
-import moviemoon from '../../assets/Moviemoon.gif'
+import moviemoon from '../../assets/SplashFix.gif'
 
 export default loading=(props)=>{
-setTimeout(async() =>props.navigation.navigate('Login'), 3000)
+setTimeout(async() =>props.navigation.navigate('Login'), 3500)
    return(
        <SafeAreaView style={styles.container}>
        <Image style={styles.img} source={moviemoon}></Image>
-       <Text style={styles.font}>Movie Moon</Text>
        </SafeAreaView>
    )
 }
@@ -22,11 +21,8 @@ const styles = StyleSheet.create({
                 flexDirection:"column"
             },
             img:{
-                width:130,
-                height:130,
-                marginTop:220,
-                alignSelf:'center'
-              
+                width:'100%',
+                height:'100%',            
             },
             font:{
                 fontSize:40,

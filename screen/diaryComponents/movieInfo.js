@@ -8,7 +8,7 @@ const MovieInfo=(props)=>{
 
     return(
         <SafeAreaView>
-        <ImageInfo></ImageInfo>
+        <ImageInfo movieId={props.movieId}></ImageInfo>
         <View>
     <Text>{props.movieId}</Text> 
         </View>

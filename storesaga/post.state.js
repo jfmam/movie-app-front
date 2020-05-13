@@ -36,7 +36,6 @@ function* writePostDiary(action){
         const result=yield call(writePostDiaryAPI,action.data)
         yield put({
             type:WRITEDIARY_SUCCESS,
-            data:result.data
         })
       const image= yield call(diaryAPI);
            yield put({

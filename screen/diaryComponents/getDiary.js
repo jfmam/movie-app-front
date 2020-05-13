@@ -38,14 +38,14 @@ export default WriteDiary=(props)=>{
         <View style={styles.writeContainer}> 
         <View style={{flexDirection:"row"}}>
         <Text  style={styles.Text}>Rating </Text>
-        {/* <Rating
+        <Rating
              type='star'
              readonly={true}
              ratingCount={5}
-             imageSize={18}
-             onFinishRating={ratingCompleted}
              onStartRating={5}
-        /> */}
+             startingValue={getDiaryData.myRating}
+             imageSize={18}
+        />
         </View>
         <View style={{flexDirection:"row",marginTop:24}}>
             <Text  style={styles.Text} >Date </Text>

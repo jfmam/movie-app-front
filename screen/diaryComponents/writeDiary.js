@@ -21,7 +21,8 @@ export default WriteDiary=(props)=>{
     const [image1,setImage1]=useState('')
     const [image2,setImage2]=useState('')
     const [image3,setImage3]=useState('')
-    
+    const [check,setCheck]=useState(false);
+
     const today=new Date();
     const year=today.getFullYear();
     const month=today.getMonth()+1;
@@ -29,7 +30,7 @@ export default WriteDiary=(props)=>{
     
     const dispatch=useDispatch();
     const {user}=useSelector(state=>state.user)
-    const {address}=useSelector(state=>state.post)
+    const {address,updateLoding}=useSelector(state=>state.post)
     
     const ratingCompleted=(rating)=>{
         setRating(rating)   
@@ -47,11 +48,12 @@ export default WriteDiary=(props)=>{
                 movieId:movieId,
                 memo:memo,
                 createDate:`${year}${month}${date}`,
-                image:address
+                image:address,
+                rating:rating
             }
         })
-        
-    },[user.id,movieId,memo,address,year,month,date])
+        setCheck(true);
+    },[user.id,movieId,memo,address,year,month,date,rating,check])
     //useSelector를 이용해서 사진가져오고 prpos로보내주기
     const getPermission=useCallback (async(n)=>{
          if (!Constants.platform.ios) {
@@ -108,6 +110,9 @@ export default WriteDiary=(props)=>{
      })
     }
     },[])
+    useEffect(()=>{
+        if(!updateLoding&&check) props.navigation.navigate('DiaryScreen');
+    }, [updateLoding,check])
 
     return(
         <SafeAreaView style={styles.container}>    
