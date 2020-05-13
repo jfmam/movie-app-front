@@ -9,13 +9,17 @@ import {Rating} from 'react-native-elements'
 export default HomeScreen=(props)=> {
    const [search,setSearch]=useState('')
 //    이부분은 지금은 componentState 처리했지만 나중에 리덕스로처리해야한다
-    const {user}=useSelector(state=>state.user)
+    const {user,isLogginIn}=useSelector(state=>state.user)
     const {movieSearchLoading,Search}=useSelector(state=>state.search)
     const setText=useCallback((text)=>{
-        setSearch(text)
-        props.navigation.navigate('movieSearch',{title:text})
+        props.navigation.navigate('movieSearch')
     },[search])
-
+    useEffect(()=>{
+        if(user.userId===undefined&&!isLogginIn){
+            alert('아이디와 패스워드를 다시 입력해주세요');
+            // props.navigation.navigate('Login');
+        }
+    },[user,isLogginIn])
 
 
 

@@ -6,7 +6,7 @@ import {all,fork} from 'redux-saga/effects'
 import axios from 'axios'
 
 axios.defaults.withCredentials=true
-axios.defaults.baseURL = 'http://54.180.186.62/api'
+axios.defaults.baseURL = 'http://3.34.66.42/api'
 
 export default function* rootsaga(){
     yield all([

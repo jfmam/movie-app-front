@@ -9,26 +9,26 @@ export const WRITEDIARYIMAGE_REQUEST = 'front/WRITEDIARYIMAGE_REQUEST'
 export const WRITEDIARYIMAGE_SUCCESS = 'front/WRITEDIARYIMAGE_SUCCESS'
 export const WRITEDIARYIMAGE_FAILURE = 'front/WRITEDIARYIMAGE_FAILURE'
 
-export const WISHLISTPOST_REQUEST = 'front/WISHLISTPOST_REQUEST'
-export const WISHLISTPOST_SUCCESS = 'front/WISHLISTPOST_SUCCESS'
-export const WISHLISTPOST_FAILURE = 'front/WISHLISTPOST_FAILURE'
+export const TITLE_SETTING='front/TITLE_SETTING'
 
-export const WISHLISTDELETE_REQUEST = 'front/WISHLISTDELETE_REQUEST'
-export const WISHLISTDELETE_SUCCESS = 'front/WISHLISTDELETE_SUCCESS'
-export const WISHLISTDELETE_FAILURE = 'front/WISHLISTDELETE_FAILURE'
 
-initialState={
+ const initialState={
     diaryInfo:{},//다이어리인포는 검색시...
     address:{},
-    wishListPost:false,
-    updateLoading:false,
     writeDiaryError:'',
-    wishListError:'',
-    writeDiaryImageError:''
+    writeDiaryImageError:'',
+    title:''
 }
 
 const reducer=(state=initialState,action)=>{
     switch(action.type){
+        case TITLE_SETTING:{
+            return produce(state,draft=>{
+                draft.title='';
+                draft.title=action.data;
+            })
+        }
+
         case WRITEDIARY_REQUEST:{
             return produce(state,draft=>{
                 draft.updateLoading=true
@@ -64,40 +64,7 @@ const reducer=(state=initialState,action)=>{
                 draft.writeDiaryImageError=action.error
             })    
         }
-        case WISHLISTPOST_REQUEST:{
-            return produce(state,draft=>{
-                draft.updateLoading=true
-                draft.wishListError=''
-            })
-        }
-        case WISHLISTPOST_SUCCESS:{
-            return produce(state,draft=>{
-                draft.updateLoading=false
-            })
-        }
-        case WISHLISTPOST_FAILURE:{
-            return produce(state,draft=>{
-                draft.updateLoading=false
-                draft.wishListError=action.error
-            })
-        }
-        case WISHLISTDELETE_REQUEST:{
-            return produce(state,draft=>{
-                draft.updateLoading=true
-                draft.wishListError=''
-            })
-        }
-        case WISHLISTDELETE_SUCCESS:{
-            return produce(state,draft=>{
-                draft.updateLoading=false
-            })
-        }
-        case WISHLISTDELETE_FAILURE:{
-            return produce(state,draft=>{
-                draft.updateLoading=false
-                draft.wishListError=action.error
-            })
-        }
+       
         default:{
             return state;
         }

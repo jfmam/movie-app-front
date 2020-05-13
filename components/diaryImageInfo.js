@@ -4,8 +4,7 @@ import {Rating} from 'react-native-elements'
 import { useDispatch, useSelector } from 'react-redux';
 import { MOVIESEARCH_REQUEST } from '../store/search.state';
 import { TouchableOpacity } from 'react-native-gesture-handler';
-import Icon from 'react-native-vector-icons/AntDesign'
-import { WISHLISTPOST_REQUEST } from '../store/post.state';
+import { WISHLISTPOST_REQUEST } from '../store/user.state';
 
 const imageInfo=(props)=>{//props로 상세정보일때 보내준다(props.heart)
     const {movieDetail}=useSelector(state=>state.search)
@@ -16,7 +15,7 @@ const imageInfo=(props)=>{//props로 상세정보일때 보내준다(props.heart
          <View >
             <ImageBackground style={styles.backgroundImage} source={{uri:`${movieDetail.poster}`}}>
                 <View style={{flexDirection:'row'}}>
-                <TouchableOpacity onPress={()=>{props.navigate}}><Image style={styles.posterImage}  source={{uri:`${movieDetail.poster}`}}/></TouchableOpacity> 
+                <TouchableOpacity onPress={()=>{props.navigation.navigate('posterImage',{ImageURI:`${movieDetail.poster}`})}}><Image style={styles.posterImage}  source={{uri:`${movieDetail.poster}`}}/></TouchableOpacity> 
             <View style={styles.movieInfo}>
                 <Text>{movieDetail.korTitle}</Text>
                 <Text>{`${movieDetail.releaseDate}/${movieDetail.makingNation}`}</Text>      

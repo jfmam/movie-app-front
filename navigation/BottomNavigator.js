@@ -12,15 +12,14 @@ import recomandation from '../assets/recomandaton.png'
 import boxOffice from '../assets/boxOffice.png' 
 import home from '../assets/home.png'
 import MenuButton from '../components/menuButton'
-import { HeaderTitle } from 'react-navigation-stack';
+
+
 
 const TabBar= createMaterialBottomTabNavigator(
     {
-
         HomeScreen: {
             screen: HomeScreen,
         navigationOptions:{
-            
             tabBarLabel:'홈',
 
             labeled:true,

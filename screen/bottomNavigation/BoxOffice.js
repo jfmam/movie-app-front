@@ -5,14 +5,6 @@ import {Button} from 'react-native-elements'
 import { useDispatch, useSelector } from 'react-redux';
 import { BOXOFFICE_REQUEST, IMAGEPROPS } from '../../store/image.state';
 
-
-const items = [
-    { thumbnail: { uri: 'http://file.koreafilm.or.kr/thm/02/00/01/25/tn_DPA000032.jpg' } },
-    { thumbnail: { uri: 'http://file.koreafilm.or.kr/thm/02/00/01/03/tn_DPA000006.jpg' } },
-    { thumbnail: { uri: 'http://file.koreafilm.or.kr/thm/02/00/01/05/tn_DPA000009.jpg' } },
-    { thumbnail: { uri: 'http://file.koreafilm.or.kr/thm/02/00/01/46/tn_DPK004440.JPG' } },
-];
-
 export default function BoxOffice(props){
     const date=new Date()
     const [years,setYear]=useState(`${date.getFullYear()}`)
@@ -20,11 +12,9 @@ export default function BoxOffice(props){
     const dispatch=useDispatch();
     const {boxOfficeImage}=useSelector(state=>state.image)
      //useEffect를 이용해 년도와 월이 바뀔때마다 업데이틉
-    useEffect(()=>{
-        dispatch({type:BOXOFFICE_REQUEST,data:{year:years}})//year와 month를 보내준다
-    }, [years])
 
-    let datePicker=async ()=>{
+
+    let datePicker=useCallback(async()=>{
        try{
         const {action,year,month,day}=await DatePickerAndroid.open({
             date: new Date(),
@@ -34,14 +24,12 @@ export default function BoxOffice(props){
             day:false
         })
         if (action!== DatePickerAndroid.dismissedAction){
-            setYear(year);
-            setMonth(month+1);
+        dispatch({type:BOXOFFICE_REQUEST,data:{year:year}})
+        setYear(year);
+        setMonth(month+1);
         }
-    }catch(e){
-        console.log(e)
-    }
-;
-    }
+    }catch(e){console.log(e)}
+    },[])
 
     return (
         <SafeAreaView style={styles.container}>

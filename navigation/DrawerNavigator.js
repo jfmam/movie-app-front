@@ -17,15 +17,15 @@ import * as Permissions from 'expo-permissions';
 import Constants from 'expo-constants';
 import { PROFILE_REQUEST } from '../store/user.state';
 import { StackRouter } from 'react-navigation';
-
+import posterImage from '../components/posterImage'
 
 const StackNavigator=createStackNavigator(
   {
   
     TabBar:{
       screen:TabBar,
-      navigationOptions:({navigation,props})=>{
       
+      navigationOptions:({navigation,props})=>{
         return{
            headerLeft:( 
              <MenuButton navigation={navigation}/>///상위 navigation인 drawer를따른다    
@@ -72,6 +72,9 @@ const StackNavigator=createStackNavigator(
       navigationOptions:{
        header:null
       }
+  },
+  posterImage:{
+    screen:posterImage
   }
 })
 

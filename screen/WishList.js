@@ -2,32 +2,27 @@ import React, { useEffect } from 'react'
 import {Text,View,StyleSheet,SafeAreaView,TouchableOpacity,FlatList,Image,Platform} from 'react-native'
 import {ScrollView} from 'react-native-gesture-handler'
 import { useSelector, useDispatch } from 'react-redux'
-import { WISHLIST_REQUEST } from '../store/image.state'
+import { WISHLIST_REQUEST } from '../store/user.state'
 import { MOVIE_DETAIL } from '../store/search.state'
 
 const Wishlist=(props)=>{
-    const {wishListImage}=useSelector(state=>state.image)
+    const {wishListImage}=useSelector(state=>state.user)
     const dispatch=useDispatch();
+    
     useEffect(()=>{
       dispatch({
         type:WISHLIST_REQUEST
       })
-    },[])
+    },[{wishListImage}])
       return (
           <SafeAreaView style={styles.container}>
             <ScrollView>
               {wishListImage&&<FlatList data={wishListImage} renderItem={ renderItem = ( {item, index} ) => (//data는 사진 주소 renderItem은 데이터를 뿌려준다
         <View style={{flex:1}}>
-       <TouchableOpacity onPress={()=>{
-         dispatch({
-           type:MOVIE_DETAIL,
-           data:item
-         })
-         props.navigation.navigate('movieInfo')}}>
+     
         {item.poster? <Image style={styles.image}  source={{uri:`${item.poster}`}} />
         :<Text>이미지가 없습니다.</Text>
         }
-        </TouchableOpacity>
         </View>
     )}
         numColumns={3}  />

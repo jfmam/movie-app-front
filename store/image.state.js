@@ -1,13 +1,5 @@
 import {produce} from 'immer'
 
-const dummyImage={
-       myDiaryImage:{},//다이어리 목록 사진
-    writeDiaryImage:{},//다이어리 쓸때 stickyheader에 붙는 이미지부분
-    getDiaryData:{},//이부분은 다이어리 정보
-    boxOfficeImage:{},
-    wishListImage:{},
-    recommandImage:{}
-}
 
 export const BLOCKBUSTER_REQUEST = 'fornt/BLOCKBUSTER_REQUEST' //흥행예상작
 export const BLOCKBUSTER_SUCCESS = 'fornt/BLOCKBUSTER_SUCCESS'
@@ -25,23 +17,18 @@ export const BOXOFFICE_REQUEST = 'fornt/BOXOFFICE_REQUEST'//박스오피스
 export const BOXOFFICE_SUCCESS = 'fornt/BOXOFFICE_SUCCESS'
 export const BOXOFFICE_FAILURE = 'fornt/BOXOFFICE_FAILURE'
 
-export const WISHLIST_REQUEST = 'fornt/WISHLIST_REQUEST'//위시리스트
-export const WISHLIST_SUCCESS = 'fornt/WISHLIST_SUCCESS'
-export const WISHLIST_FAILURE = 'fornt/WISHLIST_FAILURE'
-
 export const RECOMMAND_REQUEST = 'fornt/RECOMMAND_REQUEST'//추천
 export const RECOMMAND_SUCCESS = 'fornt/RECOMMAND_SUCCESS'
 export const RECOMMAND_FAILURE = 'fornt/RECOMMAND_FAILURE'
 
 export const IMAGEPROPS='fornt/IMAGEPROPS'
 
-const initialState={
+ const initialState={
     blockbusterImage:{},
     myDiaryImage:{},//다이어리 목록 사진 MYDIARY
     writeDiaryImage:{},//다이어리 쓸때 stickyheader에 붙는 이미지부분
     getDiaryData:{},//이부분은 다이어리 정보 GETDIARY
     boxOfficeImage:{},//BOXOFFICE
-    wishListImage:{},//WISHLIST
     recommandImage:{},//RECOMMAND
     loadingImage:false,
     blockbusterError:'',
@@ -49,7 +36,6 @@ const initialState={
     writeDiaryError:'',
     getDiaryError:'',
     boxOfficeError:'',
-    wishListError:'',
     recommandError:'',
 }
  
@@ -71,7 +57,7 @@ const reducer=(state=initialState,action)=>{
         case MYDIARY_FAILURE:{
             return produce(state,draft=>{
                 draft.loadingImage=false
-                draft.myDiaryError=action.error//error로 바꿀수있을까?
+                draft.myDiaryError=action.error
             })
         }
         case GETDIARY_REQUEST:{
@@ -107,23 +93,6 @@ const reducer=(state=initialState,action)=>{
             return produce(state,draft=>{
                 draft.loadingImage=false
                 draft.boxOfficeError=action.error//error로 바꿀수있을까?
-            })
-        }
-        case WISHLIST_REQUEST:{
-            return produce(state,draft=>{
-                draft.loadingImage=true
-            })
-        }
-        case WISHLIST_SUCCESS:{
-            return produce(state,draft=>{
-                draft.loadingImage=false
-                draft.wishListImage=action.data
-            })
-        }
-        case WISHLIST_FAILURE:{
-            return produce(state,draft=>{
-                draft.loadingImage=false
-                draft.wishListError=action.error//error로 바꿀수있을까?
             })
         }
         case RECOMMAND_REQUEST:{

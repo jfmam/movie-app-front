@@ -38,7 +38,7 @@ export default signUp=(props)=>{
            })
        }
        if(signUpError){ alert('회원 가입에 실패하였습니다.')}//status에 따라 알림창을 새롭게 띄운다
-       else ()=>{
+       else {
         alert('회원가입에 성공하였습니다.');  
         props.navigation.navigate('Login');
     }
@@ -64,7 +64,7 @@ export default signUp=(props)=>{
         </View>
        <View  style={styles.rowView}>
             <Text style={{color:"#d3d3d3",fontSize:18}}>NICKNAME</Text>
-        <TextInput style={{marginLeft:83,  borderBottomColor:'#feabab',
+        <TextInput style={{marginLeft:28,  borderBottomColor:'#feabab',
     borderBottomWidth:1}} placeholder="닉네임을 입력하세요              " onChangeText={(text)=>{SetNickname(text)}} />
        </View>
        

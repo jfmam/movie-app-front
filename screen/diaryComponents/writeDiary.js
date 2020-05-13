@@ -51,7 +51,7 @@ export default WriteDiary=(props)=>{
             }
         })
         
-    })
+    },[user.id,movieId,memo,address,year,month,date])
     //useSelector를 이용해서 사진가져오고 prpos로보내주기
     const getPermission=useCallback (async(n)=>{
          if (!Constants.platform.ios) {
@@ -151,7 +151,6 @@ export default WriteDiary=(props)=>{
     <View style={{flexDirection:'row'}}>
         <Button onPress={()=>{sendDiary()}}>OK</Button>
         <Button onPress={()=>props.navigation.goBack()}>Cancel</Button>
-        {/* 뒤로가기 어케하는지몰랑 ㅎ.. */}
     </View>
         </ScrollView>
       

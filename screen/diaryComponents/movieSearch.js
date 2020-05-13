@@ -23,9 +23,7 @@ export default  DiarySearchScreen=(props)=>{
       })
     },[search])
     
-    useEffect(()=>{
-       const {params}=props.navigation.state
-    })
+
         return (
           <SafeAreaView style={styles.container}>
         <SearchBar 

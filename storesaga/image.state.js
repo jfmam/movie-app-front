@@ -1,7 +1,7 @@
 import {all,call,fork,takeLatest,takeEvery,put } from 'redux-saga/effects'
 import axios from 'axios'
 import { BLOCKBUSTER_REQUEST, BLOCKBUSTER_FAILURE, BLOCKBUSTER_SUCCESS, MYDIARY_REQUEST,MYDIARY_SUCCESS, MYDIARY_FAILURE,
-         GETDIARY_REQUEST, GETDIARY_SUCCESS, BOXOFFICE_REQUEST, BOXOFFICE_SUCCESS, BOXOFFICE_FAILURE, WISHLIST_REQUEST,WISHLIST_SUCCESS,WISHLIST_FAILURE, RECOMMAND_REQUEST
+         GETDIARY_REQUEST, GETDIARY_SUCCESS, BOXOFFICE_REQUEST, BOXOFFICE_SUCCESS, BOXOFFICE_FAILURE, RECOMMAND_REQUEST
        } from '../store/image.state'
 
        
@@ -30,35 +30,6 @@ function* watchRecommand(){
     yield takeEvery(RECOMMAND_REQUEST,recommand)
 }
 
-
-function wishlistAPI(wishlistData){
-  return  axios({
-      method:'get',
-      url:'/wishlist',
-      headers:{'Content-Type':'application/json'}
-  })
-}
-
-function* wishlist(action){
-    try{
-        const result= yield call(wishlistAPI,action.data)
-        yield put({
-            type:WISHLIST_SUCCESS,
-            data:result.data
-        })
-    }catch(e){
-        console.error(e)
-
-        yield put({
-            type:WISHLIST_FAILURE,
-            error:e
-    })
-    }
-}
-
-function* watchWishlist(){
-    yield takeEvery(WISHLIST_REQUEST,wishlist)
-}
 
 
 function boxOfficeAPI(boxOfficeData){
@@ -189,7 +160,6 @@ export default function* imageSaga(){
         fork(watchDiary),
         fork(watchDiaryDetail),
         fork(watchBoxOffice),
-        fork(watchWishlist),
         fork(watchRecommand),
     ])
 }

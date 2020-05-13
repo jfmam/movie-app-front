@@ -6,83 +6,30 @@ import {
     WRITEDIARYIMAGE_REQUEST,
     WRITEDIARYIMAGE_SUCCESS,
     WRITEDIARYIMAGE_FAILURE ,
-    WISHLISTPOST_REQUEST,
-    WISHLISTPOST_SUCCESS,
-    WISHLISTPOST_FAILURE, WISHLISTDELETE_REQUEST,
-    WISHLISTDELETE_SUCCESS,
-    WISHLISTDELETE_FAILURE
+  
 } from '../store/post.state'
+import {  MYDIARY_REQUEST,MYDIARY_SUCCESS, MYDIARY_FAILURE} from '../store/image.state'
 import axios from 'axios'
 
-function postWishListAPI(postWishListData) {
-    console.log(postWishListData)
-    return axios({
-        method:'post',
-        url:'/wishlist',
-        data:postWishListData,
-        headers:{'Content-Type':'application/json'}
-    })
+
+function diaryAPI(){
+  return  axios({
+      method:'get',
+      url: '/diary',
+      headers:{'Content-Type':'application/json'}
+  })
 }
 
-function* postWishList(action){
-    try{
-        const result=yield call(postWishListAPI,action.data)//userId와 movieId등록? 
-        yield put({
-            type:WISHLISTPOST_SUCCESS,
-            data:result.data
-        })
-    }catch(e){
-        console.error(e)
-        yield put({
-            type:WISHLISTPOST_FAILURE,
-            error:e
-        })
-    }
+function writePostDiaryAPI(diaryData){
+    console.log(diaryData)
+  return  axios({
+      method:'post',
+      data:diaryData,
+      url: '/diary',
+      headers:{'Content-Type':'application/json'}
+  })
 }
 
-function* watchPostWishList(){
-    console.log("도달")
-    yield takeLatest(WISHLISTPOST_REQUEST,postWishList)
-}
-
-
-function deleteWishListAPI(deleteWishListData) {
-    return axios({
-        method:"delete",
-        url:'/wishlist',
-        data:deleteWishListData,
-        headers:{'Content-Type':'application/json'}
-    })
-}
-
-function* deleteWishList(action){
-    try{
-        const result=yield call(deleteWishListAPI,action.data)//userId와 movieId등록? 
-        yield put({
-            type:WISHLISTDELETE_SUCCESS,
-        })
-    }catch(e){
-        console.error(e)
-        yield put({
-            type:WISHLISTDELETE_FAILURE,
-            error:e
-        })
-    }
-}
-
-function* watchDeleteWishList(){
-    yield takeLatest(WISHLISTDELETE_REQUEST,deleteWishList)
-}
-
-function writePostDiaryAPI(postDiaryData){
-    console.log(postDiaryData)
-    return axios({
-        method:'post',
-        url:'/diary',
-        data:postDiaryData,
-        headers:{'Content-Type':'application/json'}
-    })
-}
 
 function* writePostDiary(action){
     try{
@@ -90,6 +37,11 @@ function* writePostDiary(action){
         yield put({
             type:WRITEDIARY_SUCCESS,
             data:result.data
+        })
+      const image= yield call(diaryAPI);
+           yield put({
+            type:MYDIARY_SUCCESS,
+            data:image.data
         })
     }catch(e){
         console.error(e)
@@ -140,8 +92,6 @@ function* watchPostDiaryImage(){
 export default function* postSaga(){
     yield all([
         fork(watchPostDiary),
-        fork(watchPostWishList),
-        fork(watchDeleteWishList),
         fork(watchPostDiaryImage)
         ])
 }
