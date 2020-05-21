@@ -26,7 +26,7 @@ export default  DiarySearchScreen=(props)=>{
 
         return (
           <SafeAreaView style={styles.container}>
-        <SearchBar 
+        <SearchBar    
         onChangeText={(text)=>movieSearch(text)}
         value={search}
         platform="android"

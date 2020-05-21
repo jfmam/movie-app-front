@@ -7,7 +7,7 @@ import { TouchableOpacity } from 'react-native-gesture-handler';
 import { WISHLISTPOST_REQUEST } from '../store/user.state';
 
 const imageInfo=(props)=>{//props로 상세정보일때 보내준다(props.heart)
-    const {movieDetail}=useSelector(state=>state.search)
+    const {movieDetail,movieSearch}=useSelector(state=>state.search)
     const {user}=useSelector(state=>state.user)
     const dispatch=useDispatch();
     const [toggle,setToggle]=useState(false)
@@ -17,8 +17,8 @@ const imageInfo=(props)=>{//props로 상세정보일때 보내준다(props.heart
                 <View style={{flexDirection:'row'}}>
                 <TouchableOpacity onPress={()=>{props.navigation.navigate('posterImage',{ImageURI:`${movieDetail.poster}`})}}><Image style={styles.posterImage}  source={{uri:`${movieDetail.poster}`}}/></TouchableOpacity> 
             <View style={styles.movieInfo}>
-                <Text>{movieDetail.korTitle}</Text>
-                <Text>{`${movieDetail.releaseDate}/${movieDetail.makingNation}`}</Text>      
+                <Text style={styles.Text}>{movieDetail.korTitle||movieSearch.korTitle}</Text>
+                <Text style={styles.Text}>{`${movieDetail.releaseDate||movieSearch.releaseDate}/${movieDetail.makingNation||movieSearch.makingNation}`}</Text>      
             </View>    
             </View>
             </ImageBackground>
@@ -32,7 +32,7 @@ const styles = StyleSheet.create({
         height:240,
         width:'100%',
         elevation:-1,
-        opacity:50
+        opacity:0.7
     },
     posterImage:{
         marginTop:60,
@@ -42,8 +42,10 @@ const styles = StyleSheet.create({
     },
     movieInfo:{
         marginTop:170,
-        marginLeft:10,
-        
+        marginLeft:10,  
+    },
+    Text:{
+        color:"#fff"
     }
 })
 

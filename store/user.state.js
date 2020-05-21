@@ -61,7 +61,7 @@ const reducer=(state=initialState,action)=>{
             return produce(state,draft=>{
                 draft.isLoggingIn=false;
                 draft.user=action.data//success부분에서 정보를 넣어준다
-                console.log(draft.user)
+             
             })
         }
         case LOGIN_FAILURE:{
@@ -104,7 +104,7 @@ const reducer=(state=initialState,action)=>{
         }
         case PROFILE_SUCCESS:{
             return produce(state,draft=>{
-                console.log(draft.user)
+         
                 draft.isProfileUping=false
                 draft.isProfileUp=true
                 draft.address=action.data

@@ -2,17 +2,17 @@ import {View,Text,Image,StyleSheet,ImageBackground} from 'react-native'
 import React,{useEffect,useCallback, useState} from 'react'
 import {Rating} from 'react-native-elements'
 import { useDispatch, useSelector } from 'react-redux';
-import { MOVIESEARCH_REQUEST, MOVIE_DETAIL } from '../store/search.state';
+import { MOVIESEARCH_REQUEST, MOVIE_DETAIL, DIARYSEARCH_REQUEST } from '../store/search.state';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import Icon from 'react-native-vector-icons/AntDesign'
 import { WISHLISTPOST_REQUEST,WISHLISTDELETE_REQUEST } from '../store/user.state';
 
 const imageInfo=(props)=>{//props로 상세정보일때 보내준다(props.heart)
-    const {movieDetail}=useSelector(state=>state.search)
+    const {movieDetail,movieSearch}=useSelector(state=>state.search)
     const {wishListImage,user}=useSelector(state=>state.user)
     const dispatch=useDispatch();
     const [toggle,setToggle]=useState(false)
-
+   console.log(movieSearch)
     const postWishList=useCallback(()=>{
               dispatch({
                   type: WISHLISTPOST_REQUEST,
@@ -33,17 +33,14 @@ const imageInfo=(props)=>{//props로 상세정보일때 보내준다(props.heart
         })
     },[])
 
-    useEffect(()=>{
-    
-    },[{wishListImage}])
     return(  
          <View>
             <ImageBackground style={styles.backgroundImage} source={{uri:`${movieDetail.poster}`}}>
                 <View style={{flexDirection:'row'}}>
                 <TouchableOpacity onPress={()=>{props.navigate}}><Image style={styles.posterImage}  source={{uri:`${movieDetail.poster}`}}/></TouchableOpacity> 
             <View style={styles.movieInfo}>
-                <Text>{movieDetail.korTitle}</Text>
-                <Text>{`${movieDetail.releaseDate}/${movieDetail.makingNation}`}</Text>      
+                <Text style={styles.textStyle}>{movieDetail.korTitle||movieSearch.korTitle}</Text>
+                <Text style={styles.textStyle}>{`${movieDetail.releaseDate}/${movieDetail.makingNation}`}</Text>      
             </View>    
             {
             movieDetail.movieId!==undefined
@@ -84,8 +81,10 @@ const styles = StyleSheet.create({
     },
     movieInfo:{
         marginTop:170,
-        marginLeft:10,
-        
+        marginLeft:10,   
+    },
+    textStyle:{
+        color:'#fff',
     }
 })
 

@@ -46,7 +46,6 @@ function boxOfficeAPI(boxOfficeData){
 function* boxOffice(action){
     try{
         const result= yield call(boxOfficeAPI,action.data)
-        console.log(result.data)
         yield put({
             type:BOXOFFICE_SUCCESS,
             data:result.data
@@ -78,7 +77,6 @@ function diaryDetailAPI(diaryDetailData){
 function* diaryDetail(action){
     try{
         const result= yield call(diaryDetailAPI,action.data)
-        console.log(result.data)
         yield put({
             type:GETDIARY_SUCCESS,
             data:result.data

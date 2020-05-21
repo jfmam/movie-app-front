@@ -45,6 +45,7 @@ const reducer=(state=initialState,action)=>{
              return produce(state,draft=>{
                 draft.movieSearchLoading=true
                 draft.movieSearchError=''
+                draft.movieSearch={}
             })
         }
         case MOVIESEARCH_SUCCESS: {

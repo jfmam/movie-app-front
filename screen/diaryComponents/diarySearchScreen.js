@@ -8,7 +8,7 @@ import { useSelector,useDispatch } from 'react-redux';
 export default  DiarySearchScreen=(props)=>{
     const [search,setSearch]=useState('')
     const dispatch=useDispatch();
-    const {diarySearch,diarySearchLoading}=useSelector(state=>state.search)
+    const {diarySearch}=useSelector(state=>state.search)
 
     const movieSearch=useCallback((text)=>{
       setSearch(text)
@@ -47,10 +47,10 @@ export default  DiarySearchScreen=(props)=>{
         </TouchableOpacity>
         </View>
         <View key={index} style={{flex:1,marginTop:80,flexDirection:'column'}}>
-               <Text style={styles.Text}>{item.korTitle}</Text>
-               <Text style={styles.Text}>{item.genres}</Text>
-               <Text style={styles.Text}>{item.makingNation}</Text>
-               <Text style={styles.Text}>{item.releaseDate}</Text>
+               <Text style={styles.TextStyle}>{item.korTitle}</Text>
+               <Text style={styles.TextStyle}>{item.genres}</Text>
+               <Text style={styles.TextStyle}>{item.makingNation}</Text>
+               <Text style={styles.TextStyle}>{item.releaseDate}</Text>
         </View>
         </View>
          <TextInput  key={index} editable={false} underlineColorAndroid="#d3d3d3"/>
@@ -76,7 +76,7 @@ const styles = StyleSheet.create({
     marginTop:10,
     marginLeft:29.5,
   },
-   Text: {
+   TextStyle: {
      color: "#ffffff",
      fontSize: 18
    },
@@ -85,7 +85,6 @@ const styles = StyleSheet.create({
      backgroundColor: "#d3d3d3",
      width:271,
      alignSelf:'center',
-     borderRadius:20,
-        
+     borderRadius:20,  
         },
 });

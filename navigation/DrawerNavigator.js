@@ -30,10 +30,6 @@ const StackNavigator=createStackNavigator(
            headerLeft:( 
              <MenuButton navigation={navigation}/>///상위 navigation인 drawer를따른다    
            ), 
-           headerTitle:(
-           <Text></Text>
-           )   ,
-         
        headerStyle:{
           backgroundColor: '#282828',
           elevation:-1 ,
@@ -120,11 +116,9 @@ export const DrawerContent = (props) => {
 
         if(!result.cancelled){        
           setProfile(result.uri)
-          console.log(result)
            let formData = new FormData();
           await formData.append("image",{uri:result.uri,type:'image/jpg',name:result.uri})
           await dispatchAction(formData).then(()=>{
-            console.log('work')
           })
           
       

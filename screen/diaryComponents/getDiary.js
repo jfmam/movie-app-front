@@ -8,18 +8,19 @@ import Constants from 'expo-constants';
 import ImageInfo from '../../components/diaryImageInfo'
 import { useDispatch, useSelector } from 'react-redux';
 import { GETDIARY_REQUEST } from '../../store/image.state';
+import { MOVIESEARCH_REQUEST } from '../../store/search.state';
 
 //사진부분추가
 
-export default WriteDiary=(props)=>{
+export default GetDiary=(props)=>{
     const [ratingValue,setRatingValue]=useState(0)
     const dispatch=useDispatch();
     const {getDiaryData}=useSelector(state=>state.image)
-    const{movieDetail}=useSelector(state=>state.search)
+    const{movieDetail,movieSearch}=useSelector(state=>state.search)
     const ratingCompleted = (rating) => {
         setRatingValue(rating)
     }
-
+    console.log(movieSearch)
     useEffect(()=>{
         dispatch({
             type:GETDIARY_REQUEST,
@@ -32,7 +33,7 @@ export default WriteDiary=(props)=>{
         <SafeAreaView style={styles.container}>    
         <ScrollView 
         stickyHeaderIndices={[1]} >
-        <ImageInfo/>
+        <ImageInfo movieInfo={movieSearch} />
         {/* props로 image를 보내줘야함 */}
     
         <View style={styles.writeContainer}> 

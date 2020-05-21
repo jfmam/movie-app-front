@@ -14,6 +14,7 @@ export default HomeScreen=(props)=> {
     const setText=useCallback((text)=>{
         props.navigation.navigate('movieSearch')
     },[search])
+
     useEffect(()=>{
         if(user.userId===undefined&&!isLogginIn){
             alert('아이디와 패스워드를 다시 입력해주세요');
@@ -35,13 +36,9 @@ export default HomeScreen=(props)=> {
         maxLength={20} 
         showLoading={movieSearchLoading}
       /> 
-      {/* searchBar부분은 component로 따로 처리하도록한다 */}
         </View>
         <View style={styles.poster}>
             <Text style={{fontSize:16 ,marginLeft:20,color:"#d3d3d3"}}>흥행예상작</Text>
-      <ScrollView horizontal={true} showsHorizontalScrollIndicator={false} >      
-     
-      </ScrollView>
       </View>
       </SafeAreaView>
         );

@@ -22,7 +22,6 @@ import {
 } from '../store/user.state';
 
 function profileAPI(profileData) {//Api요청시  data가 필요하면 param에작성
-  console.log(profileData)
 return axios({
     method: 'post',
     url: '/user/image',
@@ -32,7 +31,6 @@ return axios({
 }
 
 function profileSaveAPI(saveData){
-  console.log(saveData)
   return axios({
     method:'patch',
     url:'/user/image',
@@ -44,7 +42,6 @@ function profileSaveAPI(saveData){
 function* profile(action) {//액션을 파라미터로 받을수있다.
   try {
     const result = yield call(profileAPI, action.data);
-    console.log(result);
     const data={image:result.data}
    const access=yield call(profileSaveAPI,data)
     yield put({ // put은 dispatch 동일
@@ -127,7 +124,6 @@ function * watchLogout(){
 }
 
 async function signupAPI(signUpData){
-  console.log(signUpData)
   return axios({
     method: 'post',
     url: '/user',
@@ -160,7 +156,6 @@ function* watchSignUp(){
 
 
 function postWishListAPI(postWishListData) {
-    console.log(postWishListData)
     return axios({
         method:'post',
         url:'/wishlist',

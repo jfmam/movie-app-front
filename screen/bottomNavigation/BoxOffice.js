@@ -13,7 +13,6 @@ export default function BoxOffice(props){
     const {boxOfficeImage}=useSelector(state=>state.image)
      //useEffect를 이용해 년도와 월이 바뀔때마다 업데이틉
 
-
     let datePicker=useCallback(async()=>{
        try{
         const {action,year,month,day}=await DatePickerAndroid.open({
@@ -31,6 +30,10 @@ export default function BoxOffice(props){
     }catch(e){console.log(e)}
     },[])
 
+    const imageProps=useCallback(item=>()=>{
+           props.navigation.navigate('movieInfo',{movieId:item.id})
+    },[])
+
     return (
         <SafeAreaView style={styles.container}>
            <View style={styles.datePick}> 
@@ -39,7 +42,7 @@ export default function BoxOffice(props){
               datePicker()
             }}/>
              <Text  style={{fontSize:19,color:"#d3d3d3",marginLeft:27}}>Month</Text>
-            <Button containerStyle={styles.btn} type="clear" title={`${months}`}  onPress={()=>{ datePicker()}}/>
+            <Button containerStyle={styles.btn} type="clear" title={`${months}`}  onPress={datePicker}/>
            </View>
             <ScrollView style={{margin:10}}>
             {{boxOfficeImage}&&<FlatList numColumns={1} key={boxOfficeImage.id} data={boxOfficeImage} renderItem={ renderItem = ({ item, index }) => (//data는 사진 주소 renderItem은 데이터를 뿌려준다
@@ -47,12 +50,7 @@ export default function BoxOffice(props){
         <View key={index} style={{flexDirection:'row',marginLeft:20}}>
          <Text style={{fontSize:25, color:"#ffffff"}}>{`${index+1}.`}</Text>
         <View style={{flex:1}}>
-       <TouchableOpacity  onPress={async()=>{
-           await dispatch({
-               type:IMAGEPROPS,
-               data:item
-           })
-           props.navigation.navigate('movieInfo',{movieId:item.id})}}>
+       <TouchableOpacity  onPress={imageProps(item)}>
         {item.poster?<Image  style={styles.image} title={index} source={{uri:`${item.poster}`}} />
         :<Text style={styles.Text}>이미지가 없습니다</Text>
         }
@@ -66,9 +64,7 @@ export default function BoxOffice(props){
         </View>
         </View>
 
-    )}
-        numColumns={1}   />}
-
+    )}  />}
             </ScrollView>
         </SafeAreaView>
     );

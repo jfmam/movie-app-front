@@ -16,7 +16,6 @@ function diarySearhAPI(title){//title은 action.data
 function* diarySearch(action){
     try{       
         const result=yield call(diarySearhAPI,action.data)
-        console.log(result.data)
         yield put({
             type:DIARYSEARCH_SUCCESS,
             data:result.data
@@ -34,7 +33,6 @@ function* watchdiarySearch() {
 }
 
 function movieSearhAPI(title){//title은 action.data
-    console.log(title)
     return axios ({
       method: 'get',
       url: '/movie/detail',
@@ -48,7 +46,6 @@ function movieSearhAPI(title){//title은 action.data
 function* movieSearch(action){
     try{       
         const result=yield call(movieSearhAPI,action.data)
-        console.log(result.data)
         yield put({
             type:MOVIESEARCH_SUCCESS,
             data:result.data

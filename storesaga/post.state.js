@@ -21,7 +21,6 @@ function diaryAPI(){
 }
 
 function writePostDiaryAPI(diaryData){
-    console.log(diaryData)
   return  axios({
       method:'post',
       data:diaryData,
@@ -69,7 +68,7 @@ function writePostDiaryImageAPI(postDiaryData){
 function* writePostDiaryImage(action){
     try{
         const result=yield call(writePostDiaryImageAPI,action.data)
-        console.log(result.data)
+
         yield put({
             type:WRITEDIARYIMAGE_SUCCESS,
             data:result.data
