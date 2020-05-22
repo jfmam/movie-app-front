@@ -8,7 +8,7 @@ import { useSelector,useDispatch } from 'react-redux';
 export default  DiarySearchScreen=(props)=>{
     const [search,setSearch]=useState('')
     const dispatch=useDispatch();
-    const {diarySearch}=useSelector(state=>state.search)
+    const {diarySearch,diarySearchLoading}=useSelector(state=>state.search)
 
     const movieSearch=useCallback((text)=>{
       setSearch(text)

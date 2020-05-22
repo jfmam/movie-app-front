@@ -21,7 +21,6 @@ export const RECOMMAND_REQUEST = 'fornt/RECOMMAND_REQUEST'//추천
 export const RECOMMAND_SUCCESS = 'fornt/RECOMMAND_SUCCESS'
 export const RECOMMAND_FAILURE = 'fornt/RECOMMAND_FAILURE'
 
-export const IMAGEPROPS='fornt/IMAGEPROPS'
 
  const initialState={
     blockbusterImage:{},

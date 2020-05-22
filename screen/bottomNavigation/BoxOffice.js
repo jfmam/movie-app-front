@@ -3,7 +3,7 @@ import { Image,StyleSheet, Text, View,SafeAreaView, DatePickerAndroid,FlatList,T
 import {ScrollView} from 'react-native-gesture-handler'
 import {Button} from 'react-native-elements'
 import { useDispatch, useSelector } from 'react-redux';
-import { BOXOFFICE_REQUEST, IMAGEPROPS } from '../../store/image.state';
+import { BOXOFFICE_REQUEST } from '../../store/image.state';
 
 export default function BoxOffice(props){
     const date=new Date()

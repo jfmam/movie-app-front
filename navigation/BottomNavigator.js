@@ -33,23 +33,7 @@ const TabBar= createMaterialBottomTabNavigator(
                     backgroundColor: '#686868'
                 }
         } },
-
-        BoxOffice: { screen: BoxOffice, 
-        navigationOptions: {
-            tabBarLabel: '박스오피스',
-            
-                       tabBarIcon: ({ tintColor }) => (  
-                    <View>  
-                      <Image source={boxOffice}/>
-                    </View>),  
-            activeColor: '#ffffff',
-            inactiveColor: '#abcdef',
-            barStyle: {
-                backgroundColor: '#686868'
-            }
-        }
-        },
-        DiaryScreen: { screen:DiaryScreen,
+          DiaryScreen: { screen:DiaryScreen,
         navigationOptions: {
 
             title:"my Diary",
@@ -57,7 +41,7 @@ const TabBar= createMaterialBottomTabNavigator(
               labeled:true,
                        tabBarIcon: ({ tintColor }) => (  
                     <View>  
-                       <Image source={diary} /> 
+                       <Image source={boxOffice} /> 
                     </View>),  
             activeColor: '#ffffff',
             inactiveColor: '#abcdef',
@@ -66,6 +50,23 @@ const TabBar= createMaterialBottomTabNavigator(
             }
         }
         },
+
+        BoxOffice: { screen: BoxOffice, 
+        navigationOptions: {
+            tabBarLabel: '박스오피스',
+            
+                       tabBarIcon: ({ tintColor }) => (  
+                    <View>  
+                      <Image source={diary}/>
+                    </View>),  
+            activeColor: '#ffffff',
+            inactiveColor: '#abcdef',
+            barStyle: {
+                backgroundColor: '#686868'
+            }
+        }
+        },
+     
         Recommandation: { 
         screen: Recommandation,
         navigationOptions: {

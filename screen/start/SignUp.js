@@ -16,19 +16,19 @@ export default signUp=(props)=>{
 
   const signup=useCallback(async(e)=>{
       if(userId===undefined){
-         await alert("아이디를 입력해주세요")
+       alert("아이디를 입력해주세요")
       }
       else if (password === undefined) {
-         await alert("비밀번호를 입력해주세요")
+        alert("비밀번호를 입력해주세요")
       }
       else if (nickname=== undefined) {
-         await alert("닉네임을 입력해주세요")
+        alert("닉네임을 입력해주세요")
       }
        else if (check === false) {
-          await alert("비밀번호가 일치하지않습니다")
+           alert("비밀번호가 일치하지않습니다")
        }
        else{
-         await dispatch({
+          dispatch({
                type:SIGNUP_REQUEST,
                data:{
                    userId,
@@ -47,24 +47,24 @@ export default signUp=(props)=>{
         <SafeAreaView style={styles.container}>
         <View style={styles.rowViewTop}>  
         <Text style={{color:"#d3d3d3",fontSize:18}}>ID</Text>
-        <TextInput style={{marginLeft:117,  borderBottomColor:'#feabab',
+        <TextInput style={{marginLeft:117,  borderBottomColor:'#feabab',color:'#fff',
     borderBottomWidth:1}} placeholder="ID를 입력하세요                "  value={userId}  onChangeText={(text)=>{SetId(text)}}/>
     
         </View>
         <View  style={styles.rowView}>
             <Text style={{color:"#d3d3d3",fontSize:18}}>PASS</Text>
-        <TextInput style={{marginLeft:83,  borderBottomColor:'#feabab',
+        <TextInput style={{marginLeft:83,  borderBottomColor:'#feabab',color:'#fff',
     borderBottomWidth:1}} placeholder="비밀번호를 입력하세요          " onChangeText={(text)=>SetPassword(text)}/>
         </View>
         <View  style={styles.rowView}>
          <Text style={{color:"#d3d3d3",fontSize:18}}>PASS-CHECK</Text>
-        <TextInput style={{marginLeft:20,  borderBottomColor:'#feabab',
+        <TextInput style={{marginLeft:20,  borderBottomColor:'#feabab',color:'#fff',
     borderBottomWidth:1}} placeholder="비밀번호를 다시입력하세요      " onChangeText={(text)=>{text===password?SetCheck(true):SetCheck(false)}} />
          
         </View>
        <View  style={styles.rowView}>
             <Text style={{color:"#d3d3d3",fontSize:18}}>NICKNAME</Text>
-        <TextInput style={{marginLeft:28,  borderBottomColor:'#feabab',
+        <TextInput style={{marginLeft:28,  borderBottomColor:'#feabab',color:'#fff',
     borderBottomWidth:1}} placeholder="닉네임을 입력하세요              " onChangeText={(text)=>{SetNickname(text)}} />
        </View>
        
@@ -112,4 +112,7 @@ const styles=StyleSheet.create({
          backgroundColor: '#afafaf',
          borderRadius: 18,
      },
+     Text:{
+         color:"#fff"
+     }
 })

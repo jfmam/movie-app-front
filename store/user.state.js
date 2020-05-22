@@ -35,6 +35,7 @@ export const WISHLISTDELETE_FAILURE = 'front/WISHLISTDELETE_FAILURE'
     isSignUp:false,
     isSignUping:false,
     signUpError:'',
+    signUpSuccces:'',
     isProfileUp:false,
     isProfileUping:false,
     PprofileError:'',
@@ -91,7 +92,7 @@ const reducer=(state=initialState,action)=>{
         }
         case SIGNUP_FAILURE:{
              return produce(state, draft => {
-                 draft.signUpError=action.data
+                 draft.signUpError=action.error
                  draft.isSignUping=false
              })
         }

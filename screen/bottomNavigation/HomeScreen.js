@@ -5,6 +5,7 @@ import { SearchBar } from 'react-native-elements';
 import { useDispatch, useSelector } from 'react-redux';
 import { MOVIESEARCH_REQUEST, SEARCH, DIARYSEARCH_REQUEST } from '../../store/search.state';
 import {Rating} from 'react-native-elements'
+import * as Font from "expo-font";
 
 export default HomeScreen=(props)=> {
    const [search,setSearch]=useState('')
@@ -16,9 +17,9 @@ export default HomeScreen=(props)=> {
     },[search])
 
     useEffect(()=>{
+      
         if(user.userId===undefined&&!isLogginIn){
             alert('아이디와 패스워드를 다시 입력해주세요');
-            // props.navigation.navigate('Login');
         }
     },[user,isLogginIn])
 
@@ -28,7 +29,7 @@ export default HomeScreen=(props)=> {
         <SafeAreaView style={styles.container}>
         <View style={styles.title}>
            
-            <Text style={{fontSize:40,alignSelf:'center',color:"#d3d3d3"}}>MOVIE MOON</Text>
+            <Text style={{fontSize:40,alignSelf:'center',color:"#d3d3d3",fontFamily:'seguibli'}}>MOVIE MOON</Text>
             <SearchBar 
         onChangeText={(text)=>{setText(text)}}
         platform="android"
@@ -37,9 +38,7 @@ export default HomeScreen=(props)=> {
         showLoading={movieSearchLoading}
       /> 
         </View>
-        <View style={styles.poster}>
-            <Text style={{fontSize:16 ,marginLeft:20,color:"#d3d3d3"}}>흥행예상작</Text>
-      </View>
+
       </SafeAreaView>
         );
     }

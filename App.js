@@ -20,7 +20,12 @@ export default class App extends React.Component {
   constructor(props) {
     super(props);
   }
-
+componentDidMount(){
+   Font.loadAsync(      
+    {
+        seguibli: require('./assets/seguibli.ttf')
+    })
+}
   render() {
   
   return (
