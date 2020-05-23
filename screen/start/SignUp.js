@@ -11,7 +11,7 @@ export default signUp=(props)=>{
   const [name, SetName] = useState('')
   const [nickname,SetNickname] = useState('')
   const [check,SetCheck]=useState(false)
-  const {isSignUping,signUpError}=useSelector(state=>state.user);
+  const {isSignUping,signUpError,isSignUp}=useSelector(state=>state.user);
   const dispatch=useDispatch();
 
   const signup=useCallback(async(e)=>{
@@ -37,12 +37,16 @@ export default signUp=(props)=>{
                }
            })
        }
-       if(signUpError){ alert('회원 가입에 실패하였습니다.')}//status에 따라 알림창을 새롭게 띄운다
-       else {
-        alert('회원가입에 성공하였습니다.');  
-        props.navigation.navigate('Login');
-    }
   },[userId,password,nickname])
+
+  useEffect(()=>{
+     if(signUpError!==''){ alert('회원 가입에 실패하였습니다.')}
+     if (isSignUp && !isSignUping) {
+         alert('회원가입에 성공하였습니다.');
+         props.navigation.navigate('Login');
+     }
+  },[signUpError,is])
+  
     return(
         <SafeAreaView style={styles.container}>
         <View style={styles.rowViewTop}>  

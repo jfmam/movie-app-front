@@ -136,7 +136,8 @@ function* signup(action){
     try{
     const result=yield call(signupAPI,action.data);
     yield put({
-        type:SIGNUP_SUCCESS
+        type:SIGNUP_SUCCESS,
+        data:result.data
     })
   
 }catch(e){
