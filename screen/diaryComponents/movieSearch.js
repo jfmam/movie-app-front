@@ -22,7 +22,19 @@ export default  DiarySearchScreen=(props)=>{
         }
       })
     },[search])
-    
+    const movieDetail=useCallback((item)=>{
+          dispatch({
+            type: MOVIE_DETAIL,
+            data: item
+          })
+          dispatch({
+            type:MOVIESEARCH_REQUEST,
+            data:{
+              id:item.movieId
+            }
+          })
+          props.navigation.navigate('movieInfo',{movieId:item.id});
+    },[])
 
         return (
           <SafeAreaView style={styles.container}>
@@ -41,12 +53,8 @@ export default  DiarySearchScreen=(props)=>{
        <View key={index}>
         <View style={{flexDirection:'row'}}>
         <View style={{flex:1}}>
-       <TouchableOpacity key={index} movieId={item.id} onPress={()=>{
-         dispatch({
-           type:MOVIE_DETAIL,
-           data:item
-         })
-         props.navigation.navigate('movieInfo',{movieId:item.id})}}>
+       <TouchableOpacity key={index} movieId={item.id} onPress={(item)=>{
+         movieDetail(item);}}>
         <Image style={styles.image} title={index} key={index} source={{uri:item.poster}} />
         </TouchableOpacity>
         </View>
