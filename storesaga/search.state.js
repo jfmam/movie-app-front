@@ -33,6 +33,7 @@ function* watchdiarySearch() {
 }
 
 function movieSearhAPI(title){//title은 action.data
+    console.log(title);
     return axios ({
       method: 'get',
       url: '/movie/detail',

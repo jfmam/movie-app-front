@@ -31,12 +31,12 @@ export default HomeScreen=(props)=> {
            
             <Text style={{fontSize:40,alignSelf:'center',color:"#d3d3d3",fontFamily:'seguibli'}}>MOVIE MOON</Text>
             <SearchBar 
-        onChangeText={(text)=>{setText(text)}}
-        platform="android"
-        containerStyle={styles.search}
-        maxLength={20} 
-        showLoading={movieSearchLoading}
-      /> 
+            onTouchStart={()=>{ props.navigation.navigate('movieSearch')}}
+            platform="android"
+            containerStyle={styles.search}
+            maxLength={20} 
+            showLoading={movieSearchLoading}
+         /> 
         </View>
 
       </SafeAreaView>

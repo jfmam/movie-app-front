@@ -45,7 +45,7 @@ export default signUp=(props)=>{
          alert('회원가입에 성공하였습니다.');
          props.navigation.navigate('Login');
      }
-  },[signUpError,is])
+  },[signUpError,isSignUp,isSignUping])
   
     return(
         <SafeAreaView style={styles.container}>
@@ -107,12 +107,9 @@ const styles=StyleSheet.create({
      },
      btn: {
          alignSelf: 'center',
-         alignItems:'stretch',
-         alignContent:'space-around',
          width: 238,
          height: 40,
-         marginBottom:20,
-         marginTop:30,
+         margin:15,
          backgroundColor: '#afafaf',
          borderRadius: 18,
      },

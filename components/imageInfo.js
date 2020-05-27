@@ -12,7 +12,6 @@ const imageInfo=(props)=>{//props로 상세정보일때 보내준다(props.heart
     const {wishListImage,user}=useSelector(state=>state.user)
     const dispatch=useDispatch();
     const [toggle,setToggle]=useState(false)
-   console.log(movieSearch)
     const postWishList=useCallback(()=>{
               dispatch({
                   type: WISHLISTPOST_REQUEST,

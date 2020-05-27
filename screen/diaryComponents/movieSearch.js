@@ -1,8 +1,8 @@
 import React,{useState,useCallback,useEffect} from 'react';
-import { Image, FlatList,StyleSheet,View, TouchableOpacity,TextInput,Text, SafeAreaView,Platform} from 'react-native';
+import { Image, FlatList,StyleSheet,View, TouchableOpacity,TextInput,Text,Button, SafeAreaView,Platform} from 'react-native';
 import {ScrollView} from 'react-native-gesture-handler'
 import {SearchBar} from 'react-native-elements'
-import { DIARYSEARCH_REQUEST, MOVIE_DETAIL } from '../../store/search.state';
+import { DIARYSEARCH_REQUEST,MOVIESEARCH_REQUEST, MOVIE_DETAIL } from '../../store/search.state';
 import { useSelector,useDispatch } from 'react-redux';
 
 export default  DiarySearchScreen=(props)=>{
@@ -30,12 +30,12 @@ export default  DiarySearchScreen=(props)=>{
           dispatch({
             type:MOVIESEARCH_REQUEST,
             data:{
-              id:item.movieId
+              id:item.id
             }
           })
           props.navigation.navigate('movieInfo',{movieId:item.id});
     },[])
-
+ 
         return (
           <SafeAreaView style={styles.container}>
         <SearchBar    
@@ -53,7 +53,7 @@ export default  DiarySearchScreen=(props)=>{
        <View key={index}>
         <View style={{flexDirection:'row'}}>
         <View style={{flex:1}}>
-       <TouchableOpacity key={index} movieId={item.id} onPress={(item)=>{
+       <TouchableOpacity key={index} movieId={item.id} onPress={()=>{
          movieDetail(item);}}>
         <Image style={styles.image} title={index} key={index} source={{uri:item.poster}} />
         </TouchableOpacity>
@@ -97,7 +97,7 @@ const styles = StyleSheet.create({
      backgroundColor: "#d3d3d3",
      width:271,
      alignSelf:'center',
-     borderRadius:20,
-        
+     borderRadius:20,  
         },
+  
 });

@@ -1,5 +1,6 @@
 import React, { useEffect, useState, useCallback } from 'react'
-import {View, SafeAreaView,Text} from 'react-native' 
+import {View, SafeAreaView,Text,StyleSheet,Platform} from 'react-native'
+import {Button} from 'react-native-elements'
 import { useSelector } from 'react-redux'
 import ImageInfo from '../../components/imageInfo'
 import { ScrollView } from 'react-native-gesture-handler'
@@ -15,12 +16,12 @@ const [plotToggle,setPlotToggle]=useState(true);
 const actButton=useCallback(()=>{
     if(actToggle){
       setActToggle(false);
-    setActor(movieSearch.plot.slice(0,30));
+    setActor(movieSearch.actor.slice(0,30));
     }else{
     setActToggle(true);
     setActor(movieSearch.actor);
     }
-},[actToggle,movieSearch])
+},[actToggle,movieSearch,Actor])
 const plotButton=useCallback(()=>{
        if(plotToggle){
            setPlotToggle(false);
@@ -28,26 +29,49 @@ const plotButton=useCallback(()=>{
        }
        else{
           setPlotToggle(true);
-          setPlot(movieSearch.actor.slice(0,30))
+          setPlot(movieSearch.plot.slice(0,30))
        }
-},[plotToggle,movieSearch])
+},[plotToggle,movieSearch,Plot])
 
 useEffect(()=>{
     movieSearch&&movieSearch.actor&&setActor(movieSearch.actor.slice(0,30));
-    movieSearch&&movieSearch.plot&&setActor(movieSearch.plot.slice(0,30));
-},[])
+    movieSearch&&movieSearch.plot&&setPlot(movieSearch.plot.slice(0,30));
+},[movieSearch])
 
     return(
-        <SafeAreaView>
+        <SafeAreaView style={styles.container}>
         <ImageInfo movieId={props.movieId}></ImageInfo>
-        <ScrollView>
-        <Text>런닝타임</Text><Text>{`${movieSearch.runningtime}\n`}</Text>
-        <Text>감독</Text><Text>{`${movieSearch.director}\n`}</Text>
-        <Text>배우</Text><Text>{`${Actor}  `}</Text>{actToggle?<Button onPress={actButton}>...</Button>:<Button onPress={actButton}>감추기</Button>}
-        <Text>줄거리</Text><Text>{`${Plot}  `}</Text>{plotToggle?<Button onPress={plotButton}>...</Button>:<Button onPress={plotButton}>감추기</Button>}
+        <ScrollView style={{margin:20}}>
+        <Text style={styles.Text}>런닝타임</Text><Text  style={styles.Text}>{`${movieSearch.runningtime}\n`}</Text>
+        <Text style={styles.Text}>감독</Text><Text  style={styles.Text}>{`${movieSearch.director}\n`}</Text>
+   
+        <Text style={styles.Text}>배우</Text><Text  style={styles.Text}>{`${Actor  }`}
+        {actToggle?<Text style={styles.Btn}  onPress={actButton}>    ...    </Text>:<Text style={styles.Btn} onPress={actButton}> 감추기 </Text>}
+        </Text>
+   
+
+        <Text style={styles.Text}>줄거리</Text><Text  style={styles.Text}>
+        {`${Plot  }  `}{plotToggle?<Text style={styles.Btn} onPress={plotButton}>    ...    </Text>
+        :<Text style={styles.Btn} onPress={plotButton}> 감추기 </Text>}</Text>
         </ScrollView>
         </SafeAreaView>
     )
 }
+
+const styles=StyleSheet.create({
+    container: {
+            flex: 1,
+            alignContent: 'center',
+            justifyContent: 'flex-start',
+            paddingTop: Platform.OS === 'android' ? 25 : 0,
+            backgroundColor:'#282828',         
+        },
+    Btn:{
+        backgroundColor:"#d3d3d3"
+    },
+    Text:{
+        color:"#fff"
+    }
+})
 
 export default MovieInfo
