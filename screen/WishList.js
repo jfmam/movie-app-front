@@ -18,7 +18,7 @@ const Wishlist=(props)=>{
           <SafeAreaView style={styles.container}>
             <ScrollView>
               {wishListImage&&<FlatList data={wishListImage} renderItem={ renderItem = ( {item, index} ) => (//data는 사진 주소 renderItem은 데이터를 뿌려준다
-        <View style={{flex:1}}>
+        <View>
      
         {item.poster? <Image style={styles.image}  source={{uri:`${item.poster}`}} />
         :<Text>이미지가 없습니다.</Text>

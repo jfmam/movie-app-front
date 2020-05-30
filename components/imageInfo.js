@@ -39,22 +39,22 @@ const imageInfo=(props)=>{//props로 상세정보일때 보내준다(props.heart
                 <TouchableOpacity onPress={()=>{props.navigate}}><Image style={styles.posterImage}  source={{uri:`${movieDetail.poster}`}}/></TouchableOpacity> 
             <View style={styles.movieInfo}>
                 <Text style={styles.textStyle}>{movieDetail.korTitle||movieSearch.korTitle}</Text>
-                <Text style={styles.textStyle}>{`${movieDetail.releaseDate}/${movieDetail.makingNation}`}</Text>      
+                <Text style={styles.textStyle}>{`${movieDetail.releaseDate}/${movieSearch.makingNation}`}</Text>      
             </View>    
             {
             movieDetail.movieId!==undefined
             ?wishListImage.find(k=>k.movieId===movieDetail.movieId)
-            ?<Icon style={{marginTop:193,marginLeft:38}} onPress={()=>{
+            ?<Icon style={{position:"absolute",top:193,left:315}} onPress={()=>{
               deleteWishList();
-            }} name='heart' size={25} />
-            :<Icon name='hearto' style={{marginTop:193,marginLeft:38}} onPress={()=>{
+            }} name='heart' color="#f00" size={25} />
+            :<Icon color="#fff" name='hearto' style={{position:"absolute",top:193,left:315}} onPress={()=>{
                 postWishList();
             }} size={25}/>
         : wishListImage.find(k=>k.movieId===movieDetail.id)
-            ?<Icon style={{marginTop:193,marginLeft:38}} onPress={()=>{
+            ?<Icon color="#f00" style={{position:"absolute",top:193,left:315}} onPress={()=>{
               deleteWishList();
             }} name='heart' size={25} />
-            :<Icon name='hearto' style={{marginTop:193,marginLeft:38}} onPress={()=>{
+            :<Icon name='hearto' color="#fff"  style={{position:"absolute",top:193,left:315}} onPress={()=>{
                 postWishList();
             }} size={25}/>
         }

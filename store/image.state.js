@@ -79,19 +79,17 @@ const reducer=(state=initialState,action)=>{
         }
         case BOXOFFICE_REQUEST:{
             return produce(state=initialState,draft=>{
-     
-                draft.boxOfficeImage={}
+                draft.boxOfficeImage={},
+                 draft.boxOfficeError=''
             })
         }
         case BOXOFFICE_SUCCESS:{
-            return produce(state,draft=>{
-            
+            return produce(state,draft=>{        
                 draft.boxOfficeImage=action.data
             })
         }
         case BOXOFFICE_FAILURE:{
             return produce(state,draft=>{
-             
                 draft.boxOfficeError=action.error//error로 바꿀수있을까?
             })
         }

@@ -4,6 +4,7 @@ import {ScrollView} from 'react-native-gesture-handler'
 import {Button} from 'react-native-elements'
 import { useDispatch, useSelector } from 'react-redux';
 import { BOXOFFICE_REQUEST } from '../../store/image.state';
+import { MOVIESEARCH_REQUEST, MOVIE_DETAIL } from '../../store/search.state';
 
 export default function BoxOffice(props){
     const date=new Date()
@@ -28,10 +29,20 @@ export default function BoxOffice(props){
         setMonth(month+1);
         }
     }catch(e){console.log(e)}
-    },[])
+    },[years,months])
 
-    const imageProps=useCallback(item=>()=>{
-           props.navigation.navigate('movieInfo',{movieId:item.id})
+    const movieDetail=useCallback(item=>()=>{
+          dispatch({
+            type: MOVIE_DETAIL,
+            data: item
+          })
+          dispatch({
+            type:MOVIESEARCH_REQUEST,
+            data:{
+              id:item.movieId
+            }
+          })
+          props.navigation.navigate('movieInfo',{movieId:item.id});
     },[])
 
     return (
@@ -50,7 +61,7 @@ export default function BoxOffice(props){
         <View key={index} style={{flexDirection:'row',marginLeft:20}}>
          <Text style={{fontSize:25, color:"#ffffff"}}>{`${index+1}.`}</Text>
         <View style={{flex:1}}>
-       <TouchableOpacity  onPress={imageProps(item)}>
+       <TouchableOpacity  onPress={movieDetail(item)}>
         {item.poster?<Image  style={styles.image} title={index} source={{uri:`${item.poster}`}} />
         :<Text style={styles.Text}>이미지가 없습니다</Text>
         }
@@ -63,7 +74,6 @@ export default function BoxOffice(props){
                 <Text style={styles.Text}>{`${item.year}/${item.producer}`}</Text>
         </View>
         </View>
-
     )}  />}
             </ScrollView>
         </SafeAreaView>

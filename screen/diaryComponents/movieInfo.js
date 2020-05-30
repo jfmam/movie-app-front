@@ -16,10 +16,10 @@ const [plotToggle,setPlotToggle]=useState(true);
 const actButton=useCallback(()=>{
     if(actToggle){
       setActToggle(false);
-    setActor(movieSearch.actor.slice(0,30));
+       setActor(movieSearch.actor);
     }else{
     setActToggle(true);
-    setActor(movieSearch.actor);
+      setActor(movieSearch.actor.slice(0,30));
     }
 },[actToggle,movieSearch,Actor])
 const plotButton=useCallback(()=>{
