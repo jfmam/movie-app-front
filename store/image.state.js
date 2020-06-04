@@ -24,6 +24,7 @@ export const RECOMMAND_FAILURE = 'fornt/RECOMMAND_FAILURE'
 
  const initialState={
     blockbusterImage:{},
+    diaryLoading:false,
     myDiaryImage:{},//다이어리 목록 사진 MYDIARY
     writeDiaryImage:{},//다이어리 쓸때 stickyheader에 붙는 이미지부분
     getDiaryData:{},//이부분은 다이어리 정보 GETDIARY
@@ -42,14 +43,14 @@ const reducer=(state=initialState,action)=>{
     switch(action.type){
         case MYDIARY_REQUEST:{
             return produce(state,draft=>{
-         
+                draft.diaryLoading=true
                 draft.myDiaryError=''
                 draft.myDiaryImage={}
             })
         }
         case MYDIARY_SUCCESS:{
             return produce(state,draft=>{
-          
+                draft.diaryLoading=false;
                 draft.myDiaryImage=action.data
             })
         }
