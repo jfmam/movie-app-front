@@ -12,8 +12,6 @@ export default  DiaryScreen=(props)=>{
   const {myDiaryImage}=useSelector(state=>state.image);
   const {user}=useSelector(state=>state.user)
   const {movieSearchLoading,movieSearch}=useSelector(state=>state.search)
-  console.log(movieSearchLoading)
-  console.log(movieSearch)
   const movieSearchFunc=useCallback(item=>()=>{
      dispatch({
            type:MOVIESEARCH_REQUEST,

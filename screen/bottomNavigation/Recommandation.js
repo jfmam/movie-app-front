@@ -3,9 +3,10 @@ import { StyleSheet, Text, View ,Platform} from 'react-native';
 import { useSelector } from 'react-redux';
 
 const Recommandation =(props)=>{
-    const {myDiaryImage}=useSelector(state=>state.image)
+    const {myDiaryImage,diaryLoading}=useSelector(state=>state.image)
     useEffect(()=>{
-        if(myDiaryImage.length<10){
+        dispatch({type:MYDIARY_REQUEST,data:{userId:user.userId}})     
+        if(!diaryLoading&&Object.keys(myDiaryImage).length!==0&&myDiaryImagemyDiaryImage.length<10){
             alert("다이어리 평점의 개수가 10개 미만입니다.");
             props.navigation.goBack();
         }
