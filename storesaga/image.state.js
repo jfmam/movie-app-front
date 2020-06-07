@@ -1,17 +1,25 @@
 import {all,call,fork,takeLatest,takeEvery,put } from 'redux-saga/effects'
 import axios from 'axios'
-import { BLOCKBUSTER_REQUEST, BLOCKBUSTER_FAILURE, BLOCKBUSTER_SUCCESS, MYDIARY_REQUEST,MYDIARY_SUCCESS, MYDIARY_FAILURE,
+import { MYDIARY_REQUEST,MYDIARY_SUCCESS, MYDIARY_FAILURE,
          GETDIARY_REQUEST, GETDIARY_SUCCESS, BOXOFFICE_REQUEST, BOXOFFICE_SUCCESS, BOXOFFICE_FAILURE, RECOMMAND_REQUEST
        } from '../store/image.state'
 
        
-function recommandAPI(recommandData){
-  return  axios.get('',recommandData)
+function recommandAPI(){
+  return axios({
+      method: 'get',
+      url: '/recommand',
+      body:{},
+      headers: {
+              'Content-Type': 'application/json'
+          },
+      
+  })
 }
 
 function* recommand(action){
     try{
-        const result= yield call(recommandAPI,action.data)
+        const result= yield call(recommandAPI)
         yield put({
             type:RECOMMAND_SUCCESS,
             data:result.data
@@ -127,34 +135,9 @@ function* watchDiary(){
 }
 
 
-function blockbusterAPI(blockBusterData){
-  return  axios.get('',blockBusterData)
-}
-
-function* blockBuster(action){
-    try{
-        const result= yield call(blockbusterAPI,action.data)
-        yield put({
-            type:BLOCKBUSTER_SUCCESS,
-            data:result.data
-        })
-    }catch(e){
-        console.error(e)
-
-        yield put({
-            type:BLOCKBUSTER_FAILURE,
-            error:e
-    })
-    }
-}
-
-function* watchBlockbuster(){
-    yield takeEvery(BLOCKBUSTER_REQUEST,blockBuster)
-}
 
 export default function* imageSaga(){
     yield all([
-        fork(watchBlockbuster),
         fork(watchDiary),
         fork(watchDiaryDetail),
         fork(watchBoxOffice),

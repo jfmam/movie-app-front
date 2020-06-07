@@ -1,9 +1,6 @@
 import {produce} from 'immer'
 
 
-export const BLOCKBUSTER_REQUEST = 'fornt/BLOCKBUSTER_REQUEST' //흥행예상작
-export const BLOCKBUSTER_SUCCESS = 'fornt/BLOCKBUSTER_SUCCESS'
-export const BLOCKBUSTER_FAILURE = 'fornt/BLOCKBUSTER_FAILURE'
 
 export const MYDIARY_REQUEST='fornt/MYDIARY_REQUEST'//bomttomnavigation의 다이어리 페이지부분
 export const MYDIARY_SUCCESS='fornt/MYDIARY_SUCCESS'
@@ -23,14 +20,12 @@ export const RECOMMAND_FAILURE = 'fornt/RECOMMAND_FAILURE'
 
 
  const initialState={
-    blockbusterImage:{},
     diaryLoading:false,
     myDiaryImage:{},//다이어리 목록 사진 MYDIARY
     writeDiaryImage:{},//다이어리 쓸때 stickyheader에 붙는 이미지부분
     getDiaryData:{},//이부분은 다이어리 정보 GETDIARY
     boxOfficeImage:{},//BOXOFFICE
     recommandImage:{},//RECOMMAN
-    blockbusterError:'',
     myDiaryError:'',
     writeDiaryError:'',
     getDiaryError:'',
@@ -96,18 +91,17 @@ const reducer=(state=initialState,action)=>{
         }
         case RECOMMAND_REQUEST:{
             return produce(state,draft=>{
-              
+              draft.recommandImage={};
+              draft.recommandError='';
             })
         }
         case RECOMMAND_SUCCESS:{
-            return produce(state,draft=>{
-              
+            return produce(state,draft=>{         
                 draft.recommandImage=action.data
             })
         }
         case RECOMMAND_FAILURE:{
             return produce(state,draft=>{
-               
                 draft.recommandError=action.error//error로 바꿀수있을까?
             })
         }
