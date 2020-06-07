@@ -31,7 +31,7 @@ export default  DiaryScreen=(props)=>{
         return (
           <SafeAreaView style={styles.container}>
             <ScrollView>
-              {{myDiaryImage}? <FlatList  numColumns={3} keyExtractor={item => item.poster} data={myDiaryImage} renderItem={ renderItem = ({ item, index }) => (//data는 사진 주소 renderItem은 데이터를 뿌려준다
+              {{myDiaryImage}? <FlatList  numColumns={3} keyExtractor={item => item.movieId} data={myDiaryImage} renderItem={ renderItem = ({ item, index }) => (//data는 사진 주소 renderItem은 데이터를 뿌려준다
         <View>
        <TouchableOpacity  style={styles.image} diaryData={item} onPress={movieSearchFunc(item)}>
         {item.poster?<Image style={styles.image} title={index} source={{uri:`${item.poster}`}} />

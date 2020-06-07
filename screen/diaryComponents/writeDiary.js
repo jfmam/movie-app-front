@@ -41,14 +41,15 @@ export default WriteDiary=(props)=>{
     const formData=new FormData('')
 
 
-    const sendDiary=useCallback(async()=>{
+    const sendDiary=useCallback(async()=>{     
          dispatch({
             type:WRITEDIARY_REQUEST,
-            data:{userId:user.id,
+            data:{
+                userId:user.id,
                 movieId:movieId,
                 memo:memo,
                 createDate:`${year}${month}${date}`,
-                image:address,
+                image:Object.keys(address).length===0?null:address,
                 rating:rating
             }
         })
@@ -133,12 +134,12 @@ export default WriteDiary=(props)=>{
         </View>
         <View style={{flexDirection:'row'}}>
          <View style={{marginTop:34}}>
-           {!image1? <TouchableOpacity onPress={()=>{getPermission(1)}}><Image source={plusBtn}/><Text style={styles.Text}>Add Photo</Text></TouchableOpacity>:
+           {!image1? <TouchableOpacity style={{marginRight:15}} onPress={()=>{getPermission(1)}}><Image source={plusBtn}/><Text style={styles.Text}>Add Photo</Text></TouchableOpacity>:
            <TouchableOpacity onPress={()=>{imagePicker(1)}}><Image style={{ width: 80, height: 115 }}  source={{uri:image1}}/></TouchableOpacity>
            }
         </View>
         <View style={{marginTop:34}}>
-           {!image2? <TouchableOpacity onPress={()=>{getPermission(2)}}><Image source={plusBtn}/><Text style={styles.Text}>Add Photo</Text></TouchableOpacity>:
+           {!image2? <TouchableOpacity style={{marginRight:15}} onPress={()=>{getPermission(2)}}><Image source={plusBtn}/><Text style={styles.Text}>Add Photo</Text></TouchableOpacity>:
            <TouchableOpacity onPress={()=>{imagePicker(2)}}><Image style={{ width: 80, height: 115 }}  source={{uri:image2}}/></TouchableOpacity>
            }
         </View>
@@ -154,8 +155,8 @@ export default WriteDiary=(props)=>{
         </View>
     </View> 
     <View style={{flexDirection:'row'}}>
-        <Button onPress={()=>{sendDiary()}}>OK</Button>
-        <Button onPress={()=>props.navigation.goBack()}>Cancel</Button>
+        <Button style={styles.buttonGroup} onPress={sendDiary}>OK</Button>
+        <Button  style={styles.buttonGroup} onPress={()=>props.navigation.goBack()}>Cancel</Button>
     </View>
         </ScrollView>
       
@@ -181,5 +182,13 @@ const styles = StyleSheet.create({
             Text:{
                 color: "#ffffff",
                 fontSize:18
+            },
+            buttonGroup:{
+                borderColor:"#d3d3d3",
+                textAlignVertical:"center",
+                width:"50%",
+                height:70,
+                color: "#ffffff",
+                fontSize:18     
             }
             })

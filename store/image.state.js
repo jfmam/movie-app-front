@@ -51,7 +51,7 @@ const reducer=(state=initialState,action)=>{
         }
         case MYDIARY_FAILURE:{
             return produce(state,draft=>{
-           
+                draft.diaryLoading=false;
                 draft.myDiaryError=action.error
             })
         }

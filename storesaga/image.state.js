@@ -1,6 +1,6 @@
 import {all,call,fork,takeLatest,takeEvery,put } from 'redux-saga/effects'
 import axios from 'axios'
-import { MYDIARY_REQUEST,MYDIARY_SUCCESS, MYDIARY_FAILURE,
+import { MYDIARY_REQUEST,MYDIARY_SUCCESS, MYDIARY_FAILURE,RECOMMAND_SUCCESS,RECOMMAND_FAILURE,
          GETDIARY_REQUEST, GETDIARY_SUCCESS, BOXOFFICE_REQUEST, BOXOFFICE_SUCCESS, BOXOFFICE_FAILURE, RECOMMAND_REQUEST
        } from '../store/image.state'
 
@@ -8,8 +8,8 @@ import { MYDIARY_REQUEST,MYDIARY_SUCCESS, MYDIARY_FAILURE,
 function recommandAPI(){
   return axios({
       method: 'get',
-      url: '/recommand',
-      body:{},
+      url: '/recommend',
+      data:{},
       headers: {
               'Content-Type': 'application/json'
           },
