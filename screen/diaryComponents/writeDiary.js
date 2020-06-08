@@ -154,9 +154,9 @@ export default WriteDiary=(props)=>{
             <TextInput style={{width:290,height:250,backgroundColor:"#d3d3d3"}} placeholder="메모를 입력해 주세요" multiline numberOfLines={10} onChangeText={(text)=>setText(text)}/>
         </View>
     </View> 
-    <View style={{flexDirection:'row'}}>
-        <Button style={styles.buttonGroup} onPress={sendDiary}>OK</Button>
-        <Button  style={styles.buttonGroup} onPress={()=>props.navigation.goBack()}>Cancel</Button>
+    <View style={{flexDirection:'row',marginTop:20,borderTopColor:"#d3d3d3"}}>
+        <Button style={styles.buttonGroup} color="#fff" onPress={sendDiary}>OK</Button>
+        <Button  style={styles.buttonGroup} color="#fff" onPress={()=>props.navigation.goBack()}>Cancel</Button>
     </View>
         </ScrollView>
       
@@ -188,7 +188,8 @@ const styles = StyleSheet.create({
                 textAlignVertical:"center",
                 width:"50%",
                 height:70,
-                color: "#ffffff",
-                fontSize:18     
+                color: "#fff",
+                fontSize:18,
+                     
             }
             })

@@ -74,7 +74,7 @@ const reducer=(state=initialState,action)=>{
             })
         }
         case BOXOFFICE_REQUEST:{
-            return produce(state=initialState,draft=>{
+            return produce(state,draft=>{
                 draft.boxOfficeImage={},
                  draft.boxOfficeError=''
             })

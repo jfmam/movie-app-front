@@ -40,7 +40,7 @@ export default signUp=(props)=>{
   },[userId,password,nickname])
 
   useEffect(()=>{
-     if(signUpError!==''){ alert('회원 가입에 실패하였습니다.')}
+     if(signUpError.length!==0){ alert('회원 가입에 실패하였습니다.')}
      if (isSignUp && !isSignUping) {
          alert('회원가입에 성공하였습니다.');
          props.navigation.navigate('Login');
@@ -73,7 +73,7 @@ export default signUp=(props)=>{
        </View>
        
         <Button type="clear" loading={isSignUping} containerStyle={styles.btn} onPress={()=>{signup()}} title="signUp"></Button>
-         <Button type="clear" containerStyle={styles.btn} onPress={()=>{props.navigation.navigate('Login')}} title="cancel"></Button>
+         <Button type="clear" containerStyle={{...styles.btn,marginTop:15}} onPress={()=>{props.navigation.navigate('Login')}} title="cancel"></Button>
     {/* onChange와 onChangeText의 차이는 onChange는 함수를 이용해서 변경하는방법이다
         onChangeText input text를 매개변수로 보내는 메소드
     */}
@@ -109,7 +109,7 @@ const styles=StyleSheet.create({
          alignSelf: 'center',
          width: 238,
          height: 40,
-         margin:15,
+         marginTop:85,
          backgroundColor: '#afafaf',
          borderRadius: 18,
      },

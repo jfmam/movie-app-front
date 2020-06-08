@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react'
-import {Text,View,StyleSheet,SafeAreaView,TouchableOpacity,FlatList,Image,Platform} from 'react-native'
+import {Text,View,StyleSheet,SafeAreaView,TouchableOpacity,FlatList,Image,Platform,Dimensions} from 'react-native'
 import {ScrollView} from 'react-native-gesture-handler'
 import { useSelector, useDispatch } from 'react-redux'
 import { WISHLIST_REQUEST } from '../store/user.state'
@@ -16,8 +16,11 @@ const Wishlist=(props)=>{
     },[])
       return (
           <SafeAreaView style={styles.container}>
+            <View style={{marginBottom:25,marginLeft:140,marginTop:10}}>
+              <Text style={{color:"#fff",fontSize:20}}>WishList</Text>
+            </View>
             <ScrollView>
-              {wishListImage&&<FlatList data={wishListImage} renderItem={ renderItem = ( {item, index} ) => (//data는 사진 주소 renderItem은 데이터를 뿌려준다
+              {wishListImage&&<FlatList data={wishListImage} keyExtractor={item=>item.poster} renderItem={ renderItem = ( {item, index} ) => (//data는 사진 주소 renderItem은 데이터를 뿌려준다
         <View>
      
         {item.poster? <Image style={styles.image}  source={{uri:`${item.poster}`}} />

@@ -56,7 +56,7 @@ export default function BoxOffice(props){
             <Button containerStyle={styles.btn} type="clear" title={`${months}`}  onPress={datePicker}/>
            </View>
             <ScrollView style={{margin:10}}>
-            {{boxOfficeImage}&&<FlatList numColumns={1} key={boxOfficeImage.id} data={boxOfficeImage} renderItem={ renderItem = ({ item, index }) => (//data는 사진 주소 renderItem은 데이터를 뿌려준다
+            {{boxOfficeImage}&&<FlatList numColumns={1} keyExtractor={item=>item.poster} data={boxOfficeImage} renderItem={ renderItem = ( {item, index} ) => (//data는 사진 주소 renderItem은 데이터를 뿌려준다
     //data부분 boxOfficeImage로변경
         <View key={index} style={{flexDirection:'row',marginLeft:20}}>
          <Text style={{fontSize:25, color:"#ffffff"}}>{`${index+1}.`}</Text>
