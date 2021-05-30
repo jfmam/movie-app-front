@@ -8,29 +8,16 @@
 
 ---
 
-## Using API
-
-* KakaoOpenSDK
-* SWRevealViewController
-* SwiftyGIF
-* FloatRatingView
-* ImageSlideShow
-* KingFisher
-* Alamofire
-
----
-
 ## TODO list
-
-* Rating Connection
-* Latest Movie
+* User Management
+* Movie Info
 * Edit Contents..
 * Recommend View
 
 ### Connection
 
 | Function                    | Implementation | Progressing |
-| --------------------------- | ------------ | ------------ | ------------ |
+| --------------------------- | ------------ | ------------ |
 | SignIn / SignUp             | ⭕️ | ⭕️           |
 | Rating                      | ⭕️            | ⭕️           |
 | Tabbar On Top               | ⭕️            | ⭕️           |
